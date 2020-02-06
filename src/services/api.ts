@@ -1,6 +1,7 @@
 import 'isomorphic-unfetch';
 
-import { ConstantMap, Nullable } from '@typings/common';
+import { ConstantMap } from '@typings/common';
+import { isBrowser } from '@utils/common';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -13,17 +14,18 @@ const HttpMethods: ConstantMap<HttpMethod> = {
 
 type BodyParam = object | FormData;
 type QueryParams = { [key: string]: any };
+type Headers = { [key: string]: any };
 
 class ApiService {
-  configureHeaders(body?: BodyParam) {
-    const headers = new Headers();
+  configureHeaders(body?: BodyParam): Headers {
+    const headers: { [key: string]: string } = {};
 
-    const isFormData = body instanceof FormData;
+    const isFormData = isBrowser() && body instanceof FormData;
     if (!isFormData) {
-      headers.set('Content-Type', 'application/json');
+      headers['Content-Type'] = 'application/json';
     }
 
-    headers.set('Accept', 'application/json');
+    headers['Accept'] = 'application/json';
 
     return headers;
   }
@@ -57,24 +59,22 @@ class ApiService {
       .join('');
   }
 
-  createRequest({
-    url,
+  configureOptions({
     method,
     body,
     fetchOptions,
   }: {
-    url: string;
     method: HttpMethod;
     body?: BodyParam;
     fetchOptions?: RequestInit;
-  }) {
-    return new Request(url, {
+  }): RequestInit {
+    return {
       headers: this.configureHeaders(body),
       method,
       mode: 'cors',
       body: this.configureBody(body),
       ...fetchOptions,
-    });
+    };
   }
 
   async getContent(response: Response) {
@@ -117,21 +117,21 @@ class ApiService {
     },
   ) {
     const url = absoluteUrl || this.getRequestUrl(path, params);
-    const request = this.createRequest({ url, method, body, fetchOptions });
+    const options = this.configureOptions({ method, body, fetchOptions });
 
-    return fetch(request).then(this.handleErrors.bind(this));
+    return fetch(url, options).then(this.handleErrors.bind(this));
   }
 
-  bindMethodToApi(method: HttpMethod) {
+  bindHttpMethod(method: HttpMethod) {
     return this.makeRequest.bind(this, method);
   }
 }
 
-const API_SERVICE = new ApiService();
+const api = new ApiService();
 
-export const get = API_SERVICE.bindMethodToApi(HttpMethods.GET);
-export const post = API_SERVICE.bindMethodToApi(HttpMethods.POST);
-export const put = API_SERVICE.bindMethodToApi(HttpMethods.PUT);
-export const del = API_SERVICE.bindMethodToApi(HttpMethods.DELETE);
+export const get = api.bindHttpMethod(HttpMethods.GET);
+export const post = api.bindHttpMethod(HttpMethods.POST);
+export const put = api.bindHttpMethod(HttpMethods.PUT);
+export const del = api.bindHttpMethod(HttpMethods.DELETE);
 
-export default API_SERVICE;
+export default api;

@@ -10,6 +10,7 @@
       "@pages/*": ["pages/*"],
       "@polyfills/*": ["polyfills/*"],
       "@services/*": ["services/*"],
+      "@store/*": ["store/*"],
       "@typings/*": ["typings/*"],
       "@utils/*": ["utils/*"],
       "@widgets/*": ["widgets/*"]
