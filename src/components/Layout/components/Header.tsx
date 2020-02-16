@@ -6,7 +6,8 @@ function Header() {
 }
 
 const HeaderContainer = styled.header`
-  flex: 0;
+  flex: 0 0 80px;
+  border-bottom: 1px solid #d7d7d7;
 `;
 
 export default Header;

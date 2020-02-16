@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { fonts, fontSize } from '@constants/theme';
 
 import Header from './components/Header';
-import Footer from '@components/Layout/components/Footer';
+import Footer from './components/Footer';
 
 type Props = {
   children?: React.ReactNode;
@@ -27,14 +27,13 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  * {
-    box-sizing: border-box;
-  }
+  width: 100%;
 `;
 
 const Main = styled.main`
-  flex: 1;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Layout;

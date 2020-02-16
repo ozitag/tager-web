@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import 'normalize.css';
 
 import '@assets/css/nprogress.css';
+import '@assets/css/global.css';
 import withRedux, { ReduxWrapperProps } from '@store/withRedux';
 
 /**

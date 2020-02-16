@@ -1,5 +1,12 @@
 import React from 'react';
-import Document, { DocumentContext } from 'next/document';
+import Document, {
+  DocumentContext,
+  Html,
+  Head,
+  Main,
+  NextScript,
+} from 'next/document';
+
 import { ServerStyleSheet } from 'styled-components';
 
 /**
@@ -34,6 +41,35 @@ class CustomDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head>
+          <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
+          <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Roboto+Slab:400,700|Roboto+Mono:400,500&subset=cyrillic"
+            rel="stylesheet"
+          />
+          <link rel="icon" href="/favicon-32x32.png" />
+        </Head>
+        <body>
+          <Main />
+          <script src="/lazysizes-init.js" defer />
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js"
+            defer
+          />
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/native-loading/ls.native-loading.min.js"
+            defer
+          />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
 

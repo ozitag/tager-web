@@ -1,7 +1,7 @@
-import React from 'react';
-import NextLink, { LinkProps } from 'next/link';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { NextRouter, useRouter } from 'next/router';
+import NextLink, { LinkProps } from 'next/link';
 
 import { colors } from '@constants/theme';
 
@@ -20,7 +20,7 @@ type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> &
     as?: React.ElementType;
     className?: string;
     activeClassName?: string;
-    isActive?: boolean;
+    isActive?: boolean | (() => boolean);
   };
 
 /**
@@ -37,16 +37,34 @@ const Link = React.forwardRef(
       prefetch,
       className,
       activeClassName,
+      isActive: isActiveProp,
       ...linkProps
     }: Props,
     ref: any,
   ) => {
     const router = useRouter();
 
-    const isActive = isLinkActive(to, router);
+    const isActive = useMemo(() => {
+      if (typeof isActiveProp === 'function') {
+        return isActiveProp();
+      } else if (typeof isActiveProp === 'boolean') {
+        return isActiveProp;
+      } else {
+        return isLinkActive(to, router);
+      }
+    }, [isActiveProp, router, to]);
+
     const linkClassName = [isActive ? activeClassName : null, className]
       .filter(Boolean)
       .join(' ');
+
+    function onClick(event: React.MouseEvent) {
+      const path = typeof to === 'string' ? to : to.as;
+
+      if (router.asPath === path) {
+        event.preventDefault();
+      }
+    }
 
     /** when we just have a normal url we just use it */
     if (typeof to === 'string') {
@@ -59,7 +77,13 @@ const Link = React.forwardRef(
           passHref={passHref}
           prefetch={prefetch}
         >
-          <CustomLink {...linkProps} ref={ref} className={linkClassName} />
+          <CustomLink
+            {...linkProps}
+            ref={ref}
+            className={linkClassName}
+            isActive={isActive}
+            onClick={onClick}
+          />
         </NextLink>
       );
     }
@@ -75,7 +99,13 @@ const Link = React.forwardRef(
         passHref={passHref}
         prefetch={prefetch}
       >
-        <CustomLink {...linkProps} ref={ref} className={linkClassName} />
+        <CustomLink
+          {...linkProps}
+          ref={ref}
+          className={linkClassName}
+          isActive={isActive}
+          onClick={onClick}
+        />
       </NextLink>
     );
   },

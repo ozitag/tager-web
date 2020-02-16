@@ -85,19 +85,22 @@ module.exports = withPlugins([], {
      * How to add polyfills in Next.js
      * Source: https://github.com/zeit/next.js/tree/canary/examples/with-polyfills
      */
-    // const originalEntry = config.entry;
-    // config.entry = async () => {
-    //   const entries = await originalEntry();
-    //
-    //   if (
-    //     entries['main.js'] &&
-    //     !entries['main.js'].includes('./polyfills/index.js')
-    //   ) {
-    //     entries['main.js'].unshift('./polyfills/index.js')
-    //   }
-    //
-    //   return entries
-    // };
+    if (process.env.NODE_ENV === 'production') {
+      const originalEntry = config.entry;
+      config.entry = async () => {
+        const entries = await originalEntry();
+        const polyfillsRelativePath = './src/polyfills/index.js';
+
+        if (
+          entries['main.js'] &&
+          !entries['main.js'].includes(polyfillsRelativePath)
+        ) {
+          entries['main.js'].unshift(polyfillsRelativePath);
+        }
+
+        return entries;
+      };
+    }
 
     return config;
   },

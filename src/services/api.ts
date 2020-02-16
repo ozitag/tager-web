@@ -100,6 +100,24 @@ class ApiService {
     throw new Error(`Request error: ${response.statusText} ${response.status}`);
   }
 
+  logRequest(res: Response, options: RequestInit): Response {
+    const formattedLog = `${options.method} ${res.status} ${res.url}`;
+
+    if (process.env.NODE_ENV === 'development') {
+      if (!isBrowser()) {
+        console.log(
+          require('util').inspect(formattedLog, {
+            colors: true,
+          }),
+        );
+      } else {
+        console.log(`%c ${formattedLog}`, 'color: green');
+      }
+    }
+
+    return res;
+  }
+
   async makeRequest(
     method: HttpMethod,
     {
@@ -119,7 +137,9 @@ class ApiService {
     const url = absoluteUrl || this.getRequestUrl(path, params);
     const options = this.configureOptions({ method, body, fetchOptions });
 
-    return fetch(url, options).then(this.handleErrors.bind(this));
+    return fetch(url, options)
+      .then(response => this.logRequest(response, options))
+      .then(this.handleErrors.bind(this));
   }
 
   bindHttpMethod(method: HttpMethod) {

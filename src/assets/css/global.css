@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+svg {
+  /** Fix large viewBox and translates in IE */
+  overflow: hidden;
+}
+
+#__next {
+  display: flex;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}

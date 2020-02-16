@@ -12,7 +12,8 @@ function Footer() {
 }
 
 const FooterContainer = styled.footer`
-  flex: 0;
+  flex: 0 0 80px;
+  border-top: 1px solid #d7d7d7;
 `;
 
 export default Footer;

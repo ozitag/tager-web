@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 
 export const colors = {
   orange: '#e52',
@@ -69,3 +69,24 @@ export function objectFit(
     font-family: 'object-fit: ${value};';
   `;
 }
+
+export const placeholderAnimation = keyframes`
+0% {
+  background-position: -1200px 0;
+}
+100% {
+  background-position: 1200px 0;
+}
+`;
+
+export const placeholderAnimationCss = css`
+  animation: ${placeholderAnimation} 2s linear;
+  animation-iteration-count: infinite;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.08) 0,
+    rgba(0, 0, 0, 0.15) 15%,
+    rgba(0, 0, 0, 0.08) 30%
+  );
+  background-size: 1200px 100%;
+`;
