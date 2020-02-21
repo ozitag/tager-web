@@ -3,19 +3,17 @@
  * https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/env.js
  */
 
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 
 const paths = {
-  dotenv: path.join(__dirname, '.env')
+  dotenv: path.resolve(__dirname, '../.env'),
 };
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
   throw new Error(
-    'The NODE_ENV environment variable is required but was not specified.'
+    'The NODE_ENV environment variable is required but was not specified.',
   );
 }
 
@@ -40,7 +38,7 @@ dotenvFiles.forEach(dotenvFile => {
     require('dotenv-expand')(
       require('dotenv').config({
         path: dotenvFile,
-      })
+      }),
     );
   }
 });
@@ -82,7 +80,7 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
-      }
+      },
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
