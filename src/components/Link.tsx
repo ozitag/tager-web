@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { NextRouter, useRouter } from 'next/router';
 import NextLink, { LinkProps } from 'next/link';
 
-import { colors } from '@constants/theme';
-
 function isLinkActive(to: Props['to'], router: NextRouter): boolean {
   if (typeof to === 'string') {
     return to === router.pathname;
@@ -111,14 +109,6 @@ const Link = React.forwardRef(
   },
 );
 
-const CustomLink = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-
-  &:hover {
-    color: ${colors.orange};
-  }
-`;
+const CustomLink = styled.a``;
 
 export default Link;

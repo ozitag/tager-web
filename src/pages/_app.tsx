@@ -3,11 +3,10 @@ import App from 'next/app';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import { Provider } from 'react-redux';
-import 'normalize.css';
 
 import '@assets/css/nprogress.css';
 import '@assets/css/global.css';
-import withRedux, { ReduxWrapperProps } from '@store/withRedux';
+import withRedux, { ReduxWrapperProps } from '@hocs/withRedux';
 
 /**
  * Custom App documentation

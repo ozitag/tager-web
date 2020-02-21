@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { fonts, fontSize } from '@constants/theme';
-
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -22,8 +20,6 @@ function Layout({ children }: Props) {
 
 const Container = styled.div`
   background-color: #fff;
-  font-size: ${fontSize};
-  font-family: ${fonts.Roboto};
   min-height: 100vh;
   display: flex;
   flex-direction: column;

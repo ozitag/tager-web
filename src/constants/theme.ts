@@ -1,16 +1,29 @@
 import { css, keyframes } from 'styled-components';
 
 export const colors = {
-  orange: '#e52',
+  black: '#000000',
+  brownLight: '#FBF4F4',
+  brown: '#B07773',
   outline: 'rgba(77, 144, 254, 0.6)',
 } as const;
 
-export const fontSize = '16px';
+/** Source: https://htmlacademy.ru/blog/useful/css/short-14 */
+const fallbackFont = [
+  '-apple-system',
+  "'BlickMacSystemFont'",
+  "'Segoe UI'",
+  "'Roboto'",
+  "'Oxygen'",
+  "'Ubuntu'",
+  "'Cantarell'",
+  "'Fira Sans'",
+  "'Droid Sans'",
+  "'Helvetica Neue'",
+  'sans-serif',
+].join(',');
 
 export const fonts = {
-  Roboto: "'Roboto', Helvetica, Arial, sans-serif",
-  RobotoMono: "'Roboto Mono', Helvetica, Arial, sans-serif",
-  RobotoSlab: "'Roboto Slab', Helvetica, Arial, sans-serif",
+  Montserrat: `'Montserrat', ${fallbackFont}`,
 };
 
 export const outlineShadow = `0 0 0 1.5px ${colors.outline}`;
@@ -43,18 +56,6 @@ export const visuallyHidden = css`
   padding: 0;
   overflow: hidden;
   position: absolute;
-`;
-
-export const linkCss = css`
-  text-decoration: none;
-  transition-property: color;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
-  color: #000;
-
-  &:hover {
-    color: ${colors.orange};
-  }
 `;
 
 /**

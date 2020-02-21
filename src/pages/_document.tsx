@@ -50,8 +50,13 @@ class CustomDocument extends Document {
           <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
           <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />
           <link
-            href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Roboto+Slab:400,700|Roboto+Mono:400,500&subset=cyrillic"
+            href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap&subset=cyrillic"
             rel="stylesheet"
+          />
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            rel="stylesheet"
+            type="text/css"
           />
           <link rel="icon" href="/favicon-32x32.png" />
         </Head>

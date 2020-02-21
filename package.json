@@ -5,7 +5,9 @@
   "scripts": {
     "start": "next dev",
     "build": "next build",
-    "serve": "next start"
+    "serve": "next start",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.5",
@@ -14,7 +16,6 @@
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
     "next": "9.2.1",
-    "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "react": "16.12.0",
     "react-app-polyfill": "1.0.6",
@@ -23,17 +24,22 @@
     "styled-components": "^5.0.0"
   },
   "devDependencies": {
+    "@storybook/react": "^5.3.13",
     "@svgr/webpack": "5.1.0",
+    "@types/js-cookie": "^2.2.4",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.1.8",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "7.1.7",
+    "@types/storybook__react": "^5.2.1",
     "@types/styled-components": "^4.4.2",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-react-app": "^9.1.1",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "eslint": "^6.8.0",

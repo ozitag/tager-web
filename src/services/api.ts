@@ -1,6 +1,6 @@
 import 'isomorphic-unfetch';
 
-import { ConstantMap } from '@typings/common';
+import { ConstantMap, Nullable } from '@typings/common';
 import { isBrowser } from '@utils/common';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -17,12 +17,26 @@ type QueryParams = { [key: string]: any };
 type Headers = { [key: string]: any };
 
 class ApiService {
+  private accessToken: Nullable<string>;
+
+  constructor() {
+    this.accessToken = null;
+  }
+
+  setAccessToken(accessToken: Nullable<string>) {
+    this.accessToken = accessToken;
+  }
+
   configureHeaders(body?: BodyParam): Headers {
     const headers: { [key: string]: string } = {};
 
     const isFormData = isBrowser() && body instanceof FormData;
     if (!isFormData) {
       headers['Content-Type'] = 'application/json';
+    }
+
+    if (this.accessToken) {
+      headers['Authorization'] = `JWT ${this.accessToken}`;
     }
 
     headers['Accept'] = 'application/json';

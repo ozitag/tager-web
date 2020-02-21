@@ -1,22 +1,7 @@
-const path = require('path');
-const fse = require('fs-extra');
 const withPlugins = require('next-compose-plugins');
-const getClientEnvironment = require('./env');
 
-/** Get paths aliases from "tsconfig.json" file. */
-function getAliasesFromTsConfig() {
-  const tsconfig = fse.readJsonSync(path.join(__dirname, 'tsconfig.json'));
-  return Object.entries(tsconfig.compilerOptions.paths).reduce(
-    (map, [key, value]) => {
-      // @components/* => components
-      const module = key.slice(1, -2);
-
-      map[`@${module}`] = path.resolve(__dirname, 'src', module);
-      return map;
-    },
-    {},
-  );
-}
+const getClientEnvironment = require('./config/env');
+const { getAliasesFromTsConfig } = require('./config/paths');
 
 const customAliases = getAliasesFromTsConfig();
 
