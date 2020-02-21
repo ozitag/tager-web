@@ -4,8 +4,7 @@ import NProgress from 'nprogress';
 import Router from 'next/router';
 import { Provider } from 'react-redux';
 
-import '@assets/css/nprogress.css';
-import '@assets/css/global.css';
+import '@assets/css/index.css';
 import withRedux, { ReduxWrapperProps } from '@hocs/withRedux';
 
 /**

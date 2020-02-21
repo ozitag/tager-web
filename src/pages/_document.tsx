@@ -53,11 +53,6 @@ class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap&subset=cyrillic"
             rel="stylesheet"
           />
-          <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-            rel="stylesheet"
-            type="text/css"
-          />
           <link rel="icon" href="/favicon-32x32.png" />
         </Head>
         <body>
