@@ -1,6 +1,7 @@
 import { ServerResponse } from 'http';
 import round from 'lodash/round';
 
+/** https://github.com/zeit/next.js/issues/5354#issuecomment-520305040 */
 export function isBrowser(): boolean {
   return typeof window !== 'undefined';
 }

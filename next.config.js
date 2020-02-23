@@ -5,10 +5,8 @@ const { getAliasesFromTsConfig } = require('./config/paths');
 
 const customAliases = getAliasesFromTsConfig();
 
-/** Get environment variables to inject into our app. */
-const env = getClientEnvironment();
-
 module.exports = withPlugins([], {
+  env: getClientEnvironment(),
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     /** Support TS path aliases */
     config.resolve.alias = {
@@ -54,17 +52,6 @@ module.exports = withPlugins([], {
         },
       ],
     });
-
-    /**
-     * Source - create-react-app/react-scripts v3.3.0
-     * https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/webpack.config.js
-     */
-    // Makes some environment variables available to the JS code, for example:
-    // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
-    // It is absolutely essential that NODE_ENV is set to production
-    // during a production build.
-    // Otherwise React will be compiled in the very slow development mode.
-    config.plugins.push(new webpack.DefinePlugin(env.stringified));
 
     /**
      * How to add polyfills in Next.js
