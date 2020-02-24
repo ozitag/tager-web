@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 
-function Image({ className, src, srcSet, loading = 'auto', ...rest }: Props) {
+function Image({ className, src, srcSet, loading = 'eager', ...rest }: Props) {
   const imageRef = useRef<HTMLImageElement>(null);
 
   const isImageLazy = loading === 'lazy';

@@ -40,9 +40,12 @@ const Link = React.forwardRef(
     }: Props,
     ref: any,
   ) => {
-    const router = useRouter();
+    /** router is null in Storybook environment */
+    const router = useRouter() as ReturnType<typeof useRouter> | null;
 
     const isActive = useMemo(() => {
+      if (!router) return false;
+
       if (typeof isActiveProp === 'function') {
         return isActiveProp();
       } else if (typeof isActiveProp === 'boolean') {
@@ -59,7 +62,7 @@ const Link = React.forwardRef(
     function onClick(event: React.MouseEvent) {
       const path = typeof to === 'string' ? to : to.as;
 
-      if (router.asPath === path) {
+      if (!router || router.asPath === path) {
         event.preventDefault();
       }
     }
