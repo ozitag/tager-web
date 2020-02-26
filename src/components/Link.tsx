@@ -11,11 +11,27 @@ function isLinkActive(to: Props['to'], router: NextRouter): boolean {
   }
 }
 
+export type CustomLinkProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  'href' | 'onClick' | 'className'
+> & {
+  isActive: boolean;
+  className: string;
+  onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+};
+
+const a: CustomLinkProps = {
+  isActive: true,
+  className: 'fwewe',
+  onClick: () => {},
+};
+
 type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> &
   Omit<LinkProps, 'to' | 'href' | 'as'> & {
     /** allow both static and dynamic routes */
     to: string | { href: string; as: string };
     as?: React.ElementType;
+    render?: (customLinkProps: CustomLinkProps) => React.ReactNode;
     className?: string;
     activeClassName?: string;
     isActive?: boolean | (() => boolean);
@@ -36,7 +52,8 @@ const Link = React.forwardRef(
       className,
       activeClassName,
       isActive: isActiveProp,
-      ...linkProps
+      render,
+      ...customLinkProps
     }: Props,
     ref: any,
   ) => {
@@ -67,6 +84,28 @@ const Link = React.forwardRef(
       }
     }
 
+    function renderLink() {
+      if (render) {
+        return render({
+          className: linkClassName,
+          isActive,
+          onClick,
+          ...customLinkProps,
+        });
+      } else {
+        /** Use can override this component via "as" prop */
+        return (
+          <DefaultLink
+            {...customLinkProps}
+            ref={ref}
+            className={linkClassName}
+            isActive={isActive}
+            onClick={onClick}
+          />
+        );
+      }
+    }
+
     /** when we just have a normal url we just use it */
     if (typeof to === 'string') {
       return (
@@ -78,13 +117,7 @@ const Link = React.forwardRef(
           passHref={passHref}
           prefetch={prefetch}
         >
-          <CustomLink
-            {...linkProps}
-            ref={ref}
-            className={linkClassName}
-            isActive={isActive}
-            onClick={onClick}
-          />
+          {renderLink()}
         </NextLink>
       );
     }
@@ -100,18 +133,12 @@ const Link = React.forwardRef(
         passHref={passHref}
         prefetch={prefetch}
       >
-        <CustomLink
-          {...linkProps}
-          ref={ref}
-          className={linkClassName}
-          isActive={isActive}
-          onClick={onClick}
-        />
+        {renderLink()}
       </NextLink>
     );
   },
 );
 
-const CustomLink = styled.a``;
+const DefaultLink = styled.a``;
 
 export default Link;
