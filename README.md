@@ -22,7 +22,7 @@ Usually you already have empty repository (maybe with README.md file) and you ne
 `/.storybook` - storybook staff
 
 `/.storybook/main.js` - here you can tweak storybook settings (e.g. webpack config)  
-**Reference**: `https://storybook.js.org/docs/configurations/custom-webpack-config/`
+[**Reference - Custom Webpack Config**](https://storybook.js.org/docs/configurations/custom-webpack-config/)
 
 `/.storybook/preview.js` - here you can import some scripts or styles from app 
 and these files will be included in storybook build  
@@ -30,7 +30,7 @@ and these files will be included in storybook build
 `/.storybook/preview-head.html` - here you can populate `<head>` tag of storybook html.
  It's useful for google fonts or different public scripts.
 
-**Reference**: `https://storybook.js.org/docs/configurations/add-custom-head-tags/`
+[**Reference - Add Custom Head Tags**](https://storybook.js.org/docs/configurations/add-custom-head-tags/)
  
 ### 2) `/config`
  `/config` - folder for different app configs or util functions, which are needed in `next.config.js`
@@ -43,7 +43,7 @@ and these files will be included in storybook build
 ### 3) `/public`
 Here you can store different public files, like favicon or public scripts. 
 
-**Reference**: `https://nextjs.org/docs/basic-features/static-file-serving`
+[**Reference - Static File Serving**](https://nextjs.org/docs/basic-features/static-file-serving)
   
 ### 4) `/src`
 Here we store all app files. It's handy to configure prettier watch whole this folder (TS and TSX extensions)
@@ -73,6 +73,7 @@ or just get public url of icon:
 ```js
 import userIconSrc from '@assets/svg/icon_name.svg';
 ```
+[** Reference in @svgr/webpack **](https://react-svgr.com/docs/webpack/#using-with-url-loader-or-file-loader)
 
 #### `/src/components` - shared components
  * `Image` - img decorator with support of lazy-loading
@@ -81,7 +82,7 @@ import userIconSrc from '@assets/svg/icon_name.svg';
  * `ContentContainer` - may be useful to restrict content width
  * `Link` - wrapper of `Next/Link`. Please use this component instead of `Next/Link` component
  
- **Reference** `https://nextjs.org/docs/api-reference/next/link`
+[**Reference - next/link**](https://nextjs.org/docs/api-reference/next/link)
  
 #### `/src/constants` - constants :)
 Usually has 2 files: `theme.ts` - for style constants like colors, fonts and etc, and `common.ts` - for other cases
@@ -94,11 +95,11 @@ Usually we store wrapper of `Next/App` component.
  #### `/src/modules` - for components which contains whole page
  #### `/src/pages` - for Next.js pages
  **References:**
- * `https://nextjs.org/docs/basic-features/pages`
- * `https://nextjs.org/docs/advanced-features/src-directory`
- * `https://nextjs.org/docs/basic-features/custom-app`
- * `https://nextjs.org/docs/basic-features/custom-document`
- * `https://nextjs.org/docs/basic-features/custom-error-page`
+ * [Pages](https://nextjs.org/docs/basic-features/pages)
+ * [`src` Directory](https://nextjs.org/docs/advanced-features/src-directory)
+ * [Custom `App`](https://nextjs.org/docs/advanced-features/custom-app)
+ * [Custom `Document`](https://nextjs.org/docs/advanced-features/custom-document)
+ * [Custom Error Page](https://nextjs.org/docs/advanced-features/custom-error-page)
 
 #### `/src/polyfills` - contains only one file `index.js` where you can write and import polyfills
 

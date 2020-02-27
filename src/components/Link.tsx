@@ -18,24 +18,27 @@ export type CustomLinkProps = Omit<
   isActive: boolean;
   className: string;
   onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  ref?: React.Ref<HTMLAnchorElement>;
 };
 
-const a: CustomLinkProps = {
-  isActive: true,
-  className: 'fwewe',
-  onClick: () => {},
-};
+type CustomLinkRenderFunction = (props: CustomLinkProps) => React.ReactNode;
 
 type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> &
   Omit<LinkProps, 'to' | 'href' | 'as'> & {
     /** allow both static and dynamic routes */
     to: string | { href: string; as: string };
     as?: React.ElementType;
-    render?: (customLinkProps: CustomLinkProps) => React.ReactNode;
+    children?: CustomLinkRenderFunction | React.ReactNode;
     className?: string;
     activeClassName?: string;
     isActive?: boolean | (() => boolean);
   };
+
+function isRenderFunction(
+  children: Props['children'],
+): children is CustomLinkRenderFunction {
+  return typeof children === 'function';
+}
 
 /**
  * Source: https://blog.logrocket.com/dealing-with-links-in-next-js/
@@ -52,10 +55,10 @@ const Link = React.forwardRef(
       className,
       activeClassName,
       isActive: isActiveProp,
-      render,
-      ...customLinkProps
+      children,
+      ...restLinkProps
     }: Props,
-    ref: any,
+    ref: React.Ref<HTMLAnchorElement>,
   ) => {
     /** router is null in Storybook environment */
     const router = useRouter() as ReturnType<typeof useRouter> | null;
@@ -85,23 +88,26 @@ const Link = React.forwardRef(
     }
 
     function renderLink() {
-      if (render) {
-        return render({
+      if (isRenderFunction(children)) {
+        return children({
           className: linkClassName,
           isActive,
           onClick,
-          ...customLinkProps,
+          ref,
+          ...restLinkProps,
         });
       } else {
         /** Use can override this component via "as" prop */
         return (
           <DefaultLink
-            {...customLinkProps}
+            {...restLinkProps}
             ref={ref}
             className={linkClassName}
             isActive={isActive}
             onClick={onClick}
-          />
+          >
+            {children}
+          </DefaultLink>
         );
       }
     }
