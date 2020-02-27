@@ -50,14 +50,18 @@ Here we store all app files. It's handy to configure prettier watch whole this f
 
 #### `/src/assets` - folder for assets (images, icons, styles and etc.)
  
- `/src/assets/css` - folder for `css` files. It contains `index.css` file where you can import all other global css files
+ `/src/assets/css` - folder for `css` files. It contains `index.css` file where you can import all other global css files.
+  To import assets from a `node_modules` path, prefix it with a `~`:
+
  ```css
  @import "~normalize.css";
  @import "~nprogress/nprogress.css";
  
  @import "./global.css";
+ @import "./fonts.css";
 ```
-If you import file from `node_modules` - add prefix `~` and then type path to file/module inside `node_modules`
+[**Reference to `css-loader`**](https://github.com/webpack-contrib/css-loader#import)
+
 `global.css` contains css reset and default styles like `font-family` and `font-size`
 
 `/src/assets/fonts` - for local fonts
@@ -73,7 +77,7 @@ or just get public url of icon:
 ```js
 import userIconSrc from '@assets/svg/icon_name.svg';
 ```
-[** Reference in @svgr/webpack **](https://react-svgr.com/docs/webpack/#using-with-url-loader-or-file-loader)
+[**Reference in @svgr/webpack**](https://react-svgr.com/docs/webpack/#using-with-url-loader-or-file-loader)
 
 #### `/src/components` - shared components
  * `Image` - img decorator with support of lazy-loading
