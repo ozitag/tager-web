@@ -4,15 +4,15 @@
 Usually you already have empty repository (maybe with README.md file) and you need to put this starter in new repo.
 1. Clone repository of your new project
 2. Go to Next.js starter repo and download zip archive of code.
- Or you can download zip by this link:
-  `https://gitlab.com/ozitag/internal-projects/nextjs-starter/-/archive/master/nextjs-starter-master.zip`
+ Or you can [download](https://gitlab.com/ozitag/internal-projects/nextjs-starter/-/archive/master/nextjs-starter-master.zip) zip directly
+  
 3. Unzip archive and past content of starter into your project local folder
 4. Commit changes. Done :) 
 
 ## How to run
 * `yarn start` - starts app in dev mode
 * `yarn build` - creates production build
-* `yarn server` - run local server with production build
+* `yarn serve` - runs local server with production build
 * `yarn storybook` - starts storybook app in dev mode
 * `yarn build-storybook` - creates production build of storybook app
 
