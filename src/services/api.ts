@@ -1,7 +1,8 @@
 import 'isomorphic-unfetch';
 
 import { ConstantMap, Nullable } from '@typings/common';
-import { isBrowser } from '@utils/common';
+import { isBrowser, isomorphicLog } from '@utils/common';
+import { getCookie } from '@utils/cookie';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -14,7 +15,7 @@ const HttpMethods: ConstantMap<HttpMethod> = {
 
 type BodyParam = object | FormData;
 type QueryParams = { [key: string]: any };
-type Headers = { [key: string]: any };
+type Headers = { [key: string]: string };
 
 class ApiService {
   private accessToken: Nullable<string>;
@@ -23,20 +24,31 @@ class ApiService {
     this.accessToken = null;
   }
 
+  /** Set access token on server side */
   setAccessToken(accessToken: Nullable<string>) {
     this.accessToken = accessToken;
   }
 
+  getAccessToken() {
+    if (isBrowser()) {
+      return getCookie('accessToken');
+    } else {
+      return this.accessToken;
+    }
+  }
+
   configureHeaders(body?: BodyParam): Headers {
-    const headers: { [key: string]: string } = {};
+    const headers: Headers = {};
 
     const isFormData = isBrowser() && body instanceof FormData;
     if (!isFormData) {
       headers['Content-Type'] = 'application/json';
     }
 
-    if (this.accessToken) {
-      headers['Authorization'] = `JWT ${this.accessToken}`;
+    const accessToken = this.getAccessToken();
+
+    if (accessToken) {
+      headers['Authorization'] = `JWT ${accessToken}`;
     }
 
     headers['Accept'] = 'application/json';
@@ -116,19 +128,7 @@ class ApiService {
 
   logRequest(res: Response, options: RequestInit): Response {
     const formattedLog = `${options.method} ${res.status} ${res.url}`;
-
-    if (process.env.NODE_ENV === 'development') {
-      if (!isBrowser()) {
-        console.log(
-          require('util').inspect(formattedLog, {
-            colors: true,
-          }),
-        );
-      } else {
-        console.log(`%c ${formattedLog}`, 'color: green');
-      }
-    }
-
+    isomorphicLog(formattedLog);
     return res;
   }
 

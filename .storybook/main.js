@@ -19,6 +19,13 @@ module.exports = {
       },
     });
     config.resolve.extensions.push('.ts', '.tsx');
+
+    /** Support import svg as React component */
+    config.module.rules.unshift({
+      test: /\.svg$/,
+      use: ['@svgr/webpack?-svgo,+titleProp,+ref![path]', 'url-loader'],
+    });
+
     return config;
   },
 };

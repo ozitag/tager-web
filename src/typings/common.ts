@@ -1,3 +1,6 @@
+import React from 'react';
+import { css } from 'styled-components';
+
 export type Option<V = string> = {
   value: V;
   label: string;
@@ -14,3 +17,11 @@ export type LoadableData<T, E = string> = {
   status: FetchStatus;
   error: Nullable<E>;
 };
+
+export type SvgComponentProps<P = {}> = React.SVGProps<SVGSVGElement> & P;
+
+export type SvgComponent<P = {}> = React.FunctionComponent<
+  SvgComponentProps<P>
+>;
+
+export type CssSnippet = ReturnType<typeof css>;

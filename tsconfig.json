@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
-      "@hocs/*": ["hocs/*"],
-      "@hooks/*": ["hooks/*"],
-      "@modules/*": ["modules/*"],
-      "@pages/*": ["pages/*"],
-      "@polyfills/*": ["polyfills/*"],
-      "@services/*": ["services/*"],
-      "@store/*": ["store/*"],
-      "@typings/*": ["typings/*"],
-      "@utils/*": ["utils/*"],
-      "@widgets/*": ["widgets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@constants/*": ["src/constants/*"],
+      "@hocs/*": ["src/hocs/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@modules/*": ["src/modules/*"],
+      "@pages/*": ["src/pages/*"],
+      "@polyfills/*": ["src/polyfills/*"],
+      "@services/*": ["src/services/*"],
+      "@store/*": ["src/store/*"],
+      "@typings/*": ["src/typings/*"],
+      "@utils/*": ["src/utils/*"],
+      "@widgets/*": ["src/widgets/*"]
     },
     "target": "es5",
     "lib": [

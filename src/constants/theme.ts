@@ -4,7 +4,9 @@ export const colors = {
   black: '#000000',
   brownLight: '#FBF4F4',
   brown: '#B07773',
+  brownDark: '#9B504B',
   outline: 'rgba(77, 144, 254, 0.6)',
+  red: 'red',
 } as const;
 
 /** Source: https://htmlacademy.ru/blog/useful/css/short-14 */

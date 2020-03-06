@@ -11,27 +11,26 @@ function isLinkActive(to: Props['to'], router: NextRouter): boolean {
   }
 }
 
-export type CustomLinkProps = Omit<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  'href' | 'onClick' | 'className'
-> & {
+export type CustomLinkProps = {
   isActive: boolean;
   className: string;
   onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   ref?: React.Ref<HTMLAnchorElement>;
+  disabled?: boolean;
 };
 
 type CustomLinkRenderFunction = (props: CustomLinkProps) => React.ReactNode;
 
 type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> &
-  Omit<LinkProps, 'to' | 'href' | 'as'> & {
+  Omit<LinkProps, 'href' | 'as'> & {
     /** allow both static and dynamic routes */
-    to: string | { href: string; as: string };
+    to: string | { href: LinkProps['href']; as: LinkProps['as'] };
     as?: React.ElementType;
     children?: CustomLinkRenderFunction | React.ReactNode;
     className?: string;
     activeClassName?: string;
     isActive?: boolean | (() => boolean);
+    disabled?: boolean;
   };
 
 function isRenderFunction(
@@ -55,6 +54,7 @@ const Link = React.forwardRef(
       className,
       activeClassName,
       isActive: isActiveProp,
+      disabled,
       children,
       ...restLinkProps
     }: Props,
@@ -82,7 +82,7 @@ const Link = React.forwardRef(
     function onClick(event: React.MouseEvent) {
       const path = typeof to === 'string' ? to : to.as;
 
-      if (!router || router.asPath === path) {
+      if (!router || router.asPath === path || disabled) {
         event.preventDefault();
       }
     }
@@ -94,6 +94,7 @@ const Link = React.forwardRef(
           isActive,
           onClick,
           ref,
+          disabled,
           ...restLinkProps,
         });
       } else {
@@ -105,6 +106,7 @@ const Link = React.forwardRef(
             className={linkClassName}
             isActive={isActive}
             onClick={onClick}
+            disabled={disabled}
           >
             {children}
           </DefaultLink>
@@ -112,31 +114,16 @@ const Link = React.forwardRef(
       }
     }
 
-    /** when we just have a normal url we just use it */
-    if (typeof to === 'string') {
-      return (
-        <NextLink
-          href={to}
-          replace={replace}
-          scroll={scroll}
-          shallow={shallow}
-          passHref={passHref}
-          prefetch={prefetch}
-        >
-          {renderLink()}
-        </NextLink>
-      );
-    }
+    const route = typeof to === 'string' ? { href: to } : to;
 
     /** otherwise pass both "href" / "as" */
     return (
       <NextLink
-        href={to.href}
-        as={to.as}
+        {...route}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
-        passHref={passHref}
+        passHref={disabled ? false : passHref}
         prefetch={prefetch}
       >
         {renderLink()}
@@ -145,6 +132,12 @@ const Link = React.forwardRef(
   },
 );
 
-const DefaultLink = styled.a``;
+const DefaultLink = styled.a<{ isActive: boolean }>`
+  cursor: ${props => (props.isActive ? 'default' : 'pointer')};
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 export default Link;

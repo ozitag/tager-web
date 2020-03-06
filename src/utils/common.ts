@@ -10,6 +10,19 @@ export function isResSent(res: ServerResponse): boolean {
   return res.finished || res.headersSent;
 }
 
+export function isomorphicLog(message: any): void {
+  if (isBrowser()) {
+    const isDevelopmentEnv = process.env.NODE_ENV === 'development';
+    isDevelopmentEnv && console.log(`%c ${message}`, 'color: green');
+  } else {
+    console.log(
+      require('util').inspect(message, {
+        colors: true,
+      }),
+    );
+  }
+}
+
 function getNumberSign(value: number): string {
   return value === 0 ? '' : value > 0 ? '+' : '-';
 }
@@ -34,4 +47,22 @@ export function formatNumber(
 
 export function generateNumberArray(length: number): Array<number> {
   return Array.from({ length }, (_, index) => index);
+}
+
+export function isStringGuard(value: any): value is string {
+  return typeof value === 'string';
+}
+
+export function isObjectGuard(value: any): value is object {
+  return typeof value === 'object';
+}
+
+export function isNonNullObjectGuard(
+  value: any,
+): value is { [key: string]: any } {
+  return isObjectGuard(value) && Boolean(value);
+}
+
+function isEnum<T extends string>(value: any, enumArray: Array<T>): value is T {
+  return enumArray.includes(value);
 }

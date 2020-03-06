@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.5",
     "cookie": "^0.4.0",
+    "formik": "^2.1.4",
     "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
@@ -25,9 +26,9 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
-    "@storybook/react": "^5.3.13",
+    "@storybook/react": "^5.3.14",
     "@svgr/webpack": "5.1.0",
-    "@types/js-cookie": "^2.2.4",
+    "@types/js-cookie": "^2.2.5",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.1.8",
     "@types/nprogress": "^0.2.0",
@@ -35,7 +36,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "7.1.7",
     "@types/storybook__react": "^5.2.1",
-    "@types/styled-components": "^4.4.2",
+    "@types/styled-components": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "babel-eslint": "^10.0.3",
@@ -52,11 +53,11 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "1.x",
     "fs-extra": "^8.1.0",
-    "husky": "^4.0.10",
-    "lint-staged": "^9.5.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
     "next-compose-plugins": "^2.2.0",
     "prettier": "^1.19.1",
-    "typescript": "^3.8.2",
+    "typescript": "^3.8.3",
     "url-loader": "^3.0.0"
   },
   "lint-staged": {

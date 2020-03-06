@@ -59,3 +59,23 @@ export function getSearchFromUrl(url: string): string {
 export function getSearchParamsFromUrl(url: string): URLSearchParams {
   return new URLSearchParams(getSearchFromUrl(url));
 }
+
+export function configureUrl(
+  currentUrl: string,
+  params: { [key: string]: string | number | null },
+): string {
+  const [pathname, search] = dividePathnameAndSearch(currentUrl);
+  const searchParams = new URLSearchParams(search);
+
+  Object.keys(params).forEach(paramName => {
+    if (searchParams.has(paramName)) {
+      searchParams.delete(paramName);
+    }
+
+    if (paramName !== null) {
+      searchParams.set(paramName, String(params[paramName]));
+    }
+  });
+
+  return [pathname, searchParams.toString()].filter(Boolean).join('?');
+}
