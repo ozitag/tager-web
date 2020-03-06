@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { NextRouter, useRouter } from 'next/router';
-import NextLink, { LinkProps } from 'next/link';
+import { LinkProps } from 'next/link';
+
+import { Link as NextLink } from '@server/i18n';
 
 function isLinkActive(to: Props['to'], router: NextRouter): boolean {
   if (typeof to === 'string') {

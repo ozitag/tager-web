@@ -31,3 +31,6 @@ yarn-error.log*
 
 #Storybook
 /storybook-static
+
+# server build
+/server-build

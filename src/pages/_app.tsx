@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 
 import '@assets/css/index.css';
 import withRedux, { ReduxWrapperProps } from '@hocs/withRedux';
+import { i18n, appWithTranslation } from '@server/i18n';
+import { updateCookie } from '@utils/cookie';
 
 /**
  * Custom App documentation
@@ -27,6 +29,8 @@ class CustomApp extends App<ReduxWrapperProps> {
 */
 
   componentDidMount() {
+    i18n.on('languageChanged', (lang: string) => updateCookie('lng', lang));
+
     Router.events.on('routeChangeStart', url => NProgress.start());
     Router.events.on('routeChangeComplete', () => NProgress.done());
     Router.events.on('routeChangeError', () => NProgress.done());
@@ -42,4 +46,4 @@ class CustomApp extends App<ReduxWrapperProps> {
   }
 }
 
-export default withRedux(CustomApp);
+export default appWithTranslation(withRedux(CustomApp));

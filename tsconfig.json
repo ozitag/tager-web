@@ -10,6 +10,7 @@
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
       "@polyfills/*": ["src/polyfills/*"],
+      "@server/*": ["server/*"],
       "@services/*": ["src/services/*"],
       "@store/*": ["src/store/*"],
       "@typings/*": ["src/typings/*"],
@@ -39,6 +40,7 @@
     "node_modules"
   ],
   "include": [
+    "server",
     "src",
     "next-env.d.ts"
   ]
