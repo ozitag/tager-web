@@ -13,7 +13,10 @@ function isLinkActive(to: Props['to'], router: NextRouter): boolean {
   }
 }
 
-export type CustomLinkProps = {
+export type CustomLinkProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  'className' | 'onClick'
+> & {
   isActive: boolean;
   className: string;
   onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
@@ -90,29 +93,20 @@ const Link = React.forwardRef(
     }
 
     function renderLink() {
+      const linkProps: CustomLinkProps = {
+        ...restLinkProps,
+        className: linkClassName,
+        isActive,
+        onClick,
+        ref,
+        disabled,
+      };
+
       if (isRenderFunction(children)) {
-        return children({
-          className: linkClassName,
-          isActive,
-          onClick,
-          ref,
-          disabled,
-          ...restLinkProps,
-        });
+        return children(linkProps);
       } else {
         /** Use can override this component via "as" prop */
-        return (
-          <DefaultLink
-            {...restLinkProps}
-            ref={ref}
-            className={linkClassName}
-            isActive={isActive}
-            onClick={onClick}
-            disabled={disabled}
-          >
-            {children}
-          </DefaultLink>
-        );
+        return <DefaultLink {...linkProps}>{children}</DefaultLink>;
       }
     }
 
@@ -134,12 +128,9 @@ const Link = React.forwardRef(
   },
 );
 
-const DefaultLink = styled.a<{ isActive: boolean }>`
-  cursor: ${props => (props.isActive ? 'default' : 'pointer')};
-
-  &:hover {
-    text-decoration: underline;
-  }
+const DefaultLink = styled.a<CustomLinkProps>`
+  cursor: ${props =>
+    props.isActive || props.disabled ? 'default' : 'pointer'};
 `;
 
 export default Link;
