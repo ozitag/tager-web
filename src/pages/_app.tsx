@@ -31,7 +31,7 @@ class CustomApp extends App<ReduxWrapperProps> {
   componentDidMount() {
     i18n.on('languageChanged', (lang: string) => updateCookie('lng', lang));
 
-    Router.events.on('routeChangeStart', url => NProgress.start());
+    Router.events.on('routeChangeStart', (url) => NProgress.start());
     Router.events.on('routeChangeComplete', () => NProgress.done());
     Router.events.on('routeChangeError', () => NProgress.done());
   }

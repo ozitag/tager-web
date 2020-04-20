@@ -7,7 +7,7 @@ import { isBrowser, isResSent } from './common';
 
 export function getCookie(
   field: string,
-  req?: IncomingMessage,
+  req?: IncomingMessage
 ): Nullable<string> {
   if (isBrowser()) {
     return Cookies.get(field) ?? null;
@@ -16,7 +16,7 @@ export function getCookie(
   if (req) {
     const cookie = require('cookie');
     const cookieMap: { [key: string]: string } = cookie.parse(
-      req.headers.cookie ?? '',
+      req.headers.cookie ?? ''
     );
     return cookieMap[field] ?? null;
   }
@@ -34,7 +34,7 @@ function getSetCookieHeaders(res: ServerResponse): Array<string> {
 export function updateCookie(
   field: string,
   value: string,
-  res?: ServerResponse,
+  res?: ServerResponse
 ): void {
   if (isBrowser()) {
     Cookies.set(field, value);

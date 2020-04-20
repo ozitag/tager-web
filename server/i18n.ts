@@ -11,11 +11,11 @@ export const LANGUAGES = {
 
 const DEFAULT_LANGUAGE: Lang = LANGUAGES.RU;
 const OTHER_LANGUAGES = Object.values(LANGUAGES).filter(
-  lang => lang !== DEFAULT_LANGUAGE,
+  (lang) => lang !== DEFAULT_LANGUAGE
 );
 const LOCALE_SUBPATHS = OTHER_LANGUAGES.reduce(
   (subpaths, lang) => ({ ...subpaths, [lang]: lang }),
-  {},
+  {}
 );
 
 /**

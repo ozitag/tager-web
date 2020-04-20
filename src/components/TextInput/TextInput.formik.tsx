@@ -33,7 +33,7 @@ function TextInputFormik({
   const { setValue } = helpers;
 
   const handleChange = useCallback(
-    event => {
+    (event) => {
       if (parse) {
         const parsedValue = parse(event.target.value, value);
         if (parsedValue !== value) {
@@ -43,7 +43,7 @@ function TextInputFormik({
         onChange(event);
       }
     },
-    [parse, value, setValue, onChange],
+    [parse, value, setValue, onChange]
   );
 
   return (

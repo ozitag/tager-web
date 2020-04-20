@@ -29,12 +29,12 @@ export function parseBooleanParam(value: SearchParamValue): Nullable<boolean> {
 
 export function parseEnum<T extends string = string>(
   param: SearchParamValue,
-  enumArray: Array<T>,
+  enumArray: Array<T>
 ): Nullable<T> {
   if (!param) return null;
 
   const foundValue = enumArray.find(
-    enumValue => enumValue.toLowerCase() === param.toLowerCase(),
+    (enumValue) => enumValue.toLowerCase() === param.toLowerCase()
   );
   return foundValue || null;
 }
@@ -62,12 +62,12 @@ export function getSearchParamsFromUrl(url: string): URLSearchParams {
 
 export function configureUrl(
   currentUrl: string,
-  params: { [key: string]: string | number | null },
+  params: { [key: string]: string | number | null }
 ): string {
   const [pathname, search] = dividePathnameAndSearch(currentUrl);
   const searchParams = new URLSearchParams(search);
 
-  Object.keys(params).forEach(paramName => {
+  Object.keys(params).forEach((paramName) => {
     if (searchParams.has(paramName)) {
       searchParams.delete(paramName);
     }

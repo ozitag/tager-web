@@ -39,7 +39,7 @@ type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> &
   };
 
 function isRenderFunction(
-  children: Props['children'],
+  children: Props['children']
 ): children is CustomLinkRenderFunction {
   return typeof children === 'function';
 }
@@ -63,7 +63,7 @@ const Link = React.forwardRef(
       children,
       ...restLinkProps
     }: Props,
-    ref: React.Ref<HTMLAnchorElement>,
+    ref: React.Ref<HTMLAnchorElement>
   ) => {
     /** router is null in Storybook environment */
     const router = useRouter() as ReturnType<typeof useRouter> | null;
@@ -125,11 +125,11 @@ const Link = React.forwardRef(
         {renderLink()}
       </NextLink>
     );
-  },
+  }
 );
 
 const DefaultLink = styled.a<CustomLinkProps>`
-  cursor: ${props =>
+  cursor: ${(props) =>
     props.isActive || props.disabled ? 'default' : 'pointer'};
 `;
 

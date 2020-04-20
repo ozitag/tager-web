@@ -12,7 +12,7 @@ function useOnClickOutside(
     | MutableRefObject<HTMLElement | undefined>
     | null,
   handler: (event: Event) => void,
-  type?: 'custom',
+  type?: 'custom'
 ) {
   useEffect(() => {
     function listener(this: Document, event: Event) {

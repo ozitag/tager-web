@@ -7,7 +7,7 @@ export const Container = styled.div`
 `;
 
 function getBorderColor(
-  props: { invalid?: boolean; active?: boolean } = {},
+  props: { invalid?: boolean; active?: boolean } = {}
 ): string {
   return props.invalid ? colors.red : props.active ? colors.brown : '#D3C8C4';
 }
@@ -21,16 +21,16 @@ export const Input = styled.input<{
   font-size: 13px;
   line-height: 24px;
   padding: 7px 13px;
-  ${props =>
+  ${(props) =>
     props.withPrefix
       ? css`
           padding-left: 45px;
         `
       : ''};
-  color: ${props => (props.invalid ? colors.red : colors.black)};
+  color: ${(props) => (props.invalid ? colors.red : colors.black)};
 
   &::placeholder {
-    color: ${props => (props.invalid ? colors.red : '#85726b')};
+    color: ${(props) => (props.invalid ? colors.red : '#85726b')};
     opacity: 0.8;
   }
 

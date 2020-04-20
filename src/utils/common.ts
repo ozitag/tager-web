@@ -18,7 +18,7 @@ export function isomorphicLog(message: any): void {
     console.log(
       require('util').inspect(message, {
         colors: true,
-      }),
+      })
     );
   }
 }
@@ -29,7 +29,7 @@ function getNumberSign(value: number): string {
 /** 12345678 => "12 345 678" */
 export function formatNumber(
   value: number,
-  options?: { precision?: number; withSign?: boolean },
+  options?: { precision?: number; withSign?: boolean }
 ): string {
   let result =
     typeof options?.precision === 'number'
@@ -58,7 +58,7 @@ export function isObjectGuard(value: any): value is object {
 }
 
 export function isNonNullObjectGuard(
-  value: any,
+  value: any
 ): value is { [key: string]: any } {
   return isObjectGuard(value) && Boolean(value);
 }

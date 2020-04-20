@@ -12,7 +12,7 @@ export type InputRef = HTMLInputElement;
 
 function TextInput(
   { className, prefix, disabled, invalid, ...rest }: Props,
-  ref: React.Ref<InputRef>,
+  ref: React.Ref<InputRef>
 ) {
   function renderPrefix() {
     if (!prefix) return null;

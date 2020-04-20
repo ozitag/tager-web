@@ -41,7 +41,7 @@ export const StyledButton = styled.button<{ variant?: ButtonVariant }>`
   padding: 10px;
   text-decoration: none;
 
-  ${props =>
+  ${(props) =>
     typeof props.variant === 'string'
       ? variantCssMap[props.variant]
       : props.variant};

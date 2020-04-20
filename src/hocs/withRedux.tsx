@@ -41,7 +41,7 @@ function withRedux(CustomApp: CustomAppType) {
     public static displayName = `withRedux(${componentName})`;
 
     public static getInitialProps = async (
-      appCtx: AppContext,
+      appCtx: AppContext
     ): Promise<ReduxAppInitialProps> => {
       if (!appCtx) throw new Error('No app context');
       if (!appCtx.ctx) throw new Error('No page context');
@@ -51,13 +51,13 @@ function withRedux(CustomApp: CustomAppType) {
       if (config.debug) {
         console.log(
           '1. WrappedApp.getInitialProps wrapper got the store with state',
-          store.getState(),
+          store.getState()
         );
       }
 
       if (typeof CustomApp.getInitialProps !== 'function') {
         throw new Error(
-          `Component "${componentName}" doesn't have required static field "getInitialProps"`,
+          `Component "${componentName}" doesn't have required static field "getInitialProps"`
         );
       }
 
@@ -69,7 +69,7 @@ function withRedux(CustomApp: CustomAppType) {
       if (config.debug) {
         console.log(
           '3. WrappedApp.getInitialProps has store state',
-          store.getState(),
+          store.getState()
         );
       }
 
@@ -88,7 +88,7 @@ function withRedux(CustomApp: CustomAppType) {
       if (config.debug)
         console.log(
           '4. WrappedApp.render created new store with initialState',
-          initialState,
+          initialState
         );
 
       this.store = initStore({

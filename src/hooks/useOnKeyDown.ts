@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 function useOnKeyDown(
   keys: string | Array<string>,
-  callback: (event: KeyboardEvent) => void,
+  callback: (event: KeyboardEvent) => void
 ) {
   const callbackRef = useRef(callback);
 

@@ -12,7 +12,7 @@ function createMediaMixin({
 }): (snippet: CssSnippet) => CssSnippet {
   if (!min && !max && process.env.NODE_ENV === 'development') {
     throw new Error(
-      'You didn\'t specify "min" or "max" width for @media mixin',
+      'You didn\'t specify "min" or "max" width for @media mixin'
     );
   }
 
@@ -24,7 +24,7 @@ function createMediaMixin({
       : !min && max
       ? `@media (max-width: ${max}px)`
       : null;
-  return styles => css`
+  return (styles) => css`
     ${media} {
       ${styles};
     }
@@ -68,7 +68,7 @@ export const visuallyHidden = css`
  * Source: https://github.com/fregante/object-fit-images#usage
  */
 export function objectFit(
-  value: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down',
+  value: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
 ) {
   return css`
     object-fit: ${value};

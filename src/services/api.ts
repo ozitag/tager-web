@@ -72,7 +72,7 @@ class ApiService {
     const searchParams = new URLSearchParams();
 
     Object.entries(params).forEach(([key, value]) =>
-      searchParams.append(key, value),
+      searchParams.append(key, value)
     );
 
     return `?${searchParams.toString()}`;
@@ -107,7 +107,7 @@ class ApiService {
     const contentType = response.headers.get('content-type');
 
     if (contentType && contentType.startsWith('application/json')) {
-      return response.json().catch(error => {
+      return response.json().catch((error) => {
         /** empty json body will throw "SyntaxError: Unexpected end of input" */
         if (error instanceof SyntaxError) {
           return response.text();
@@ -146,13 +146,13 @@ class ApiService {
       params?: QueryParams;
       absoluteUrl?: string;
       fetchOptions?: RequestInit;
-    },
+    }
   ) {
     const url = absoluteUrl || this.getRequestUrl(path, params);
     const options = this.configureOptions({ method, body, fetchOptions });
 
     return fetch(url, options)
-      .then(response => this.logRequest(response, options))
+      .then((response) => this.logRequest(response, options))
       .then(this.handleErrors.bind(this));
   }
 
