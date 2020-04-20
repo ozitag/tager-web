@@ -7,7 +7,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build-server": "rimraf server-build && babel server -d server-build --extensions \".ts,.json\" ",
-    "start-server": "yarn build-server && node server-build/index.js",
+    "start-server": "node server-build/index.js",
     "build": "yarn build-server && next build",
     "start": "cross-env NODE_ENV=development yarn start-server",
     "serve": "cross-env NODE_ENV=production yarn start-server",
