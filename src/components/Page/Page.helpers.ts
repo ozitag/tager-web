@@ -15,11 +15,11 @@ export function getMetaList({
      */
     {
       name: 'copyright',
-      content: 'OziTag LLC 2020',
+      content: 'OZiTAG LLC',
     },
     {
       name: 'author',
-      content: 'OziTag, ozitag.com',
+      content: 'OZiTAG, ozitag.com',
     },
     description
       ? {
@@ -65,7 +65,7 @@ export function getMetaList({
     },
     {
       name: 'twitter:creator',
-      content: 'OziTag, ozitag.com',
+      content: 'OZiTAG, ozitag.com',
     },
     title
       ? {
