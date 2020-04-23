@@ -9,7 +9,7 @@
     "build-server": "rimraf server-build && babel server -d server-build --extensions \".ts,.json\" ",
     "start-server": "node server-build/index.js",
     "build": "yarn build-server && next build",
-    "start": "cross-env NODE_ENV=development yarn start-server",
+    "start": "cross-env NODE_ENV=development yarn build-server && yarn start-server",
     "serve": "cross-env NODE_ENV=production yarn start-server",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
