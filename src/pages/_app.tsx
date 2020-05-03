@@ -11,6 +11,7 @@ import { i18n, appWithTranslation } from '@server/i18n';
 import { updateCookie } from '@utils/cookie';
 import { Nullable } from '@typings/common';
 import { CustomAppProps } from '@typings/hocs';
+import ModalProvider from '@components/Modal';
 
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
@@ -74,7 +75,9 @@ class CustomApp extends App<CustomAppProps> {
     const modifiedPageProps = { ...pageProps, err };
     return (
       <Provider store={store}>
-        <Component {...modifiedPageProps} />
+        <ModalProvider>
+          <Component {...modifiedPageProps} />
+        </ModalProvider>
       </Provider>
     );
   }
