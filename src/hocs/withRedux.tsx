@@ -1,8 +1,15 @@
 import React from 'react';
-import { NextComponentType, NextPageContext } from 'next';
-import { AppContext, AppInitialProps, AppProps } from 'next/app';
+import { NextComponentType } from 'next';
 
-import { AppState, AppStore, createStore } from '@store/store';
+import { AppStore, createStore } from '@store/store';
+import {
+  CustomAppContext,
+  CustomAppInitialProps,
+  CustomAppProps,
+  ReduxAppContext,
+  ReduxAppInitialProps,
+  ReduxAppProps,
+} from '@typings/hocs';
 
 declare global {
   interface Window {
@@ -14,6 +21,12 @@ const config = {
   storeKey: '__NEXT_REDUX_STORE__',
   debug: false,
 } as const;
+
+type CustomAppType = NextComponentType<
+  CustomAppContext,
+  CustomAppInitialProps,
+  CustomAppProps
+>;
 
 function withRedux(CustomApp: CustomAppType) {
   const isServer = typeof window === 'undefined';
@@ -41,7 +54,7 @@ function withRedux(CustomApp: CustomAppType) {
     public static displayName = `withRedux(${componentName})`;
 
     public static getInitialProps = async (
-      appCtx: AppContext
+      appCtx: ReduxAppContext
     ): Promise<ReduxAppInitialProps> => {
       if (!appCtx) throw new Error('No app context');
       if (!appCtx.ctx) throw new Error('No page context');
@@ -106,35 +119,5 @@ function withRedux(CustomApp: CustomAppType) {
 
   return ReduxApp;
 }
-
-type CustomAppType = NextComponentType<
-  ReduxAppContext,
-  AppInitialProps,
-  CustomAppProps
->;
-
-export type ReduxWrapperProps = {
-  store: AppStore;
-  isServer: boolean;
-};
-
-export type CustomAppProps = AppProps & ReduxWrapperProps;
-
-type ReduxProps = {
-  initialState: AppState;
-  isServer: boolean;
-};
-
-export type ReduxPageContext = NextPageContext & {
-  store: AppStore;
-  isServer: boolean;
-};
-
-export type ReduxAppContext = AppContext & {
-  ctx: ReduxPageContext;
-};
-
-type ReduxAppProps = AppProps & ReduxProps;
-type ReduxAppInitialProps = AppInitialProps & ReduxProps;
 
 export default withRedux;

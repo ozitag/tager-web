@@ -3,18 +3,26 @@ import App from 'next/app';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import { Provider } from 'react-redux';
+import * as Sentry from '@sentry/node';
 
 import '@assets/css/index.css';
-import withRedux, { ReduxWrapperProps } from '@hocs/withRedux';
+import withRedux from '@hocs/withRedux';
 import { i18n, appWithTranslation } from '@server/i18n';
 import { updateCookie } from '@utils/cookie';
 import { Nullable } from '@typings/common';
+import { CustomAppProps } from '@typings/hocs';
+
+Sentry.init({
+  enabled: process.env.NODE_ENV === 'production',
+  dsn: process.env.REACT_APP_SENTRY_DSN,
+  environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
+});
 
 /**
  * Custom App documentation
  * https://nextjs.org/docs/advanced-features/custom-app
  */
-class CustomApp extends App<ReduxWrapperProps> {
+class CustomApp extends App<CustomAppProps> {
   /**
    * Adding a custom getInitialProps in your App will disable Automatic Static Optimization.
    * https://nextjs.org/docs/advanced-features/automatic-static-optimization
@@ -59,9 +67,14 @@ class CustomApp extends App<ReduxWrapperProps> {
 
   render() {
     const { Component, pageProps, store } = this.props;
+
+    // Workaround for https://github.com/zeit/next.js/issues/8592
+    // @ts-ignore
+    const { err } = this.props;
+    const modifiedPageProps = { ...pageProps, err };
     return (
       <Provider store={store}>
-        <Component {...pageProps} />
+        <Component {...modifiedPageProps} />
       </Provider>
     );
   }
