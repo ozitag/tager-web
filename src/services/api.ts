@@ -3,19 +3,63 @@ import 'isomorphic-unfetch';
 import { ConstantMap, Nullable } from '@typings/common';
 import { isBrowser, isomorphicLog } from '@utils/common';
 import { getCookie } from '@utils/cookie';
+import { ErrorCode } from '@typings/models';
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 const HttpMethods: ConstantMap<HttpMethod> = {
   GET: 'GET',
   POST: 'POST',
   PUT: 'PUT',
   DELETE: 'DELETE',
+  PATCH: 'PATCH',
 };
 
 type BodyParam = object | FormData;
 type QueryParams = { [key: string]: any };
 type Headers = { [key: string]: string };
+export type ParsedResponseBody =
+  | boolean
+  | string
+  | { [key: string]: any }
+  | null
+  | undefined;
+
+function getErrorCodeFromResponse(
+  responseBody: ParsedResponseBody
+): ErrorCode | Record<string, ErrorCode> | null {
+  if (typeof responseBody === 'object' && responseBody) {
+    if ('error' in responseBody) {
+      return responseBody.error as ErrorCode;
+    }
+
+    if ('errors' in responseBody) {
+      return responseBody.errors as Record<string, ErrorCode>;
+    }
+  }
+
+  return null;
+}
+
+export class RequestError extends Error {
+  status: { code: number; text: string };
+  body: ParsedResponseBody;
+  value: ReturnType<typeof getErrorCodeFromResponse>;
+
+  constructor(
+    status: { code: number; text: string },
+    body: ParsedResponseBody
+  ) {
+    super(JSON.stringify({ status, body }, null, 2));
+
+    this.status = status;
+    this.body = body;
+
+    isomorphicLog(this);
+
+    this.value = getErrorCodeFromResponse(body);
+  }
+}
 
 class ApiService {
   private accessToken: Nullable<string>;
@@ -103,7 +147,7 @@ class ApiService {
     };
   }
 
-  async getContent(response: Response) {
+  getContent(response: Response) {
     const contentType = response.headers.get('content-type');
 
     if (contentType && contentType.startsWith('application/json')) {
@@ -111,6 +155,10 @@ class ApiService {
         /** empty json body will throw "SyntaxError: Unexpected end of input" */
         if (error instanceof SyntaxError) {
           return response.text();
+        } else {
+          isomorphicLog(
+            `Unknown error while parsing response body: ${error.toString()}`
+          );
         }
       });
     }
@@ -118,12 +166,22 @@ class ApiService {
     return response.text();
   }
 
-  async handleErrors(response: Response) {
-    if (response.ok) {
-      return this.getContent(response);
-    }
+  handleErrors(response: Response) {
+    return this.getContent(response).then((content) => {
+      if (response.ok) {
+        return content;
+      }
 
-    throw new Error(`Request error: ${response.statusText} ${response.status}`);
+      return Promise.reject(
+        new RequestError(
+          {
+            code: response.status,
+            text: response.statusText,
+          },
+          content
+        )
+      );
+    });
   }
 
   logRequest(res: Response, options: RequestInit): Response {
@@ -167,5 +225,6 @@ export const get = api.bindHttpMethod(HttpMethods.GET);
 export const post = api.bindHttpMethod(HttpMethods.POST);
 export const put = api.bindHttpMethod(HttpMethods.PUT);
 export const del = api.bindHttpMethod(HttpMethods.DELETE);
+export const patch = api.bindHttpMethod(HttpMethods.PATCH);
 
 export default api;

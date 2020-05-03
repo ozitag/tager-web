@@ -27,11 +27,20 @@ export function isResSent(res: ServerResponse): boolean {
 }
 
 export function isomorphicLog(message: any): void {
+  const isError = message instanceof Error;
+
   if (isBrowser()) {
     const isDevelopmentEnv = process.env.NODE_ENV === 'development';
-    isDevelopmentEnv && console.log(`%c ${message}`, 'color: green');
+    if (!isDevelopmentEnv) return;
+
+    if (isError) {
+      console.error(message);
+    } else {
+      console.log(`%c ${message}`, 'color: green');
+    }
   } else {
-    console.log(
+    const log = isError ? console.error : console.log;
+    log(
       require('util').inspect(message, {
         colors: true,
       })
