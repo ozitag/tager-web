@@ -8,6 +8,7 @@ import '@assets/css/index.css';
 import withRedux, { ReduxWrapperProps } from '@hocs/withRedux';
 import { i18n, appWithTranslation } from '@server/i18n';
 import { updateCookie } from '@utils/cookie';
+import { Nullable } from '@typings/common';
 
 /**
  * Custom App documentation
@@ -31,9 +32,29 @@ class CustomApp extends App<ReduxWrapperProps> {
   componentDidMount() {
     i18n.on('languageChanged', (lang: string) => updateCookie('lng', lang));
 
-    Router.events.on('routeChangeStart', (url) => NProgress.start());
-    Router.events.on('routeChangeComplete', () => NProgress.done());
-    Router.events.on('routeChangeError', () => NProgress.done());
+    NProgress.configure({ showSpinner: false });
+    let timeoutId: Nullable<number> = null;
+    const TIMEOUT = 500;
+
+    function resetTimeoutIfNeeded() {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    }
+
+    Router.events.on('routeChangeStart', (url) => {
+      resetTimeoutIfNeeded();
+      timeoutId = setTimeout(() => NProgress.start(), TIMEOUT);
+    });
+    Router.events.on('routeChangeComplete', () => {
+      resetTimeoutIfNeeded();
+      NProgress.done();
+    });
+    Router.events.on('routeChangeError', () => {
+      resetTimeoutIfNeeded();
+      NProgress.done();
+    });
   }
 
   render() {
