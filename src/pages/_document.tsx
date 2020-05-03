@@ -67,6 +67,10 @@ class CustomDocument extends Document {
             src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/native-loading/ls.native-loading.min.js"
             defer
           />
+          <script
+            noModule
+            src="https://unpkg.com/core-js-bundle@3.6.5/index.js"
+          />
           <NextScript />
         </body>
       </Html>
