@@ -4,6 +4,7 @@ import next from 'next';
 import nextI18NextMiddleware from 'next-i18next/middleware';
 
 import nextI18next from './i18n';
+import { robotsHandler, sitemapHandler } from './sitemap';
 
 function parsePort(value: string | undefined): number | null {
   if (!value) return null;
@@ -39,6 +40,9 @@ function startServer() {
         express.static(path.resolve(__dirname, '..', 'storybook-static'))
       );
     }
+
+    server.get('/sitemap.xml', sitemapHandler);
+    server.get('/robots.txt', robotsHandler);
 
     server.use(nextI18NextMiddleware(nextI18next));
 
