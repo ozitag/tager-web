@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import next from 'next';
 import nextI18NextMiddleware from 'next-i18next/middleware';
@@ -29,6 +30,15 @@ const handle = app.getRequestHandler();
 function startServer() {
   app.prepare().then(() => {
     const server = express();
+
+    const isProductionServer = process.env.REACT_APP_ENV === 'production';
+
+    if (!isProductionServer) {
+      server.use(
+        '/storybook',
+        express.static(path.resolve(__dirname, '..', 'storybook-static'))
+      );
+    }
 
     server.use(nextI18NextMiddleware(nextI18next));
 
