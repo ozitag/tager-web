@@ -63,7 +63,15 @@ export const media = {
   mobileMedium: createMediaMixin({
     max: breakpoints.mobileLarge,
   }),
+  mobileMediumOnly: createMediaMixin({
+    min: breakpoints.mobileSmall,
+    max: breakpoints.mobileLarge,
+  }),
   mobileLarge: createMediaMixin({
+    max: breakpoints.tabletSmall,
+  }),
+  mobileLargeOnly: createMediaMixin({
+    min: breakpoints.mobileLarge,
     max: breakpoints.tabletSmall,
   }),
   mobile: createMediaMixin({
@@ -72,16 +80,32 @@ export const media = {
   tabletSmall: createMediaMixin({
     max: breakpoints.tabletLarge,
   }),
+  tabletSmallOnly: createMediaMixin({
+    min: breakpoints.tabletSmall,
+    max: breakpoints.tabletLarge,
+  }),
   tabletLarge: createMediaMixin({
+    max: breakpoints.laptop,
+  }),
+  tabletLargeOnly: createMediaMixin({
+    min: breakpoints.tabletLarge,
     max: breakpoints.laptop,
   }),
   tablet: createMediaMixin({
     max: breakpoints.laptop,
   }),
+  tabletOnly: createMediaMixin({
+    min: breakpoints.tabletSmall,
+    max: breakpoints.laptop,
+  }),
   laptop: createMediaMixin({
     max: breakpoints.desktop,
   }),
-  desktopUp: createMediaMixin({
+  laptopOnly: createMediaMixin({
+    min: breakpoints.laptop,
+    max: breakpoints.desktop,
+  }),
+  desktopOnly: createMediaMixin({
     min: breakpoints.desktop,
   }),
 };
