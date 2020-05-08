@@ -46,7 +46,7 @@ class CustomDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
           <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />

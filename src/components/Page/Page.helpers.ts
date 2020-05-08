@@ -1,12 +1,16 @@
+import { useRouter } from 'next/router';
+
 export function getMetaList({
-  title,
-  description,
-  image,
-}: {
+                              title,
+                              description,
+                              image,
+                            }: {
   title?: string;
   description?: string;
   image?: string;
 }) {
+  const router = useRouter();
+
   return [
     /**
      * HTML Living Standard
@@ -23,32 +27,38 @@ export function getMetaList({
     },
     description
       ? {
-          name: 'description',
-          content: description,
-        }
+        name: 'description',
+        content: description,
+      }
       : null,
 
     /**
      * Metadata for Open Graph protocol
      * Reference: https://ogp.me/
      */
+
+    process.env.REACT_APP_HOSTNAME ? {
+      name: 'og:url',
+      content: process.env.REACT_APP_HOSTNAME + router.asPath,
+    } : null,
+
     title
       ? {
-          property: 'og:title',
-          content: title,
-        }
+        property: 'og:title',
+        content: title,
+      }
       : null,
     description
       ? {
-          property: 'og:description',
-          content: description,
-        }
+        property: 'og:description',
+        content: description,
+      }
       : null,
     image
       ? {
-          property: 'og:image',
-          content: image,
-        }
+        property: 'og:image',
+        content: image,
+      }
       : null,
     {
       property: 'og:type',
@@ -69,15 +79,15 @@ export function getMetaList({
     },
     title
       ? {
-          name: 'twitter:title',
-          content: title,
-        }
+        name: 'twitter:title',
+        content: title,
+      }
       : null,
     description
       ? {
-          name: 'twitter:description',
-          content: description,
-        }
+        name: 'twitter:description',
+        content: description,
+      }
       : null,
   ].filter(Boolean);
 }
