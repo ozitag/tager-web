@@ -1,8 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+import { getOrigin } from '@utils/common';
 
 import { getMetaList, getCanonicalUrl } from './Page.helpers';
-import { useRouter } from 'next/router';
 
 type Props = {
   children?: React.ReactNode;
@@ -15,8 +17,14 @@ type Props = {
 function Page({ children, title, description, image, canonicalUrl }: Props) {
   const router = useRouter();
 
-  const metaList = getMetaList(router, { title, description, image });
-  const canonicalUrlPrepared = getCanonicalUrl(router, canonicalUrl);
+  const metaList = getMetaList({
+    title,
+    description,
+    image,
+    currentPath: router.asPath,
+  });
+  const canonicalUrlPrepared = getCanonicalUrl(router.asPath, canonicalUrl);
+  const origin = getOrigin();
 
   return (
     <>
@@ -26,9 +34,7 @@ function Page({ children, title, description, image, canonicalUrl }: Props) {
         {canonicalUrlPrepared ? (
           <link href={canonicalUrlPrepared} rel="canonical" />
         ) : null}
-        {process.env.REACT_APP_HOSTNAME ? (
-          <link href={process.env.REACT_APP_HOSTNAME} rel="home" />
-        ) : null}
+        {origin ? <link href={origin} rel="home" /> : null}
 
         {metaList.map((metaProps, index) => (
           <meta {...metaProps} key={index} />

@@ -1,35 +1,34 @@
-import { NextRouter, useRouter } from 'next/router';
+import { MetaHTMLAttributes } from 'react';
 
-function getAbsoluteUrl(url: any, returnNullIfInvalid: boolean) {
-  if (url.substr(0, 1) === '/') {
-    return process.env.REACT_APP_HOSTNAME ? process.env.REACT_APP_HOSTNAME + url : (returnNullIfInvalid ? null : url);
-  } else {
-    return url;
+import { dividePathnameAndSearch } from '@utils/searchParams';
+import { getAbsoluteUrl, notEmpty } from '@utils/common';
+
+/**
+ * References:
+ * 1. https://support.google.com/webmasters/answer/139066
+ * 2. https://yoast.com/rel-canonical/
+ */
+export function getCanonicalUrl(currentPath: string, canonicalPath?: string) {
+  if (!canonicalPath) {
+    const [pathname] = dividePathnameAndSearch(currentPath);
+    return getAbsoluteUrl(pathname);
   }
+
+  return getAbsoluteUrl(canonicalPath);
 }
 
-export function getCanonicalUrl(router: NextRouter, canonicalUrlProp?: string) {
-  if (!canonicalUrlProp) {
-    return getAbsoluteUrl(router.pathname, true);
-  }
-
-  if (canonicalUrlProp.substr(0, 1) === '/') {
-    return process.env.REACT_APP_HOSTNAME ? process.env.REACT_APP_HOSTNAME + canonicalUrlProp : null;
-  }
-
-  return canonicalUrlProp;
-}
-
-export function getMetaList(router: NextRouter, {
+export function getMetaList({
   title,
   description,
-  image
+  image,
+  currentPath,
 }: {
   title?: string;
   description?: string;
   image?: string;
-}) {
-  const url = getAbsoluteUrl(router.asPath, true);
+  currentPath: string;
+}): Array<MetaHTMLAttributes<HTMLMetaElement>> {
+  const currentPageUrl = getAbsoluteUrl(currentPath);
 
   return [
     /**
@@ -39,17 +38,17 @@ export function getMetaList(router: NextRouter, {
      */
     {
       name: 'copyright',
-      content: 'OZiTAG LLC'
+      content: 'OZiTAG LLC',
     },
     {
       name: 'author',
-      content: 'OZiTAG, ozitag.com'
+      content: 'OZiTAG, ozitag.com',
     },
     description
       ? {
-        name: 'description',
-        content: description
-      }
+          name: 'description',
+          content: description,
+        }
       : null,
 
     /**
@@ -57,32 +56,36 @@ export function getMetaList(router: NextRouter, {
      * Reference: https://ogp.me/
      */
 
-    url ? {
-      name: 'og:url',
-      content: url
-    } : null,
+    currentPageUrl
+      ? {
+          name: 'og:url',
+          content: currentPageUrl,
+        }
+      : null,
 
     title
       ? {
-        property: 'og:title',
-        content: title
-      }
+          property: 'og:title',
+          content: title,
+        }
       : null,
     description
       ? {
-        property: 'og:description',
-        content: description
-      }
+          property: 'og:description',
+          content: description,
+        }
       : null,
 
-    image ? {
-      property: 'og:image',
-      content: getAbsoluteUrl(image, false)
-    } : null,
+    image
+      ? {
+          property: 'og:image',
+          content: getAbsoluteUrl(image),
+        }
+      : null,
 
     {
       property: 'og:type',
-      content: 'website'
+      content: 'website',
     },
 
     /**
@@ -91,23 +94,23 @@ export function getMetaList(router: NextRouter, {
      */
     {
       name: 'twitter:card',
-      content: 'summary'
+      content: 'summary',
     },
     {
       name: 'twitter:creator',
-      content: 'OZiTAG, ozitag.com'
+      content: 'OZiTAG, ozitag.com',
     },
     title
       ? {
-        name: 'twitter:title',
-        content: title
-      }
+          name: 'twitter:title',
+          content: title,
+        }
       : null,
     description
       ? {
-        name: 'twitter:description',
-        content: description
-      }
-      : null
-  ].filter(Boolean);
+          name: 'twitter:description',
+          content: description,
+        }
+      : null,
+  ].filter(notEmpty);
 }
