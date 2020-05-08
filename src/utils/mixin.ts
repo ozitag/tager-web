@@ -16,13 +16,25 @@ function createMediaMixin({
     );
   }
 
+  /**
+   * Note that since browsers do not currently support range context queries,
+   * we work around the limitations of min- and max- prefixes and viewports with fractional widths
+   * (which can occur under certain conditions on high-dpi devices, for instance)
+   * by using values with higher precision for these comparisons (e.g. 767.98px).
+   *
+   * Reference: "Bootstrap: Responsive breakpoints"
+   * https://getbootstrap.com/docs/4.4/layout/overview/#responsive-breakpoints
+   *
+   * Reference: "Using “min-” and “max-” Prefixes On Range Features"
+   * https://www.w3.org/TR/mediaqueries-4/#mq-min-max
+   */
   const media =
     min && max
-      ? `@media (min-width: ${min}px) and (max-width: ${max}px)`
+      ? `@media (min-width: ${min}px) and (max-width: ${max - 0.02}px)`
       : min && !max
       ? `@media (min-width: ${min}px)`
       : !min && max
-      ? `@media (max-width: ${max}px)`
+      ? `@media (max-width: ${max - 0.02}px)`
       : null;
   return (styles) => css`
     ${media} {
@@ -31,19 +43,45 @@ function createMediaMixin({
   `;
 }
 
+/**
+ * Reference: https://get.foundation/sites/docs/media-queries.html#working-with-media-queries
+ *
+ * Media queries name convention: {breakpoint + modifier}
+ * Modifiers: "up" | "only" | "down" (default)
+ * "down" is default modifier, because we use desktop-first approach
+ *
+ * Examples:
+ *
+ * "tablet", "tabletDown" - tablet or smaller
+ * "tabletOnly" - only tablet
+ * "tabletUp" - tablet or larger
+ */
 export const media = {
+  mobileSmall: createMediaMixin({
+    max: breakpoints.mobileMedium,
+  }),
+  mobileMedium: createMediaMixin({
+    max: breakpoints.mobileLarge,
+  }),
+  mobileLarge: createMediaMixin({
+    max: breakpoints.tabletSmall,
+  }),
   mobile: createMediaMixin({
-    max: breakpoints.tablet - 1,
+    max: breakpoints.tabletSmall,
+  }),
+  tabletSmall: createMediaMixin({
+    max: breakpoints.tabletLarge,
+  }),
+  tabletLarge: createMediaMixin({
+    max: breakpoints.laptop,
   }),
   tablet: createMediaMixin({
-    min: breakpoints.tablet,
-    max: breakpoints.laptop - 1,
+    max: breakpoints.laptop,
   }),
   laptop: createMediaMixin({
-    min: breakpoints.laptop,
-    max: breakpoints.desktop - 1,
+    max: breakpoints.desktop,
   }),
-  desktop: createMediaMixin({
+  desktopUp: createMediaMixin({
     min: breakpoints.desktop,
   }),
 };
