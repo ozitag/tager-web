@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 
 function getAbsoluteUrl(url: any, returnNullIfInvalid: boolean) {
   if (url.substr(0, 1) === '/') {
@@ -8,9 +8,7 @@ function getAbsoluteUrl(url: any, returnNullIfInvalid: boolean) {
   }
 }
 
-export function getCanonicalUrl(canonicalUrlProp?: string) {
-  const router = useRouter();
-
+export function getCanonicalUrl(router: NextRouter, canonicalUrlProp?: string) {
   if (!canonicalUrlProp) {
     return getAbsoluteUrl(router.pathname, true);
   }
@@ -22,16 +20,15 @@ export function getCanonicalUrl(canonicalUrlProp?: string) {
   return canonicalUrlProp;
 }
 
-export function getMetaList({
-                              title,
-                              description,
-                              image
-                            }: {
+export function getMetaList(router: NextRouter, {
+  title,
+  description,
+  image
+}: {
   title?: string;
   description?: string;
   image?: string;
 }) {
-  const router = useRouter();
   const url = getAbsoluteUrl(router.asPath, true);
 
   return [
