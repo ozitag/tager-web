@@ -1,9 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-import { getMetaList } from './Page.helpers';
-import { useRouter } from 'next/router';
-import Router, { NextRouter } from 'next/dist/next-server/lib/router/router';
+import { getMetaList, getCanonicalUrl } from './Page.helpers';
 
 type Props = {
   children?: React.ReactNode;
@@ -13,22 +11,10 @@ type Props = {
   canonicalUrl?: string;
 };
 
-function getCanonicalUrl(router: NextRouter, canonicalUrlProp?: string | undefined) {
-  if (!canonicalUrlProp) {
-    return process.env.REACT_APP_HOSTNAME ? process.env.REACT_APP_HOSTNAME + router.asPath : null;
-  }
-
-  if (canonicalUrlProp.substr(0, 1) === '/') {
-    return process.env.REACT_APP_HOSTNAME ? process.env.REACT_APP_HOSTNAME + canonicalUrlProp : null;
-  }
-
-  return canonicalUrlProp;
-}
-
 function Page({ children, title, description, image, canonicalUrl }: Props) {
   const metaList = getMetaList({ title, description, image });
 
-  const canonicalUrlPrepared = getCanonicalUrl(useRouter(), canonicalUrl);
+  const canonicalUrlPrepared = getCanonicalUrl(canonicalUrl);
 
   return (
     <>

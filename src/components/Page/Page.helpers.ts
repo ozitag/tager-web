@@ -1,15 +1,38 @@
 import { useRouter } from 'next/router';
 
+function getAbsoluteUrl(url: any, returnNullIfInvalid: boolean) {
+  if (url.substr(0, 1) === '/') {
+    return process.env.REACT_APP_HOSTNAME ? process.env.REACT_APP_HOSTNAME + url : (returnNullIfInvalid ? null : url);
+  } else {
+    return url;
+  }
+}
+
+export function getCanonicalUrl(canonicalUrlProp?: string) {
+  const router = useRouter();
+
+  if (!canonicalUrlProp) {
+    return getAbsoluteUrl(router.pathname, true);
+  }
+
+  if (canonicalUrlProp.substr(0, 1) === '/') {
+    return process.env.REACT_APP_HOSTNAME ? process.env.REACT_APP_HOSTNAME + canonicalUrlProp : null;
+  }
+
+  return canonicalUrlProp;
+}
+
 export function getMetaList({
                               title,
                               description,
-                              image,
+                              image
                             }: {
   title?: string;
   description?: string;
   image?: string;
 }) {
   const router = useRouter();
+  const url = getAbsoluteUrl(router.asPath, true);
 
   return [
     /**
@@ -19,16 +42,16 @@ export function getMetaList({
      */
     {
       name: 'copyright',
-      content: 'OZiTAG LLC',
+      content: 'OZiTAG LLC'
     },
     {
       name: 'author',
-      content: 'OZiTAG, ozitag.com',
+      content: 'OZiTAG, ozitag.com'
     },
     description
       ? {
         name: 'description',
-        content: description,
+        content: description
       }
       : null,
 
@@ -37,32 +60,32 @@ export function getMetaList({
      * Reference: https://ogp.me/
      */
 
-    process.env.REACT_APP_HOSTNAME ? {
+    url ? {
       name: 'og:url',
-      content: process.env.REACT_APP_HOSTNAME + router.asPath,
+      content: url
     } : null,
 
     title
       ? {
         property: 'og:title',
-        content: title,
+        content: title
       }
       : null,
     description
       ? {
         property: 'og:description',
-        content: description,
+        content: description
       }
       : null,
-    image
-      ? {
-        property: 'og:image',
-        content: image,
-      }
-      : null,
+
+    image ? {
+      property: 'og:image',
+      content: getAbsoluteUrl(image, false)
+    } : null,
+
     {
       property: 'og:type',
-      content: 'website',
+      content: 'website'
     },
 
     /**
@@ -71,23 +94,23 @@ export function getMetaList({
      */
     {
       name: 'twitter:card',
-      content: 'summary',
+      content: 'summary'
     },
     {
       name: 'twitter:creator',
-      content: 'OZiTAG, ozitag.com',
+      content: 'OZiTAG, ozitag.com'
     },
     title
       ? {
         name: 'twitter:title',
-        content: title,
+        content: title
       }
       : null,
     description
       ? {
         name: 'twitter:description',
-        content: description,
+        content: description
       }
-      : null,
+      : null
   ].filter(Boolean);
 }
