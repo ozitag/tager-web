@@ -1,7 +1,7 @@
 import { MetaHTMLAttributes } from 'react';
 
-import { dividePathnameAndSearch } from '@utils/searchParams';
 import { getAbsoluteUrl, notEmpty } from '@utils/common';
+import { parseUrl } from '@utils/searchParams';
 
 /**
  * References:
@@ -9,12 +9,14 @@ import { getAbsoluteUrl, notEmpty } from '@utils/common';
  * 2. https://yoast.com/rel-canonical/
  */
 export function getCanonicalUrl(currentPath: string, canonicalPath?: string) {
-  if (!canonicalPath) {
-    const [pathname] = dividePathnameAndSearch(currentPath);
-    return getAbsoluteUrl(pathname);
-  }
+  const absoluteUrl = getAbsoluteUrl(canonicalPath ?? currentPath);
 
-  return getAbsoluteUrl(canonicalPath);
+  const parsedUrl = parseUrl(absoluteUrl);
+
+  /** Remove hash from url */
+  return parsedUrl
+    ? parsedUrl.origin + parsedUrl.pathname + parsedUrl.search
+    : absoluteUrl;
 }
 
 export function getMetaList({

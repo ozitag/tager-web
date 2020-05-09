@@ -24,7 +24,7 @@ function Page({ children, title, description, image, canonicalUrl }: Props) {
     currentPath: router.asPath,
   });
   const canonicalUrlPrepared = getCanonicalUrl(router.asPath, canonicalUrl);
-  const origin = getOrigin();
+  const homePageUrl = getOrigin();
 
   return (
     <>
@@ -34,7 +34,7 @@ function Page({ children, title, description, image, canonicalUrl }: Props) {
         {canonicalUrlPrepared ? (
           <link href={canonicalUrlPrepared} rel="canonical" />
         ) : null}
-        {origin ? <link href={origin} rel="home" /> : null}
+        {homePageUrl ? <link href={homePageUrl} rel="home" /> : null}
 
         {metaList.map((metaProps, index) => (
           <meta {...metaProps} key={index} />
