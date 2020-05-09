@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { getOrigin } from '@utils/common';
 
-import { getMetaList, getCanonicalUrl } from './Page.helpers';
+import { getMetaList, getCanonicalUrl, getLdJsonData } from './Page.helpers';
 
 type Props = {
   children?: React.ReactNode;
@@ -12,9 +12,19 @@ type Props = {
   description?: string;
   image?: string;
   canonicalUrl?: string;
+  datePublished?: string;
+  dateModified?: string;
 };
 
-function Page({ children, title, description, image, canonicalUrl }: Props) {
+function Page({
+  children,
+  title,
+  description,
+  image,
+  canonicalUrl,
+  datePublished,
+  dateModified,
+}: Props) {
   const router = useRouter();
 
   const metaList = getMetaList({
@@ -26,19 +36,37 @@ function Page({ children, title, description, image, canonicalUrl }: Props) {
   const canonicalUrlPrepared = getCanonicalUrl(router.asPath, canonicalUrl);
   const homePageUrl = getOrigin();
 
+  const jsonLdObject = getLdJsonData(
+    router.asPath,
+    title,
+    description,
+    image,
+    datePublished,
+    dateModified,
+    'OZiTAG',
+    '/logo.svg'
+  );
+
   return (
     <>
       <Head>
         <title>{title ?? ''}</title>
 
+        {homePageUrl ? <link href={homePageUrl} rel="home" /> : null}
         {canonicalUrlPrepared ? (
           <link href={canonicalUrlPrepared} rel="canonical" />
         ) : null}
-        {homePageUrl ? <link href={homePageUrl} rel="home" /> : null}
 
         {metaList.map((metaProps, index) => (
           <meta {...metaProps} key={index} />
         ))}
+
+        {jsonLdObject ? (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdObject) }}
+          />
+        ) : null}
       </Head>
       {children}
     </>

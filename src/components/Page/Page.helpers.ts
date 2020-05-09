@@ -19,6 +19,71 @@ export function getCanonicalUrl(currentPath: string, canonicalPath?: string) {
     : absoluteUrl;
 }
 
+export function getLdJsonData(
+  currentPath: string,
+  title?: string,
+  description?: string,
+  image?: string,
+  datePublished?: string,
+  dateModified?: string,
+  organizationName?: string,
+  logoSrc?: string
+) {
+  const currentUrl = getAbsoluteUrl(currentPath);
+
+  const result: any = {
+    '@context': 'http://schema.org',
+    '@type': 'WebPage',
+  };
+
+  if (title) {
+    result.name = title;
+  }
+
+  if (description) {
+    result.description = description;
+  }
+
+  if (image) {
+    result.image = [image];
+  }
+
+  if (datePublished) {
+    result.datePublished = datePublished;
+  }
+
+  if (dateModified) {
+    result.dateModified = dateModified;
+  }
+
+  if (organizationName) {
+    result.publisher = {
+      '@type': 'Organization',
+      name: organizationName,
+    };
+
+    if (process.env.REACT_APP_HOSTNAME) {
+      result.publisher.url = process.env.REACT_APP_HOSTNAME;
+    }
+
+    if (logoSrc) {
+      result.publisher.logo = {
+        '@type': 'ImageObject',
+        url: [getAbsoluteUrl(logoSrc)],
+      };
+    }
+  }
+
+  if (currentUrl) {
+    result.mainEntityOfPage = {
+      '@type': 'WebPage',
+      '@id': currentUrl,
+    };
+  }
+
+  return result;
+}
+
 export function getMetaList({
   title,
   description,
