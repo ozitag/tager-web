@@ -45,7 +45,7 @@ export function getLdJsonData(
   }
 
   if (image) {
-    result.image = [image];
+    result.image = [getAbsoluteUrl(image)];
   }
 
   if (datePublished) {
@@ -62,8 +62,8 @@ export function getLdJsonData(
       name: organizationName,
     };
 
-    if (process.env.REACT_APP_HOSTNAME) {
-      result.publisher.url = process.env.REACT_APP_HOSTNAME;
+    if (process.env.REACT_APP_ORIGIN) {
+      result.publisher.url = process.env.REACT_APP_ORIGIN;
     }
 
     if (logoSrc) {
@@ -77,7 +77,7 @@ export function getLdJsonData(
   if (currentUrl) {
     result.mainEntityOfPage = {
       '@type': 'WebPage',
-      '@id': currentUrl,
+      '@id': getAbsoluteUrl(currentUrl),
     };
   }
 
