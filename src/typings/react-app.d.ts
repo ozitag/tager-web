@@ -10,10 +10,15 @@ declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production';
     readonly REACT_APP_ENV: 'production' | 'development' | 'local' | undefined;
-    readonly REACT_APP_HOSTNAME: string | undefined;
+    readonly REACT_APP_ORIGIN: string | undefined;
     readonly REACT_APP_API_URL: string | undefined;
     readonly REACT_APP_SENTRY_DSN: string | undefined;
-    readonly REACT_APP_SENTRY_ENVIRONMENT: string | undefined;
+    readonly REACT_APP_SENTRY_ENVIRONMENT:
+      | 'production'
+      | 'development'
+      | 'local'
+      | string
+      | undefined;
   }
 }
 

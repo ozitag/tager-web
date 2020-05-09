@@ -206,3 +206,21 @@ export function createResourceLoader<DataType>(initialData: DataType) {
     },
   };
 }
+
+export function trimEndSlash(url: string): string {
+  return url.endsWith('/') ? url.slice(0, -1) : url;
+}
+
+export function getOrigin(): string {
+  return trimEndSlash(process.env.REACT_APP_ORIGIN ?? '');
+}
+
+export function isAbsoluteUrl(url: string): boolean {
+  return ['https:', 'http:'].some((protocol) => url.startsWith(protocol));
+}
+
+export function getAbsoluteUrl(urlOrPath: string): string {
+  if (isAbsoluteUrl(urlOrPath)) return urlOrPath;
+
+  return getOrigin() + urlOrPath;
+}

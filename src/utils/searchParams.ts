@@ -39,6 +39,17 @@ export function parseEnum<T extends string = string>(
   return foundValue || null;
 }
 
+/**
+ * @param {string} url - absolute (!) url
+ */
+export function parseUrl(url: string): Nullable<URL> {
+  try {
+    return new URL(url);
+  } catch (error) {
+    return null;
+  }
+}
+
 export function dividePathnameAndSearch(url: string): [string, string] {
   const questionMarkIndex = url.indexOf('?');
   if (questionMarkIndex === -1) {

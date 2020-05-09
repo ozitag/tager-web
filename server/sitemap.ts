@@ -6,8 +6,8 @@ function trimEndSlash(url: string): string {
   return url.endsWith('/') ? url.slice(0, -1) : url;
 }
 
-function getHostname(): string {
-  return trimEndSlash(process.env.REACT_APP_HOSTNAME ?? '');
+function getOrigin(): string {
+  return trimEndSlash(process.env.REACT_APP_ORIGIN ?? '');
 }
 
 const CONSTANT_PAGES: Array<{
@@ -34,7 +34,7 @@ export const sitemapHandler: RequestHandler = async (req, res) => {
     // A Transform for turning a Readable stream of either SitemapItemOptions or url strings into a Sitemap.
     // The readable stream it transforms must be in object mode.
     const smStream = new SitemapStream({
-      hostname: getHostname(),
+      hostname: getOrigin(),
     });
 
     const pipeline = smStream.pipe(createGzip());
@@ -71,8 +71,8 @@ export const robotsHandler: RequestHandler = (req, res) => {
 
   const content = isProduction
     ? [
-        `Sitemap: ${getHostname()}/sitemap.xml`,
-        `Host: ${getHostname()}`,
+        `Sitemap: ${getOrigin()}/sitemap.xml`,
+        `Host: ${getOrigin()}`,
         'User-agent: *',
         'Allow: /',
         'Disallow: /api/*',
