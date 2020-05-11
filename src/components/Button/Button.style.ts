@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { colors } from '@constants/theme';
 import { CssSnippet } from '@typings/common';
 
 export type ReservedButtonVariant = 'contained' | 'outlined';
@@ -9,22 +8,22 @@ export type ButtonVariant = ReservedButtonVariant | CssSnippet;
 
 const variantCssMap: Record<ReservedButtonVariant, CssSnippet> = {
   contained: css`
-    background-color: ${colors.brown};
+    background-color: gray;
     opacity: 0.95;
     color: white;
-    border: 1px solid ${colors.brown};
+    border: 1px solid gray;
 
     &:hover {
-      background-color: ${colors.brownDark};
+      background-color: black;
     }
   `,
   outlined: css`
     background-color: white;
-    color: ${colors.brown};
-    border: 1px solid ${colors.brown};
+    color: gray;
+    border: 1px solid gray;
 
     &:hover {
-      background-color: ${colors.brown};
+      background-color: gray;
       opacity: 0.95;
       color: white;
     }

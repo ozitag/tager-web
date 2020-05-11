@@ -1,9 +1,11 @@
 export const colors = {
-  black: '#000000',
-  brownLight: '#FBF4F4',
-  brown: '#B07773',
-  brownDark: '#9B504B',
-  outline: 'rgba(77, 144, 254, 0.6)',
+  black: 'black',
+  black100: '#101010',
+  black200: '#262626',
+  black300: '#3b3b3b',
+  gray: '#888888',
+  grayDark: '#5f5f5f',
+  grayLight: '#999999',
   red: 'red',
 } as const;
 

@@ -9,7 +9,7 @@ export const Container = styled.div`
 function getBorderColor(
   props: { invalid?: boolean; active?: boolean } = {}
 ): string {
-  return props.invalid ? colors.red : props.active ? colors.brown : '#D3C8C4';
+  return props.invalid ? colors.red : props.active ? 'black' : '#D3C8C4';
 }
 
 export const Input = styled.input<{

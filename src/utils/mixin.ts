@@ -110,10 +110,6 @@ export const media = {
   }),
 };
 
-export const outlineShadow = `0 0 0 1.5px ${colors.outline}`;
-export const getOutlineShadow = (color: string = colors.outline) =>
-  `0 0 0 1.5px ${color}`;
-
 export const visuallyHidden = css`
   border: 0;
   clip: rect(0 0 0 0);
