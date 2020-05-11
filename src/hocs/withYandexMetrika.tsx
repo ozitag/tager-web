@@ -25,6 +25,8 @@ function withYandexMetrika(NextComponent: NextComponentType) {
     YandexMetrikaHOC.getInitialProps = NextComponent.getInitialProps;
   }
 
+  YandexMetrikaHOC.displayName = 'withYandexMetrika';
+
   return YandexMetrikaHOC;
 }
 
