@@ -19,6 +19,7 @@ declare namespace NodeJS {
       | 'local'
       | string
       | undefined;
+    readonly REACT_APP_YANDEX_METRIKA_COUNTER_ID: string | undefined;
   }
 }
 

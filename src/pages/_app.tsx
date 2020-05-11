@@ -12,6 +12,7 @@ import { updateCookie } from '@utils/cookie';
 import { Nullable } from '@typings/common';
 import { CustomAppProps } from '@typings/hocs';
 import ModalProvider from '@components/Modal';
+import withYandexMetrika from '@hocs/withYandexMetrika';
 
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
@@ -83,4 +84,4 @@ class CustomApp extends App<CustomAppProps> {
   }
 }
 
-export default appWithTranslation(withRedux(CustomApp));
+export default withYandexMetrika(appWithTranslation(withRedux(CustomApp)));
