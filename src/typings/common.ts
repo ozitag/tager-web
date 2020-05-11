@@ -25,3 +25,9 @@ export type SvgComponent<P = {}> = React.FunctionComponent<
 >;
 
 export type CssSnippet = ReturnType<typeof css>;
+
+declare global {
+  interface Window {
+    GA_INITIALIZED: boolean;
+  }
+}
