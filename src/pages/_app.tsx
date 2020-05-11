@@ -4,6 +4,7 @@ import NProgress from 'nprogress';
 import Router from 'next/router';
 import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/node';
+import TagManager from 'react-gtm-module';
 
 import '@assets/css/index.css';
 import withRedux from '@hocs/withRedux';
@@ -66,6 +67,12 @@ class CustomApp extends App<CustomAppProps> {
       resetTimeoutIfNeeded();
       NProgress.done();
     });
+
+    if (process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID) {
+      TagManager.initialize({
+        gtmId: process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID,
+      });
+    }
   }
 
   render() {
