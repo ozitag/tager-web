@@ -1,0 +1,10 @@
+.git
+.gitignore
+.next
+storybook-static
+server-build
+.dockerignore
+Dockerfile
+docker-compose.yml
+node_modules
+nginx
