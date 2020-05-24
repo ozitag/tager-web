@@ -4,7 +4,7 @@ import { Router } from 'next/router';
 
 import YandexMetrika from '@services/yandexMetrika';
 
-function withYandexMetrika(NextComponent: NextComponentType) {
+function withYandexMetrika(NextComponent: NextComponentType<any, any, any>) {
   function YandexMetrikaHOC(props: any) {
     useEffect(() => {
       const yandexTracker = new YandexMetrika();

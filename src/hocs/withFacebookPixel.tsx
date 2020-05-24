@@ -4,7 +4,7 @@ import { Router } from 'next/router';
 
 import FacebookPixel from '@services/facebookPixel';
 
-function withFacebookPixel(NextComponent: NextComponentType) {
+function withFacebookPixel(NextComponent: NextComponentType<any, any, any>) {
   function FacebookPixelHOC(props: any) {
     useEffect(() => {
       const facebookPixel = new FacebookPixel();

@@ -4,7 +4,7 @@ import { Router } from 'next/router';
 
 import GoogleAnalytics from '@services/googleAnalytics';
 
-function withGoogleAnalytics(NextComponent: NextComponentType) {
+function withGoogleAnalytics(NextComponent: NextComponentType<any, any, any>) {
   function GoogleAnalyticsHOC(props: any) {
     useEffect(() => {
       const googleTracker = new GoogleAnalytics();
