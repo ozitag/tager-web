@@ -8,7 +8,7 @@ class FacebookPixel {
   }
 
   isTrackerEnabled(): boolean {
-    return Boolean(this.pixelId && canUseDOM() && window.ym);
+    return Boolean(this.pixelId && canUseDOM() && window.fbq);
   }
 
   init() {
