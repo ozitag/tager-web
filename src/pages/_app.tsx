@@ -15,6 +15,7 @@ import { CustomAppProps } from '@typings/hocs';
 import ModalProvider from '@components/Modal';
 import withYandexMetrika from '@hocs/withYandexMetrika';
 import withGoogleAnalytics from '@hocs/withGoogleAnalytics';
+import withFacebookPixel from '@hocs/withFacebookPixel';
 
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
@@ -92,6 +93,8 @@ class CustomApp extends App<CustomAppProps> {
   }
 }
 
-export default withGoogleAnalytics(
-  withYandexMetrika(appWithTranslation(withRedux(CustomApp)))
+export default withFacebookPixel(
+  withGoogleAnalytics(
+    withYandexMetrika(appWithTranslation(withRedux(CustomApp)))
+  )
 );

@@ -22,6 +22,7 @@ declare namespace NodeJS {
     readonly REACT_APP_YANDEX_METRIKA_COUNTER_ID: string | undefined;
     readonly REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID: string | undefined;
     readonly REACT_APP_GOOGLE_TAG_MANAGER_ID: string | undefined;
+    readonly REACT_APP_FACEBOOK_PIXEL_ID: string | undefined;
   }
 }
 

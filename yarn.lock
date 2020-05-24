@@ -2271,6 +2271,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/facebook-pixel@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@types/facebook-pixel/-/facebook-pixel-0.0.20.tgz#d4eb7ad03a5d53c85c0a9e1239e6cc07da38ac9d"
+  integrity sha512-yMRJ8pkyt0oH9t08xNjJeuNXjc9L1uk6mw3UjNmrO9qWckXqi4p4fOjygqMf7wuUAiOG0a48VEJK4laXzo+PlQ==
+
 "@types/history@*":
   version "4.7.5"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.5.tgz#527d20ef68571a4af02ed74350164e7a67544860"
