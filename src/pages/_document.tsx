@@ -11,6 +11,7 @@ import Document, {
 import { ServerStyleSheet } from 'styled-components';
 
 import YandexMetrikaScript from '@components/YandexMetrikaScript';
+import FacebookPixelScript from '@components/FacebookPixelScript';
 
 /**
  * Custom Document documentation
@@ -103,6 +104,7 @@ class CustomDocument extends Document {
             src="https://unpkg.com/core-js-bundle@3.6.5/index.js"
           />
           <YandexMetrikaScript />
+          <FacebookPixelScript />
           <NextScript />
         </body>
       </Html>
