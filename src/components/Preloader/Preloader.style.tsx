@@ -1,36 +1,12 @@
-import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { canUseDOM } from '@utils/common';
-
-declare global {
-  interface Window {
-    isPreloaderHidden: boolean | undefined;
-  }
-}
-
-function Preloader() {
-  const shouldHidePreloader = canUseDOM() && window.isPreloaderHidden;
-
-  if (shouldHidePreloader) return null;
-
-  return (
-    <Container className="js-preloader">
-      <Inner>
-        <Item />
-        <Item />
-      </Inner>
-    </Container>
-  );
-}
-
-const rotateCss = keyframes`
+export const rotateCss = keyframes`
   100% {
     transform: rotate(360deg);
   }
 `;
 
-const bounceCss = keyframes`
+export const bounceCss = keyframes`
   0%,
   100% {
     transform: scale(0);
@@ -41,7 +17,7 @@ const bounceCss = keyframes`
   }
 `;
 
-const fadeOutCss = keyframes`
+export const fadeOutCss = keyframes`
   0% {
     opacity: 1;
   }
@@ -51,7 +27,7 @@ const fadeOutCss = keyframes`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -67,7 +43,7 @@ const Container = styled.div`
   }
 `;
 
-const Inner = styled.div`
+export const Inner = styled.div`
   position: relative;
   top: 50%;
   left: 50%;
@@ -79,7 +55,7 @@ const Inner = styled.div`
   animation: ${rotateCss} 2s infinite linear;
 `;
 
-const Item = styled.div`
+export const Item = styled.div`
   position: absolute;
   display: inline-block;
   top: 0;
@@ -95,5 +71,3 @@ const Item = styled.div`
     animation-delay: -1s;
   }
 `;
-
-export default Preloader;
