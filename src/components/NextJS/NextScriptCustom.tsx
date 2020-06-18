@@ -1,40 +1,49 @@
-import React from 'react';
-import { compact, flatten } from 'lodash';
+import React, { ScriptHTMLAttributes } from 'react';
 
 import { NextScript } from 'next/document';
+import { notEmpty, notFalsy } from '@utils/common';
 
+/** Reference: https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218 */
 class NextScriptCustom extends NextScript {
   render() {
-    const orgNextScripts = flatten(super.render()?.props?.children);
+    /** Fragment */
+    const nextScriptElement = super.render();
 
-    const scripts = compact(
-      orgNextScripts.map((child: any) => {
-        if (child?.props?.id === '__NEXT_DATA__') {
-          return {
-            props: { ...child?.props },
-            content: child?.props?.dangerouslySetInnerHTML?.__html,
-          };
-        }
+    type ScriptProps = ScriptHTMLAttributes<HTMLScriptElement>;
+    type ScriptElement = React.ReactElement<ScriptProps>;
 
-        if (child?.type === 'script') {
-          return {
-            props: { ...child?.props },
-            content: '',
-          };
-        }
+    const orgNextScripts: Array<ScriptElement | null> = nextScriptElement
+      ? nextScriptElement.props.children.flat()
+      : [];
 
-        return null;
-      })
-    );
+    const scripts = orgNextScripts.filter(notFalsy).map((child) => {
+      if (child.props.id === '__NEXT_DATA__') {
+        return {
+          props: { ...child.props },
+          content: child.props.dangerouslySetInnerHTML?.__html,
+        };
+      }
 
-    const initialFilterer = (props: any) =>
-      !props.src || !props.src.includes('chunk');
-    const initialLoadScripts = scripts.filter(({ props }) =>
-      initialFilterer(props)
-    );
-    const chunkedScripts = scripts.filter(
-      ({ props }) => !initialFilterer(props)
-    );
+      if (child.type === 'script') {
+        return {
+          props: { ...child.props },
+          content: '',
+        };
+      }
+
+      return null;
+    });
+
+    function isNextChunk(props: ScriptProps): boolean {
+      return Boolean(props.src?.includes('chunk'));
+    }
+    const initialLoadScripts = scripts
+      .filter(notEmpty)
+      .filter(({ props }) => !isNextChunk(props));
+
+    const chunkedScripts = scripts
+      .filter(notEmpty)
+      .filter(({ props }) => isNextChunk(props));
 
     const jsContent = `
       var chunkedScripts = ${JSON.stringify(chunkedScripts)};
