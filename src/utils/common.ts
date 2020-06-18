@@ -98,6 +98,12 @@ export function notEmpty<TValue>(
   return value !== null && value !== undefined;
 }
 
+export function notFalsy<TValue>(
+  value: TValue | null | undefined
+): value is TValue {
+  return Boolean(value);
+}
+
 export function setRefValue<T>(ref: Ref<T>, value: T): void {
   if (!ref) return;
 

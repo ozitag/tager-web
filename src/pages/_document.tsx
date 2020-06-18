@@ -6,8 +6,8 @@ import { ServerStyleSheet } from 'styled-components';
 
 import YandexMetrikaScript from '@components/YandexMetrikaScript';
 import FacebookPixelScript from '@components/FacebookPixelScript';
-import HeadCustom from '@components/NextJS/HeadCustom';
-import NextScriptCustom from '@components/NextJS/NextScriptCustom';
+import TagerNextHead from '@components/NextJS/TagerNextHead';
+import TagerNextScript from '@components/NextJS/TagerNextScript';
 
 /**
  * Custom Document documentation
@@ -47,7 +47,7 @@ class CustomDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <HeadCustom>
+        <TagerNextHead>
           <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
           <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />
           {/*<link*/}
@@ -83,7 +83,7 @@ class CustomDocument extends Document {
           />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
-        </HeadCustom>
+        </TagerNextHead>
         <body>
           <Main />
           <script src="/global.js" defer />
@@ -101,7 +101,7 @@ class CustomDocument extends Document {
           />
           <YandexMetrikaScript />
           <FacebookPixelScript />
-          <NextScriptCustom />
+          <TagerNextScript />
         </body>
       </Html>
     );
