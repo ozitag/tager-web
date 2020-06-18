@@ -9,7 +9,7 @@ class HeadCustom extends Head {
     const cssFiles =
       files && files.length ? files.filter((f) => /\.css$/.test(f)) : [];
 
-    const cssLinkElements: any[] = [];
+    const cssLinkElements: JSX.Element[] = [];
 
     cssFiles.forEach((file) => {
       cssLinkElements.push(
