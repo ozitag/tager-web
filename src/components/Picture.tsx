@@ -63,9 +63,9 @@ function SourceGroup({ media, images }: GroupProps) {
   return (
     <>
       {webp && webp2x ? (
-        <Source srcSet={[webp, webp2x]} media={media} />
+        <Source srcSet={[webp, webp2x]} media={media} type="image/webp" />
       ) : webp ? (
-        <Source srcSet={[webp]} media={media} />
+        <Source srcSet={[webp]} media={media} type="image/webp" />
       ) : null}
 
       {src && src2x ? (
