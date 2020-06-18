@@ -41,7 +41,7 @@ const StatusCode = styled.span`
   font-size: 250px;
   font-weight: 900;
   line-height: 1;
-  text-shadow: 0 0 3px #000;
+  text-shadow: 0 0 1px #000;
 `;
 
 const Message = styled.span`
