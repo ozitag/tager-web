@@ -2,8 +2,10 @@ import React from 'react';
 import * as Sentry from '@sentry/node';
 import NextError, { ErrorProps } from 'next/error';
 
-import Page from '@components/Page';
 import { CustomAppPageContext } from '@typings/hocs';
+
+import Page from '@components/Page';
+import ErrorContent from '@modules/ErrorContent';
 
 type InitialErrorProps = ErrorProps & {
   hasGetInitialPropsRun?: boolean;
@@ -21,8 +23,8 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
   }
 
   return (
-    <Page title="Страница не найдена">
-      <h1>Not found</h1>
+    <Page title="An error occurred">
+      <ErrorContent statusCode={statusCode} message={err?.name} />
     </Page>
   );
 }
