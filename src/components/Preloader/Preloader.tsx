@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 import { canUseDOM } from '@utils/common';
 
+import { isPreloaderEnabled } from './Preloader.helpers';
 import * as S from './Preloader.style';
 
 declare global {
@@ -12,7 +13,8 @@ declare global {
 
 function Preloader() {
   const preloaderRef = useRef<HTMLDivElement>(null);
-  const isEnabled = process.env.REACT_APP_SPLASHSCREEN_ENABLED;
+  const isEnabled = isPreloaderEnabled();
+
   const isHidden = canUseDOM() && window.isPreloaderHidden;
 
   useEffect(() => {
