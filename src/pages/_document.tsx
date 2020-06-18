@@ -1,17 +1,13 @@
 import React from 'react';
 
-import Document, {
-  DocumentContext,
-  Html,
-  Head,
-  Main,
-  NextScript,
-} from 'next/document';
+import Document, { DocumentContext, Html, Main } from 'next/document';
 
 import { ServerStyleSheet } from 'styled-components';
 
 import YandexMetrikaScript from '@components/YandexMetrikaScript';
 import FacebookPixelScript from '@components/FacebookPixelScript';
+import HeadCustom from '@components/NextJS/HeadCustom';
+import NextScriptCustom from '@components/NextJS/NextScriptCustom';
 
 /**
  * Custom Document documentation
@@ -51,7 +47,7 @@ class CustomDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
+        <HeadCustom>
           <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
           <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />
           <link
@@ -87,7 +83,7 @@ class CustomDocument extends Document {
           />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
-        </Head>
+        </HeadCustom>
         <body>
           <Main />
           <script src="/global.js" defer />
@@ -105,7 +101,7 @@ class CustomDocument extends Document {
           />
           <YandexMetrikaScript />
           <FacebookPixelScript />
-          <NextScript />
+          <NextScriptCustom />
         </body>
       </Html>
     );
