@@ -9,22 +9,33 @@ import ErrorContent from '@modules/ErrorContent';
 
 type InitialErrorProps = ErrorProps & {
   hasGetInitialPropsRun?: boolean;
+  errorId?: string;
   err?: any;
 };
 
 type Props = InitialErrorProps;
 
-function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
+function ErrorPage({
+  statusCode,
+  title,
+  hasGetInitialPropsRun,
+  errorId,
+  err,
+}: Props) {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
     // https://github.com/zeit/next.js/issues/8592. As a workaround, we pass
     // err via _app.js so it can be captured
-    Sentry.captureException(err);
+    errorId = Sentry.captureException(err);
   }
 
   return (
     <Page title="An error occurred">
-      <ErrorContent statusCode={statusCode} message={err?.name} />
+      <ErrorContent
+        statusCode={statusCode}
+        errorName={err?.name ?? title}
+        errorId={errorId}
+      />
     </Page>
   );
 }
@@ -54,7 +65,7 @@ ErrorPage.getInitialProps = async (
     }
 
     if (err) {
-      Sentry.captureException(err);
+      errorInitialProps.errorId = Sentry.captureException(err);
 
       return errorInitialProps;
     }
@@ -69,7 +80,7 @@ ErrorPage.getInitialProps = async (
     //    Boundary. Read more about what types of exceptions are caught by Error
     //    Boundaries: https://reactjs.org/docs/error-boundaries.html
     if (err) {
-      Sentry.captureException(err);
+      errorInitialProps.errorId = Sentry.captureException(err);
 
       return errorInitialProps;
     }

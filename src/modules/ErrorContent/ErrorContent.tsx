@@ -1,16 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import { media } from '@utils/mixin';
 
 type Props = {
-  statusCode?: number;
-  message?: string;
+  statusCode: number;
+  errorName?: string;
+  errorId?: string;
 };
 
-function ErrorContent({ statusCode, message }: Props) {
+function ErrorProd({ statusCode, errorId, errorName }: Props) {
   return (
     <Container>
-      {statusCode ? <StatusCode>{statusCode}</StatusCode> : null}
-      {message ? <Message>{message.replace(/\.$/, '')}</Message> : null}
+      <Inner>
+        <StatusCode>{statusCode}</StatusCode>
+        <Name>{errorName?.replace(/\.$/, '') ?? '\u00A0'}</Name>
+        {errorId ? <EventId>Error ID: {errorId}</EventId> : null}
+      </Inner>
     </Container>
   );
 }
@@ -24,32 +30,73 @@ const Container = styled.div`
   height: 100vh;
   padding-bottom: 35px;
   text-align: center;
-  text-transform: uppercase;
   color: #262626;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(254, 254, 254, 1) 35%,
-    rgba(249, 249, 249, 1) 100%
-  );
+  background-color: rgb(245, 245, 245);
+`;
+
+const Inner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 960px;
 `;
 
 const StatusCode = styled.span`
-  display: inline-block;
   max-width: 100%;
-  margin-bottom: 15px;
-  font-size: 250px;
+  font-size: 180px;
   font-weight: 900;
   line-height: 1;
+  text-transform: uppercase;
   text-shadow: 0 0 1px #000;
+
+  ${media.tabletLarge(css`
+    font-size: 160px;
+  `)}
+
+  ${media.tabletSmall(css`
+    font-size: 130px;
+  `)}
+  
+  ${media.mobile(css`
+    font-size: 100px;
+  `)}
 `;
 
-const Message = styled.span`
-  display: inline-block;
+const Name = styled.span`
   max-width: 100%;
-  font-size: 25px;
+  margin-top: 15px;
+  font-size: 50px;
   text-transform: uppercase;
   color: #000;
+
+  ${media.tabletLarge(css`
+    font-size: 40px;
+  `)}
+
+  ${media.tabletSmall(css`
+    font-size: 30px;
+  `)}
+  
+  ${media.mobile(css`
+    font-size: 20px;
+  `)}
 `;
 
-export default ErrorContent;
+const EventId = styled.span`
+  max-width: 100%;
+  margin-top: 50px;
+  font-size: 15px;
+  color: #aaaaaa;
+
+  ${media.tabletSmall(css`
+    margin-top: 35px;
+  `)}
+
+  ${media.mobile(css`
+    margin-top: 20px;
+    font-size: 12px;
+  `)}
+`;
+
+export default ErrorProd;
