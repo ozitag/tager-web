@@ -4,7 +4,7 @@ import { NextScript } from 'next/document';
 import { notEmpty, notFalsy } from '@utils/common';
 
 /** Reference: https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218 */
-class NextScriptCustom extends NextScript {
+class TagerNextScript extends NextScript {
   render() {
     /** Fragment */
     const nextScriptElement = super.render();
@@ -37,6 +37,7 @@ class NextScriptCustom extends NextScript {
     function isNextChunk(props: ScriptProps): boolean {
       return Boolean(props.src?.includes('chunk'));
     }
+
     const initialLoadScripts = scripts
       .filter(notEmpty)
       .filter(({ props }) => !isNextChunk(props));
@@ -85,4 +86,4 @@ class NextScriptCustom extends NextScript {
   }
 }
 
-export default NextScriptCustom;
+export default TagerNextScript;
