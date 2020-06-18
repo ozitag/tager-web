@@ -13,9 +13,15 @@ function withFacebookPixel(NextComponent: NextComponentType<any, any, any>) {
       facebookPixel.init();
       facebookPixel.trackPageView();
 
-      Router.events.on('routeChangeComplete', () => {
+      function handleRouteChangeComplete() {
         facebookPixel.trackPageView();
-      });
+      }
+
+      Router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+      return () => {
+        Router.events.off('routeChangeComplete', handleRouteChangeComplete);
+      };
     }, []);
 
     return <NextComponent {...props} />;

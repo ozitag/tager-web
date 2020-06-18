@@ -12,17 +12,23 @@ function withGoogleAnalytics(NextComponent: NextComponentType<any, any, any>) {
       googleTracker.init();
       googleTracker.trackPageView();
 
-      Router.events.on('routeChangeComplete', () => {
+      function handleRouteChangeComplete() {
         googleTracker.trackPageView();
-      });
+      }
+
+      Router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+      return () => {
+        Router.events.off('routeChangeComplete', handleRouteChangeComplete);
+      };
     }, []);
 
     return <NextComponent {...props} />;
   }
 
-  if (NextComponent.getInitialProps) {
-    GoogleAnalyticsHOC.getInitialProps = NextComponent.getInitialProps;
-  }
+  // if (NextComponent.getInitialProps) {
+  //   GoogleAnalyticsHOC.getInitialProps = NextComponent.getInitialProps;
+  // }
 
   GoogleAnalyticsHOC.displayName = 'withGoogleAnalytics';
 

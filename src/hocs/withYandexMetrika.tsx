@@ -13,17 +13,22 @@ function withYandexMetrika(NextComponent: NextComponentType<any, any, any>) {
       yandexTracker.init();
       yandexTracker.trackPageView();
 
-      Router.events.on('routeChangeComplete', () => {
+      function handleRouteChangeComplete() {
         yandexTracker.trackPageView();
-      });
+      }
+      Router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+      return () => {
+        Router.events.off('routeChangeComplete', handleRouteChangeComplete);
+      };
     }, []);
 
     return <NextComponent {...props} />;
   }
 
-  if (NextComponent.getInitialProps) {
-    YandexMetrikaHOC.getInitialProps = NextComponent.getInitialProps;
-  }
+  // if (NextComponent.getInitialProps) {
+  //   YandexMetrikaHOC.getInitialProps = NextComponent.getInitialProps;
+  // }
 
   YandexMetrikaHOC.displayName = 'withYandexMetrika';
 
