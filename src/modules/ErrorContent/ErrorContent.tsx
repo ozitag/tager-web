@@ -26,6 +26,12 @@ const Container = styled.div`
   text-align: center;
   text-transform: uppercase;
   color: #262626;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(254, 254, 254, 1) 35%,
+    rgba(249, 249, 249, 1) 100%
+  );
 `;
 
 const StatusCode = styled.span`
@@ -35,6 +41,7 @@ const StatusCode = styled.span`
   font-size: 250px;
   font-weight: 900;
   line-height: 1;
+  text-shadow: 0 0 3px #000;
 `;
 
 const Message = styled.span`
