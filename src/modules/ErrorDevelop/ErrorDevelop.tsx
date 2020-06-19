@@ -6,9 +6,10 @@ import { loadingPlaceholder, media } from '@utils/mixin';
 
 import {
   getSentryIssueById,
-  SentryIssueResponse,
   getSentryFailureMessage,
-} from '@services/sentry';
+} from './ErrorDevelop.helpers';
+
+import { SentryIssueResponse } from './ErrorDevelop.types';
 
 type Props = {
   errorId?: string;

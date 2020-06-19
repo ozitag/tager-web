@@ -1,20 +1,7 @@
 import { get } from '@services/api';
 
-export type SentryIssueResponse = {
-  title: string;
-  file: string;
-  sentryUrl: string;
-  stacktrace: Array<{
-    file: string;
-    line: number;
-    code: Array<string>;
-  }>;
-};
-
-const SENTRY_REQUEST_ERROR: { [key: number]: string } = {
-  404: 'Tager Backend Sentry module is not installed',
-  500: 'Error details are not available',
-};
+import { SENTRY_REQUEST_ERROR } from './ErrorDevelop.constants';
+import { SentryIssueResponse } from './ErrorDevelop.types';
 
 export function getSentryFailureMessage(code: number, genericMessage: string) {
   return `ServerError: ${SENTRY_REQUEST_ERROR[code] ?? genericMessage}`;
