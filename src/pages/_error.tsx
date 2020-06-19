@@ -9,17 +9,17 @@ import ErrorDevelop from '@modules/ErrorDevelop';
 import ErrorProd from '@modules/ErrorProd';
 
 type InitialErrorProps = ErrorProps & {
-  hasGetInitialPropsRun?: boolean;
+  isInitProps?: boolean;
   errorId?: string;
   err?: any;
 };
 
 type Props = InitialErrorProps;
 
-function ErrorPage({ statusCode, hasGetInitialPropsRun, errorId, err }: Props) {
+function ErrorPage({ statusCode, title, isInitProps, errorId, err }: Props) {
   const isDevelopment = process.env.REACT_APP_ENV !== 'production';
 
-  if (!hasGetInitialPropsRun && !errorId && err) {
+  if (!isInitProps && !errorId && err) {
     // getInitialProps is not called in case of
     // https://github.com/zeit/next.js/issues/8592. As a workaround, we pass
     // err via _app.js so it can be captured
@@ -29,7 +29,7 @@ function ErrorPage({ statusCode, hasGetInitialPropsRun, errorId, err }: Props) {
   const errorCode = statusCode ?? 500;
   const errorName = err?.name
     ? err.name.replace(/\.$/, '')
-    : 'Internal server error';
+    : title ?? 'Internal server error';
 
   return (
     <Page title="An error occurred">
@@ -61,7 +61,7 @@ ErrorPage.getInitialProps = async (
 
   // Workaround for https://github.com/zeit/next.js/issues/8592, mark when
   // getInitialProps has run
-  errorInitialProps.hasGetInitialPropsRun = true;
+  errorInitialProps.isInitProps = true;
 
   if (res) {
     // Running on the server, the response object is available.

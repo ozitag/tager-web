@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Nullable } from '@typings/common';
-
 import { generateNumberArray } from '@utils/common';
 import { loadingPlaceholder, media } from '@utils/mixin';
 
-import { getSentryIssue, SentryIssueResponse } from '@services/sentry';
+import {
+  getSentryIssueById,
+  SentryIssueResponse,
+  getSentryFailureMessage,
+} from '@services/sentry';
 
 type Props = {
   errorId?: string;
@@ -15,9 +17,17 @@ type Props = {
 };
 
 function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
-  const [isLoading, setLoading] = useState(!!errorId);
+  const [fetchingState, setFetchingState] = useState<{
+    isLoading: boolean;
+    error: string | null;
+  }>({
+    isLoading: !!errorId,
+    error: null,
+  });
 
-  const errorDetailsRef = useRef<Nullable<SentryIssueResponse>>(null);
+  const { isLoading, error } = fetchingState;
+
+  const errorDetailsRef = useRef<SentryIssueResponse | null>(null);
   const errorDetailsCurrent = errorDetailsRef.current;
 
   const callStackLength = errorDetailsCurrent?.stacktrace.length;
@@ -31,13 +41,25 @@ function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
   useEffect(() => {
     if (!errorId || errorDetailsRef.current) return;
 
-    getSentryIssue(errorId)
+    getSentryIssueById(errorId)
       .then((response) => {
         errorDetailsRef.current = response;
-        setLoading(false);
+
+        setFetchingState({
+          ...fetchingState,
+          isLoading: false,
+        });
       })
-      .catch(() => setLoading(false));
-  }, [errorId]);
+      .catch((error) => {
+        const { code, text } = error.status;
+        const message = getSentryFailureMessage(code, text);
+
+        setFetchingState({
+          error: message,
+          isLoading: false,
+        });
+      });
+  }, [errorId, fetchingState]);
 
   let title, sentryUrl, file, stacktrace;
 
@@ -59,11 +81,13 @@ function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
                   ? `${errorCode} - ${errorName}`
                   : `Loading error details...`}
               </ErrorName>
+              {isLoading || title || error ? (
+                <ErrorMessage isLoading={isLoading}>
+                  {title ?? error}
+                </ErrorMessage>
+              ) : null}
               {!isLoading && !errorDetailsCurrent && errorId ? (
                 <ErrorID>Error ID: {errorId}</ErrorID>
-              ) : null}
-              {isLoading || title ? (
-                <ErrorMessage isLoading={isLoading}>{title}</ErrorMessage>
               ) : null}
               {sentryUrl ? (
                 <GetDetailsLink href={sentryUrl} target="_blank">
@@ -89,9 +113,7 @@ function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
                       .map((item, index) => (
                         <CallStackItem key={index} isLoading={isLoading}>
                           <CallStackFile>{item.file}</CallStackFile>
-                          {item.code ? (
-                            <CallStackCode>{item.code[1]}</CallStackCode>
-                          ) : null}
+                          <CallStackCode>{item.code[1]}</CallStackCode>
                         </CallStackItem>
                       ))}
                     {isCallStackCollapse && stacktrace.length > 3 ? (

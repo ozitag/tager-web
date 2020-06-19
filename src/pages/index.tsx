@@ -8,6 +8,7 @@ function HomePage() {
   return (
     <Page title="Next.js starter | OZiTAG Web Experts">
       <Layout>
+        {({} as any).toLowerCase()}
         <Home />
       </Layout>
     </Page>
