@@ -4,17 +4,17 @@ import styled, { css } from 'styled-components';
 import { media } from '@utils/mixin';
 
 type Props = {
-  statusCode: number;
-  errorName?: string;
+  errorCode: number;
+  errorName: string;
   errorId?: string;
 };
 
-function ErrorProd({ statusCode, errorId, errorName }: Props) {
+function ErrorProd({ errorCode, errorName, errorId }: Props) {
   return (
     <Container>
       <Inner>
-        <StatusCode>{statusCode}</StatusCode>
-        <Name>{errorName?.replace(/\.$/, '') ?? '\u00A0'}</Name>
+        <Code>{errorCode}</Code>
+        <Name>{errorName}</Name>
         {errorId ? <EventId>Error ID: {errorId}</EventId> : null}
       </Inner>
     </Container>
@@ -22,6 +22,9 @@ function ErrorProd({ statusCode, errorId, errorName }: Props) {
 }
 
 const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +45,7 @@ const Inner = styled.div`
   max-width: 960px;
 `;
 
-const StatusCode = styled.span`
+const Code = styled.span`
   max-width: 100%;
   font-size: 180px;
   font-weight: 900;
@@ -91,6 +94,7 @@ const EventId = styled.span`
 
   ${media.tabletSmall(css`
     margin-top: 35px;
+    font-size: 13px;
   `)}
 
   ${media.mobile(css`

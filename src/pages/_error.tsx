@@ -5,7 +5,8 @@ import NextError, { ErrorProps } from 'next/error';
 import { CustomAppPageContext } from '@typings/hocs';
 
 import Page from '@components/Page';
-import ErrorContent from '@modules/ErrorContent';
+import ErrorDevelop from '@modules/ErrorDevelop';
+import ErrorProd from '@modules/ErrorProd';
 
 type InitialErrorProps = ErrorProps & {
   hasGetInitialPropsRun?: boolean;
@@ -15,27 +16,36 @@ type InitialErrorProps = ErrorProps & {
 
 type Props = InitialErrorProps;
 
-function ErrorPage({
-  statusCode,
-  title,
-  hasGetInitialPropsRun,
-  errorId,
-  err,
-}: Props) {
-  if (!hasGetInitialPropsRun && err) {
+function ErrorPage({ statusCode, hasGetInitialPropsRun, errorId, err }: Props) {
+  const isDevelopment = process.env.REACT_APP_ENV !== 'production';
+
+  if (!hasGetInitialPropsRun && !errorId && err) {
     // getInitialProps is not called in case of
     // https://github.com/zeit/next.js/issues/8592. As a workaround, we pass
     // err via _app.js so it can be captured
     errorId = Sentry.captureException(err);
   }
 
+  const errorCode = statusCode ?? 500;
+  const errorName = err?.name
+    ? err.name.replace(/\.$/, '')
+    : 'Internal server error';
+
   return (
     <Page title="An error occurred">
-      <ErrorContent
-        statusCode={statusCode}
-        errorName={err?.name ?? title}
-        errorId={errorId}
-      />
+      {isDevelopment ? (
+        <ErrorDevelop
+          errorCode={errorCode}
+          errorName={errorName}
+          errorId={errorId}
+        />
+      ) : (
+        <ErrorProd
+          errorCode={errorCode}
+          errorName="Internal server error"
+          errorId={errorId}
+        />
+      )}
     </Page>
   );
 }
@@ -89,7 +99,7 @@ ErrorPage.getInitialProps = async (
   // If this point is reached, getInitialProps was called without any
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
-  Sentry.captureException(
+  errorInitialProps.errorId = Sentry.captureException(
     new Error(`_error.js getInitialProps missing data at path: ${asPath}`)
   );
 
