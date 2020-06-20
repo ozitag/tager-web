@@ -4,12 +4,10 @@ import styled, { css } from 'styled-components';
 import { generateNumberArray } from '@utils/common';
 import { loadingPlaceholder, media } from '@utils/mixin';
 
-import {
-  getSentryIssueById,
-  getSentryFailureMessage,
-} from './ErrorDevelop.helpers';
-
 import { SentryIssueResponse } from './ErrorDevelop.types';
+import { getErrorDetails, getFailureMessage } from './ErrorDevelop.helpers';
+
+import { ReactComponent as OzitagLogo } from '@assets/svg/ozitag-logo.svg';
 
 type Props = {
   errorId?: string;
@@ -40,9 +38,10 @@ function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
   }
 
   useEffect(() => {
-    if (!errorId || errorDetailsRef.current) return;
+    if (!errorId) return;
+    if (error || errorDetailsCurrent) return;
 
-    getSentryIssueById(errorId)
+    getErrorDetails(errorId)
       .then((response) => {
         errorDetailsRef.current = response;
 
@@ -52,22 +51,22 @@ function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
         });
       })
       .catch((error) => {
-        const { code, text } = error.status;
-        const message = getSentryFailureMessage(code, text);
+        const code = error.status?.code;
+        const message = error.body?.message;
 
         setFetchingState({
-          error: message,
+          error: getFailureMessage(code, message),
           isLoading: false,
         });
       });
-  }, [errorId, fetchingState]);
+  }, [error, errorDetailsCurrent, errorId, fetchingState]);
 
   let title, sentryUrl, file, stacktrace;
 
   if (errorDetailsCurrent) {
-    file = errorDetailsCurrent.file;
     title = errorDetailsCurrent.title;
     sentryUrl = errorDetailsCurrent.sentryUrl;
+    file = errorDetailsCurrent.file;
     stacktrace = errorDetailsCurrent.stacktrace;
   }
 
@@ -75,64 +74,76 @@ function ErrorDevelop({ errorId, errorCode, errorName }: Props) {
     <Container>
       <Inner>
         <Card>
-          <CardInner>
-            <Block>
-              <ErrorName>
-                {!isLoading
-                  ? `${errorCode} - ${errorName}`
-                  : `Loading error details...`}
-              </ErrorName>
-              {isLoading || title || error ? (
-                <ErrorMessage isLoading={isLoading}>
-                  {title ?? error}
-                </ErrorMessage>
-              ) : null}
-              {!isLoading && !errorDetailsCurrent && errorId ? (
-                <ErrorID>Error ID: {errorId}</ErrorID>
-              ) : null}
-              {sentryUrl ? (
-                <GetDetailsLink href={sentryUrl} target="_blank">
-                  Get more information
-                </GetDetailsLink>
-              ) : null}
-            </Block>
-            {isLoading || file ? (
+          <CardScroll>
+            <CardInner>
               <Block>
-                <Title isLoading={isLoading}>Source</Title>
-                <SourceCode isLoading={isLoading}>
-                  <File>{file}</File>
-                </SourceCode>
+                <ErrorName>
+                  {!isLoading
+                    ? `${errorCode} - ${errorName}`
+                    : `Loading error details...`}
+                </ErrorName>
+                {isLoading || title || error ? (
+                  <ErrorMessage isLoading={isLoading}>
+                    {title ?? error}
+                  </ErrorMessage>
+                ) : null}
+                {!isLoading && !errorDetailsCurrent && errorId ? (
+                  <ErrorID>Error ID: {errorId}</ErrorID>
+                ) : null}
+                {sentryUrl ? (
+                  <GetDetailsLink href={sentryUrl} target="_blank">
+                    View on Sentry
+                  </GetDetailsLink>
+                ) : null}
               </Block>
-            ) : null}
-            {isLoading || stacktrace ? (
-              <Block>
-                <Title isLoading={isLoading}>Call Stack</Title>
-                {stacktrace ? (
-                  <CallStack>
-                    {stacktrace
-                      .slice(0, callStackAvailableLength)
-                      .map((item, index) => (
-                        <CallStackItem key={index} isLoading={isLoading}>
-                          <CallStackFile>{item.file}</CallStackFile>
-                          <CallStackCode>{item.code[1]}</CallStackCode>
-                        </CallStackItem>
+              {isLoading || file ? (
+                <Block>
+                  <Title isLoading={isLoading}>Source</Title>
+                  <SourceCode isLoading={isLoading}>
+                    <File>{file}</File>
+                  </SourceCode>
+                </Block>
+              ) : null}
+              {isLoading || stacktrace ? (
+                <Block>
+                  <Title isLoading={isLoading}>Call Stack</Title>
+                  {stacktrace ? (
+                    <CallStack>
+                      {stacktrace
+                        .slice(0, callStackAvailableLength)
+                        .map((item, index) => (
+                          <CallStackItem key={index} isLoading={isLoading}>
+                            <CallStackFile>
+                              {item.file} - Line {item.code.line}
+                            </CallStackFile>
+                            <CallStackCode>{item.code.code}</CallStackCode>
+                          </CallStackItem>
+                        ))}
+                      {isCallStackCollapse && stacktrace.length > 3 ? (
+                        <CallStackButton onClick={expandCallStack}>
+                          Show collapsed frames
+                        </CallStackButton>
+                      ) : null}
+                    </CallStack>
+                  ) : (
+                    <CallStack>
+                      {generateNumberArray(3).map((item, index) => (
+                        <CallStackItem key={index} isLoading={isLoading} />
                       ))}
-                    {isCallStackCollapse && stacktrace.length > 3 ? (
-                      <CallStackButton onClick={expandCallStack}>
-                        Show collapsed frames
-                      </CallStackButton>
-                    ) : null}
-                  </CallStack>
-                ) : (
-                  <CallStack>
-                    {generateNumberArray(3).map((item, index) => (
-                      <CallStackItem key={index} isLoading={isLoading} />
-                    ))}
-                  </CallStack>
-                )}
-              </Block>
-            ) : null}
-          </CardInner>
+                    </CallStack>
+                  )}
+                </Block>
+              ) : null}
+            </CardInner>
+          </CardScroll>
+          <CardFooter>
+            <FooterTager href="https://ozitag.com/tager" target="_blank">
+              Made by <span>TAGER</span>
+            </FooterTager>
+            <FooterOzitag href="https://ozitag.com/" target="_blank">
+              <OzitagLogo />
+            </FooterOzitag>
+          </CardFooter>
         </Card>
       </Inner>
     </Container>
@@ -159,6 +170,8 @@ const Inner = styled.div`
 `;
 
 const Card = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: calc(100% - 20px);
   max-height: calc(100vh - 20px);
@@ -168,8 +181,11 @@ const Card = styled.div`
   font-size: 16px;
   line-height: 24px;
   background-color: #fff;
-  overflow-y: auto;
   box-shadow: 0 5px 25px 1px rgba(0, 0, 0, 0.25);
+`;
+
+const CardScroll = styled.div`
+  overflow-y: auto;
 `;
 
 const CardInner = styled.div`
@@ -205,6 +221,7 @@ const ErrorMessage = styled.span<{ isLoading: boolean }>`
   position: relative;
   display: block;
   margin-top: 10px;
+  word-break: break-word;
   color: #ff5555;
 
   ${({ isLoading }) =>
@@ -273,6 +290,7 @@ const CallStack = styled.ul`
 
 const CallStackItem = styled.li<{ isLoading: boolean }>`
   font-size: 14px;
+  line-height: 22px;
 
   &:not(:last-child) {
     margin-bottom: 10px;
@@ -303,6 +321,40 @@ const CallStackButton = styled.code`
 
   &:not(:hover) {
     text-decoration: underline;
+  }
+`;
+
+const CardFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 20px 30px;
+  border-top: 1px solid rgb(230, 230, 230);
+
+  ${media.mobile(css`
+    padding: 15px;
+  `)}
+`;
+
+const FooterTager = styled.a`
+  font-size: 14px;
+  line-height: 22px;
+
+  span {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+  }
+`;
+
+const FooterOzitag = styled.a`
+  display: inline-block;
+  height: 36px;
+
+  svg {
+    height: 36px;
   }
 `;
 

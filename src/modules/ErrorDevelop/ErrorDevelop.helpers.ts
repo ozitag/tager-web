@@ -1,16 +1,16 @@
 import { get } from '@services/api';
 
-import { SENTRY_REQUEST_ERROR } from './ErrorDevelop.constants';
 import { SentryIssueResponse } from './ErrorDevelop.types';
 
-export function getSentryFailureMessage(code: number, genericMessage: string) {
-  return `ServerError: ${SENTRY_REQUEST_ERROR[code] ?? genericMessage}`;
-}
-
-export async function getSentryIssueById(id: string) {
+export async function getErrorDetails(id: string) {
   return (await getIssueById(id))?.data;
 }
 
 function getIssueById(id: string): Promise<{ data: SentryIssueResponse }> {
   return get({ path: `/tager/sentry-issue/${id}` });
+}
+
+export function getFailureMessage(code: number, message: string) {
+  if (code === 404) return 'TAGER Backend Sentry module is not installed';
+  else return `Tager Sentry Response: ${message}`;
 }

@@ -5,6 +5,9 @@ export type SentryIssueResponse = {
   stacktrace: Array<{
     file: string;
     line: number;
-    code: Array<string>;
+    code: {
+      line: string;
+      code: string;
+    };
   }>;
 };
