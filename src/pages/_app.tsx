@@ -83,6 +83,7 @@ class CustomApp extends App<CustomAppProps> {
     // @ts-ignore
     const { err } = this.props;
     const modifiedPageProps = { ...pageProps, err };
+
     return (
       <Provider store={store}>
         <ModalProvider>

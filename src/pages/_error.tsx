@@ -5,26 +5,47 @@ import NextError, { ErrorProps } from 'next/error';
 import { CustomAppPageContext } from '@typings/hocs';
 
 import Page from '@components/Page';
-import ErrorContent from '@modules/ErrorContent';
+import ErrorDevelop from '@modules/ErrorDevelop';
+import ErrorProd from '@modules/ErrorProd';
 
 type InitialErrorProps = ErrorProps & {
-  hasGetInitialPropsRun?: boolean;
+  isInitProps?: boolean;
+  errorId?: string;
   err?: any;
 };
 
 type Props = InitialErrorProps;
 
-function ErrorPage({ statusCode, hasGetInitialPropsRun, err }: Props) {
-  if (!hasGetInitialPropsRun && err) {
+function ErrorPage({ statusCode, title, isInitProps, errorId, err }: Props) {
+  const isDevelopment = process.env.REACT_APP_ENV !== 'production';
+
+  if (!isInitProps && !errorId && err) {
     // getInitialProps is not called in case of
     // https://github.com/zeit/next.js/issues/8592. As a workaround, we pass
     // err via _app.js so it can be captured
-    Sentry.captureException(err);
+    errorId = Sentry.captureException(err);
   }
+
+  const errorCode = statusCode ?? 500;
+  const errorName = err?.name
+    ? err.name.replace(/\.$/, '')
+    : title ?? 'Internal server error';
 
   return (
     <Page title="An error occurred">
-      <ErrorContent statusCode={statusCode} message={err?.name} />
+      {isDevelopment ? (
+        <ErrorDevelop
+          errorCode={errorCode}
+          errorName={errorName}
+          errorId={errorId}
+        />
+      ) : (
+        <ErrorProd
+          errorCode={errorCode}
+          errorName="Internal server error"
+          errorId={errorId}
+        />
+      )}
     </Page>
   );
 }
@@ -40,7 +61,7 @@ ErrorPage.getInitialProps = async (
 
   // Workaround for https://github.com/zeit/next.js/issues/8592, mark when
   // getInitialProps has run
-  errorInitialProps.hasGetInitialPropsRun = true;
+  errorInitialProps.isInitProps = true;
 
   if (res) {
     // Running on the server, the response object is available.
@@ -54,7 +75,7 @@ ErrorPage.getInitialProps = async (
     }
 
     if (err) {
-      Sentry.captureException(err);
+      errorInitialProps.errorId = Sentry.captureException(err);
 
       return errorInitialProps;
     }
@@ -69,7 +90,7 @@ ErrorPage.getInitialProps = async (
     //    Boundary. Read more about what types of exceptions are caught by Error
     //    Boundaries: https://reactjs.org/docs/error-boundaries.html
     if (err) {
-      Sentry.captureException(err);
+      errorInitialProps.errorId = Sentry.captureException(err);
 
       return errorInitialProps;
     }
@@ -78,7 +99,7 @@ ErrorPage.getInitialProps = async (
   // If this point is reached, getInitialProps was called without any
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
-  Sentry.captureException(
+  errorInitialProps.errorId = Sentry.captureException(
     new Error(`_error.js getInitialProps missing data at path: ${asPath}`)
   );
 

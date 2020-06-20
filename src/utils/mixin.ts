@@ -154,3 +154,27 @@ export const placeholderAnimationCss = css`
   );
   background-size: 1200px 100%;
 `;
+
+export const loadingPlaceholder = css`
+  position: relative;
+  background: #f6f7f8;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 300%;
+    animation-name: placeholderAnimation;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+`;
