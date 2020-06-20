@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Page from '@components/Page';
-import ErrorContent from '@modules/ErrorContent';
+import Error from '@modules/Error';
 
 function NotFoundPage() {
   return (
     <Page title="Page not found">
-      <ErrorContent statusCode={404} message="Page not found" />
+      <Error errorCode={404} errorName="Page not found" />
     </Page>
   );
 }
