@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { convertSrcSet, getImageTypeFromUrl } from '@/utils/common';
 import { breakpoints } from '@/constants/theme';
+import Image from '@/components/Image';
+import { convertSrcSet, getImageTypeFromUrl } from '@/utils/common';
 
 type MediaQueryType =
   | 'mobileSmall'
@@ -25,12 +26,14 @@ type ImageSource = Omit<
   'srcSet'
 > & {
   srcSet: Array<string>;
+  isLazy: boolean;
 };
 
-function Source({ srcSet, type, ...rest }: ImageSource) {
+function Source({ srcSet, isLazy, type, ...rest }: ImageSource) {
   return (
     <source
-      srcSet={convertSrcSet(srcSet)}
+      srcSet={!isLazy ? convertSrcSet(srcSet) : undefined}
+      data-srcset={isLazy ? convertSrcSet(srcSet) : undefined}
       type={type ?? getImageTypeFromUrl(srcSet[0]) ?? undefined}
       {...rest}
     />
@@ -49,9 +52,10 @@ type ImageType = {
 type GroupProps = {
   media?: string;
   images?: ImageType;
+  isLazy: boolean;
 };
 
-function SourceGroup({ media, images }: GroupProps) {
+function SourceGroup({ media, images, isLazy }: GroupProps) {
   if (!images) return null;
 
   const { src, src2x, webp, webp2x } = images;
@@ -63,68 +67,69 @@ function SourceGroup({ media, images }: GroupProps) {
   return (
     <>
       {webp && webp2x ? (
-        <Source srcSet={[webp, webp2x]} media={media} type="image/webp" />
+        <Source
+          isLazy={isLazy}
+          srcSet={[webp, webp2x]}
+          type="image/webp"
+          media={media}
+        />
       ) : webp ? (
-        <Source srcSet={[webp]} media={media} type="image/webp" />
+        <Source
+          isLazy={isLazy}
+          type="image/webp"
+          srcSet={[webp]}
+          media={media}
+        />
       ) : null}
 
       {src && src2x ? (
-        <Source srcSet={[src, src2x]} media={media} />
+        <Source isLazy={isLazy} srcSet={[src, src2x]} media={media} />
       ) : src ? (
-        <Source srcSet={[src]} media={media} />
+        <Source isLazy={isLazy} srcSet={[src]} media={media} />
       ) : null}
     </>
   );
 }
 
-export type Props = {
-  mobileSmall?: ImageType;
-  mobileLarge?: ImageType;
-  tabletSmall?: ImageType;
-  tabletLarge?: ImageType;
-  laptop?: ImageType;
-  desktop?: ImageType;
+type MediaImages = {
+  [key in MediaQueryType]?: ImageType;
+};
+
+export type Props = MediaImages & {
   srcSet?: ImageType;
   src?: string;
   src2x?: string;
   srcWebp?: string;
   srcWebp2x?: string;
   alt?: string;
+  className?: string;
+  loading?: 'eager' | 'lazy';
 };
 
 function Picture({
-  mobileSmall,
-  mobileLarge,
-  tabletSmall,
-  tabletLarge,
-  laptop,
-  desktop,
   src,
   src2x,
   srcWebp,
   srcWebp2x,
   alt,
+  className,
+  loading,
+  ...images
 }: Props) {
+  const isLazy = loading === 'lazy';
+
   return (
-    <picture>
-      {desktop ? (
-        <SourceGroup media={MEDIA_QUERY_MAP.desktop} images={desktop} />
-      ) : null}
-      {laptop ? (
-        <SourceGroup media={MEDIA_QUERY_MAP.laptop} images={laptop} />
-      ) : null}
-      {tabletLarge ? (
-        <SourceGroup media={MEDIA_QUERY_MAP.tabletLarge} images={tabletLarge} />
-      ) : null}
-      {tabletSmall ? (
-        <SourceGroup media={MEDIA_QUERY_MAP.tabletSmall} images={tabletSmall} />
-      ) : null}
-      {mobileLarge ? (
-        <SourceGroup media={MEDIA_QUERY_MAP.mobileLarge} images={mobileLarge} />
-      ) : null}
-      {mobileSmall ? (
-        <SourceGroup media={MEDIA_QUERY_MAP.mobileSmall} images={mobileSmall} />
-      ) : null}
+    <picture className={className}>
+      {Object.keys(MEDIA_QUERY_MAP).map((key) => {
+        const mediaKey = key as MediaQueryType;
+        return (
+          <SourceGroup
+            media={MEDIA_QUERY_MAP[mediaKey]}
+            images={images[mediaKey]}
+            isLazy={isLazy}
+          />
+        );
+      })}
       {src2x || srcWebp || srcWebp2x ? (
         <SourceGroup
           images={{
@@ -133,9 +138,15 @@ function Picture({
             webp: srcWebp,
             webp2x: srcWebp2x,
           }}
+          isLazy={isLazy}
         />
       ) : null}
-      <img src={src} alt={alt} />
+      <Image
+        src={src}
+        srcSet={src2x ? `${src2x} 2x` : undefined}
+        loading={loading}
+        alt={alt}
+      />
     </picture>
   );
 }

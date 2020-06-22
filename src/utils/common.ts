@@ -156,8 +156,18 @@ export function convertSrcSet(sources: Array<string>): string {
     .join(', ');
 }
 
+/** Source: https://github.com/killmenot/valid-data-url/blob/master/index.js#L24 */
+const DATA_URL_REGEX = /^data:([a-z]+\/[a-z0-9-+.]+(;[a-z0-9-.!#$%*+.{}|~`]+=[a-z0-9-.!#$%*+.{}|~`]+)*)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)$/i;
+
 export function getImageTypeFromUrl(url: string | null): string | null {
   if (!url) return null;
+
+  const isValidDataUrl = DATA_URL_REGEX.test(url);
+
+  if (isValidDataUrl) {
+    const parts = url.trim().match(DATA_URL_REGEX);
+    return parts ? parts[1] : null;
+  }
 
   const dotPositionIndex = url.lastIndexOf('.');
 

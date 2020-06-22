@@ -1,5 +1,3 @@
-import 'isomorphic-unfetch';
-
 import { ConstantMap, Nullable } from '@/typings/common';
 import { isBrowser, isomorphicLog } from '@/utils/common';
 import { getCookie } from '@/utils/cookie';
