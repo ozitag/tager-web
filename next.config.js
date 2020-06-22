@@ -100,7 +100,11 @@ module.exports = withPlugins(
           process.env.NEXT_PUBLIC_ENV !== 'local'
       );
 
-      colorLog(`Sentry CLI Plugin enabled: ${isSentryPluginEnabled}`);
+      colorLog(
+        `Sentry CLI Plugin (${
+          isServer ? 'server' : 'browser'
+        }) enabled: ${isSentryPluginEnabled}`
+      );
 
       /**
        * When all the Sentry configuration env variables are available/configured

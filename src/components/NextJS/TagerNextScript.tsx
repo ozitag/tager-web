@@ -72,8 +72,8 @@ class TagerNextScript extends NextScript {
 
     return (
       <>
-        {initialLoadScripts.map(({ props }) => (
-          <script key={props.id} {...props} src={props.src} />
+        {initialLoadScripts.map(({ props }, index) => (
+          <script key={index} {...props} src={props.src} />
         ))}
 
         <script
