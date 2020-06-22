@@ -1,10 +1,10 @@
-const { getAliasesFromTsConfig } = require('../config/paths');
+const { getAliasesFromTsConfig } = require('./paths');
 
 const customAliases = getAliasesFromTsConfig();
 
 module.exports = {
   stories: ['../src/**/*.stories.tsx'],
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     /** Support TS path aliases */
     config.resolve.alias = {
       ...config.resolve.alias,

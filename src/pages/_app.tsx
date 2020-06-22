@@ -20,7 +20,10 @@ import withFacebookPixel from '@/hocs/withFacebookPixel';
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+  environment: [
+    process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
+    process.env.NEXT_PUBLIC_ENV,
+  ].join('_'),
 });
 
 /**
