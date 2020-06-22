@@ -48,8 +48,8 @@ class CustomDocument extends Document {
     return (
       <Html lang="en">
         <TagerNextHead>
-          <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
-          <link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />
+          {/*<link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />*/}
+          {/*<link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />*/}
           {/*<link*/}
           {/*  href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap&subset=cyrillic"*/}
           {/*  rel="stylesheet"*/}
