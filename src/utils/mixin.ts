@@ -1,7 +1,7 @@
 import { css, keyframes } from 'styled-components';
-import { breakpoints, colors } from '@constants/theme';
 
-import { CssSnippet } from '@typings/common';
+import { breakpoints } from '@/constants/theme';
+import { CssSnippet } from '@/typings/common';
 
 function createMediaMixin({
   min,

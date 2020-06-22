@@ -6,21 +6,21 @@ import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/node';
 import TagManager from 'react-gtm-module';
 
-import '@assets/css/index.css';
-import withRedux from '@hocs/withRedux';
+import '@/assets/css/index.css';
+import withRedux from '@/hocs/withRedux';
 import { i18n, appWithTranslation } from '@server/i18n';
-import { updateCookie } from '@utils/cookie';
-import { Nullable } from '@typings/common';
-import { CustomAppProps } from '@typings/hocs';
-import ModalProvider from '@components/Modal';
-import withYandexMetrika from '@hocs/withYandexMetrika';
-import withGoogleAnalytics from '@hocs/withGoogleAnalytics';
-import withFacebookPixel from '@hocs/withFacebookPixel';
+import { updateCookie } from '@/utils/cookie';
+import { Nullable } from '@/typings/common';
+import { CustomAppProps } from '@/typings/hocs';
+import ModalProvider from '@/components/Modal';
+import withYandexMetrika from '@/hocs/withYandexMetrika';
+import withGoogleAnalytics from '@/hocs/withGoogleAnalytics';
+import withFacebookPixel from '@/hocs/withFacebookPixel';
 
 Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
-  dsn: process.env.REACT_APP_SENTRY_DSN,
-  environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
 });
 
 /**
@@ -69,9 +69,9 @@ class CustomApp extends App<CustomAppProps> {
       NProgress.done();
     });
 
-    if (process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID) {
+    if (process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID) {
       TagManager.initialize({
-        gtmId: process.env.REACT_APP_GOOGLE_TAG_MANAGER_ID,
+        gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
       });
     }
   }

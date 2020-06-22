@@ -1,4 +1,4 @@
-import { get } from '@services/api';
+import { get } from '@/services/api';
 
 import { SentryIssueResponse } from './ErrorDevelop.types';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ReactComponent as NextLogo } from '@assets/svg/nextjs-logo.svg';
+import { ReactComponent as NextLogo } from '@/assets/svg/nextjs-logo.svg';
 
 function Home() {
   return (

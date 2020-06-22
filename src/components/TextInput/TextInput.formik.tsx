@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useField, FieldConfig } from 'formik';
 
-import FormControl from '@components/FormControl';
+import FormControl from '@/components/FormControl';
 
 import TextInput from './TextInput';
 

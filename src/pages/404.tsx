@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Page from '@components/Page';
-import Error from '@modules/Error';
+import Page from '@/components/Page';
+import Error from '@/modules/Error';
 
 function NotFoundPage() {
   return (

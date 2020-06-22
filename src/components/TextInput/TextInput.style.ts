@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { colors } from '@constants/theme';
+import { colors } from '@/constants/theme';
 
 export const Container = styled.div`
   position: relative;

@@ -44,7 +44,7 @@ function startServer() {
   app.prepare().then(() => {
     const server = express();
 
-    const isProductionServer = process.env.REACT_APP_ENV === 'production';
+    const isProductionServer = process.env.NEXT_PUBLIC_ENV === 'production';
 
     if (!isProductionServer) {
       server.use(

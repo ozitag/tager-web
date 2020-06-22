@@ -10,7 +10,7 @@ type Props = {
 };
 
 function Error({ errorCode, errorName, errorId }: Props) {
-  const isDevelopment = process.env.REACT_APP_ENV !== 'production';
+  const isDevelopment = process.env.NEXT_PUBLIC_ENV !== 'production';
 
   return isDevelopment ? (
     <ErrorDevelop

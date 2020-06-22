@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock';
 
-import useOnKeyDown from '@hooks/useOnKeyDown';
+import useOnKeyDown from '@/hooks/useOnKeyDown';
 
 import { ModalProps, OpenModalFunction, State } from './Modal.types';
 import * as S from './Modal.style';

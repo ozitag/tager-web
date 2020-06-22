@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Preloader from '@components/Preloader';
+import Preloader from '@/components/Preloader';
 
 import Header from './components/Header';
 import Footer from './components/Footer';

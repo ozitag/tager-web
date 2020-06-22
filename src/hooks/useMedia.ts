@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { canUseDOM } from '@utils/common';
+import { canUseDOM } from '@/utils/common';
 
 function useMedia(query: string, defaultState: boolean = false) {
   const [state, setState] = useState(

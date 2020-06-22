@@ -1,4 +1,4 @@
-import { ConstantMap, FetchStatus } from '@typings/common';
+import { ConstantMap, FetchStatus } from '@/typings/common';
 
 export const FETCH_STATUSES: ConstantMap<FetchStatus> = {
   IDLE: 'IDLE',

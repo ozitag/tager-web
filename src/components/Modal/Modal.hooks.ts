@@ -1,6 +1,6 @@
 import React from 'react';
 
-import createCtx from '@hooks/createCtx';
+import createCtx from '@/hooks/createCtx';
 
 import { ModalProps, OpenModalFunction } from './Modal.types';
 

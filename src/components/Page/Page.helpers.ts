@@ -1,7 +1,7 @@
 import { MetaHTMLAttributes } from 'react';
 
-import { getAbsoluteUrl, notEmpty } from '@utils/common';
-import { parseUrl } from '@utils/searchParams';
+import { getAbsoluteUrl, notEmpty } from '@/utils/common';
+import { parseUrl } from '@/utils/searchParams';
 
 /**
  * References:
@@ -62,8 +62,8 @@ export function getLdJsonData(
       name: organizationName,
     };
 
-    if (process.env.REACT_APP_ORIGIN) {
-      result.publisher.url = process.env.REACT_APP_ORIGIN;
+    if (process.env.NEXT_PUBLIC_ORIGIN) {
+      result.publisher.url = process.env.NEXT_PUBLIC_ORIGIN;
     }
 
     if (logoSrc) {

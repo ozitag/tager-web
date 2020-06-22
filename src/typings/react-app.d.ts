@@ -9,20 +9,24 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production';
-    readonly REACT_APP_ENV: 'production' | 'development' | 'local' | undefined;
-    readonly REACT_APP_ORIGIN: string | undefined;
-    readonly REACT_APP_API_URL: string | undefined;
-    readonly REACT_APP_SENTRY_DSN: string | undefined;
-    readonly REACT_APP_SENTRY_ENVIRONMENT:
+    readonly NEXT_PUBLIC_ENV:
+      | 'production'
+      | 'development'
+      | 'local'
+      | undefined;
+    readonly NEXT_PUBLIC_ORIGIN: string | undefined;
+    readonly NEXT_PUBLIC_API_URL: string | undefined;
+    readonly NEXT_PUBLIC_SENTRY_DSN: string | undefined;
+    readonly NEXT_PUBLIC_SENTRY_ENVIRONMENT:
       | 'production'
       | 'development'
       | 'local'
       | string
       | undefined;
-    readonly REACT_APP_YANDEX_METRIKA_COUNTER_ID: string | undefined;
-    readonly REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID: string | undefined;
-    readonly REACT_APP_GOOGLE_TAG_MANAGER_ID: string | undefined;
-    readonly REACT_APP_FACEBOOK_PIXEL_ID: string | undefined;
+    readonly NEXT_PUBLIC_YANDEX_METRIKA_COUNTER_ID: string | undefined;
+    readonly NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID: string | undefined;
+    readonly NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: string | undefined;
+    readonly NEXT_PUBLIC_FACEBOOK_PIXEL_ID: string | undefined;
   }
 }
 

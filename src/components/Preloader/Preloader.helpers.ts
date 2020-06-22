@@ -1,5 +1,5 @@
 export function isPreloaderEnabled() {
-  const preloaderState = process.env.REACT_APP_SPLASHSCREEN_ENABLED;
+  const preloaderState = process.env.NEXT_PUBLIC_SPLASHSCREEN_ENABLED;
 
   return (
     preloaderState &&

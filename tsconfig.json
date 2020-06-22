@@ -2,20 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@constants/*": ["src/constants/*"],
-      "@hocs/*": ["src/hocs/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@modules/*": ["src/modules/*"],
-      "@pages/*": ["src/pages/*"],
-      "@polyfills/*": ["src/polyfills/*"],
-      "@server/*": ["server/*"],
-      "@services/*": ["src/services/*"],
-      "@store/*": ["src/store/*"],
-      "@typings/*": ["src/typings/*"],
-      "@utils/*": ["src/utils/*"],
-      "@widgets/*": ["src/widgets/*"]
+      "@/*": ["src/*"],
+      "@server/*": ["server/*"]
     },
     "target": "es5",
     "lib": [

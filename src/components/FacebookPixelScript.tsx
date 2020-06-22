@@ -9,7 +9,7 @@ const SCRIPT_CODE = `
 `;
 
 function FacebookPixelScript() {
-  const isEnabled = Boolean(process.env.REACT_APP_FACEBOOK_PIXEL_ID);
+  const isEnabled = Boolean(process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID);
 
   return isEnabled ? (
     <script dangerouslySetInnerHTML={{ __html: SCRIPT_CODE }} />

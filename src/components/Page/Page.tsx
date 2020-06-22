@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { getOrigin } from '@utils/common';
+import { getOrigin } from '@/utils/common';
 
 import { getMetaList, getCanonicalUrl, getLdJsonData } from './Page.helpers';
 

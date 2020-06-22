@@ -1,4 +1,4 @@
-import { canUseDOM } from '@utils/common';
+import { canUseDOM } from '@/utils/common';
 
 /**
  * Reference: Yandex.Metrika Javascript API
@@ -8,7 +8,7 @@ class YandexMetrika {
   counterId: string | undefined;
 
   constructor() {
-    this.counterId = process.env.REACT_APP_YANDEX_METRIKA_COUNTER_ID;
+    this.counterId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_COUNTER_ID;
   }
 
   isTrackerEnabled(): boolean {

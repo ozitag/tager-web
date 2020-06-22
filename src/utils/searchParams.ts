@@ -1,4 +1,4 @@
-import { Nullable } from '@typings/common';
+import { Nullable } from '@/typings/common';
 
 type SearchParamValue = Nullable<string>;
 

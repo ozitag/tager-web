@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { getSearchParamsFromUrl } from '@utils/searchParams';
+import { getSearchParamsFromUrl } from '@/utils/searchParams';
 
 function useSearchParams(): URLSearchParams {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextComponentType } from 'next';
 
-import { AppStore, createStore } from '@store/store';
+import { AppStore, createStore } from '@/store/store';
 import {
   CustomAppContext,
   CustomAppInitialProps,
@@ -9,7 +9,7 @@ import {
   ReduxAppContext,
   ReduxAppInitialProps,
   ReduxAppProps,
-} from '@typings/hocs';
+} from '@/typings/hocs';
 
 declare global {
   interface Window {

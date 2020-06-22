@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { generateNumberArray } from '@utils/common';
-import { loadingPlaceholder, media } from '@utils/mixin';
+import { ReactComponent as OZiTAGLogo } from '@/assets/svg/ozitag-logo.svg';
+
+import { generateNumberArray } from '@/utils/common';
+import { loadingPlaceholder, media } from '@/utils/mixin';
 
 import { SentryIssueResponse } from './ErrorDevelop.types';
 import { getErrorDetails, getFailureMessage } from './ErrorDevelop.helpers';
-
-import { ReactComponent as OZiTAGLogo } from '@assets/svg/ozitag-logo.svg';
 
 type Props = {
   errorId?: string;

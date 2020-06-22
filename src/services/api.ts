@@ -1,9 +1,9 @@
 import 'isomorphic-unfetch';
 
-import { ConstantMap, Nullable } from '@typings/common';
-import { isBrowser, isomorphicLog } from '@utils/common';
-import { getCookie } from '@utils/cookie';
-import { ErrorCode } from '@typings/models';
+import { ConstantMap, Nullable } from '@/typings/common';
+import { isBrowser, isomorphicLog } from '@/utils/common';
+import { getCookie } from '@/utils/cookie';
+import { ErrorCode } from '@/typings/models';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
@@ -124,7 +124,7 @@ class ApiService {
 
   getRequestUrl(path = '', params?: QueryParams) {
     const searchParams = this.getSearchParams(params);
-    return [process.env.REACT_APP_API_URL, path, searchParams]
+    return [process.env.NEXT_PUBLIC_API_URL, path, searchParams]
       .filter(Boolean)
       .join('');
   }

@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import Cookies from 'js-cookie';
 
-import { Nullable } from '@typings/common';
+import { Nullable } from '@/typings/common';
 
 import { isBrowser, isResSent } from './common';
 

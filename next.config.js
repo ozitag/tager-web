@@ -8,44 +8,15 @@ const withSourceMaps = require('@zeit/next-source-maps')();
 // Use the SentryWebpack plugin to upload the source maps during build step
 // const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
-const getClientEnvironment = require('./config/env');
-const { getAliasesFromTsConfig } = require('./config/paths');
-
-const customAliases = getAliasesFromTsConfig();
-
 module.exports = withPlugins(
   [/*withTM(['dom7', 'swiper', 'body-scroll-lock']),*/ withSourceMaps],
   {
-    env: getClientEnvironment(),
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-      /** Support TS path aliases */
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        ...customAliases,
-      };
-
       /** Support import svg as React component */
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack?-svgo,+titleProp,+ref![path]', 'url-loader'],
       });
-
-      /**
-       * Fonts loader
-       * Next.js can find font urls in css file and include them in build automatically.
-       * So we don't need any extra config
-       */
-      // config.module.rules.push({
-      //   test: /\.(woff|woff2|eot|ttf|otf)$/,
-      //   use: {
-      //     loader: 'file-loader',
-      //     options: {
-      //       name: '[name].[ext]',
-      //       publicPath: `/_next/static/fonts/`,
-      //       outputPath: `${isServer ? '../' : ''}static/fonts/`,
-      //     },
-      //   },
-      // });
 
       /** Images loader */
       config.module.rules.push({
@@ -110,7 +81,7 @@ module.exports = withPlugins(
        * and upload the source maps to sentry.
        * This is an alternative to manually uploading the source maps
        */
-      // if (process.env.REACT_APP_SENTRY_DSN) {
+      // if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
       //   config.plugins.push(
       //     new SentryWebpackPlugin({
       //       include: '.next',
@@ -122,5 +93,5 @@ module.exports = withPlugins(
 
       return config;
     },
-  },
+  }
 );

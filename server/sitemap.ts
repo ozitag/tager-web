@@ -7,7 +7,7 @@ function trimEndSlash(url: string): string {
 }
 
 function getOrigin(): string {
-  return trimEndSlash(process.env.REACT_APP_ORIGIN ?? '');
+  return trimEndSlash(process.env.NEXT_PUBLIC_ORIGIN ?? '');
 }
 
 const CONSTANT_PAGES: Array<{
@@ -67,7 +67,7 @@ export const sitemapHandler: RequestHandler = async (req, res) => {
  * https://developers.google.com/search/reference/robots_txt
  */
 export const robotsHandler: RequestHandler = (req, res) => {
-  const isProduction = process.env.REACT_APP_ENV === 'production';
+  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
   const content = isProduction
     ? [

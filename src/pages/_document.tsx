@@ -4,10 +4,10 @@ import Document, { DocumentContext, Html, Main } from 'next/document';
 
 import { ServerStyleSheet } from 'styled-components';
 
-import YandexMetrikaScript from '@components/YandexMetrikaScript';
-import FacebookPixelScript from '@components/FacebookPixelScript';
-import TagerNextHead from '@components/NextJS/TagerNextHead';
-import TagerNextScript from '@components/NextJS/TagerNextScript';
+import YandexMetrikaScript from '@/components/YandexMetrikaScript';
+import FacebookPixelScript from '@/components/FacebookPixelScript';
+import TagerNextHead from '@/components/NextJS/TagerNextHead';
+import TagerNextScript from '@/components/NextJS/TagerNextScript';
 
 /**
  * Custom Document documentation

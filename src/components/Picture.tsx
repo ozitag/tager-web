@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { convertSrcSet, getImageTypeFromUrl } from '@utils/common';
-import { breakpoints } from '@constants/theme';
+import { convertSrcSet, getImageTypeFromUrl } from '@/utils/common';
+import { breakpoints } from '@/constants/theme';
 
 type MediaQueryType =
   | 'mobileSmall'

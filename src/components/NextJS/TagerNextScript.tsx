@@ -1,7 +1,7 @@
 import React, { ScriptHTMLAttributes } from 'react';
 
 import { NextScript } from 'next/document';
-import { notEmpty, notFalsy } from '@utils/common';
+import { notEmpty, notFalsy } from '@/utils/common';
 
 /** Reference: https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218 */
 class TagerNextScript extends NextScript {

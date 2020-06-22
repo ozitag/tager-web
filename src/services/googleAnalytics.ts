@@ -1,12 +1,12 @@
 import ReactGA from 'react-ga';
 
-import { canUseDOM } from '@utils/common';
+import { canUseDOM } from '@/utils/common';
 
 class GoogleAnalytics {
   trackingId: string | undefined;
 
   constructor() {
-    this.trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID;
+    this.trackingId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID;
   }
 
   isTrackerEnabled(): boolean {

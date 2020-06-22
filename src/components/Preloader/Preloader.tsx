@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { canUseDOM } from '@utils/common';
+import { canUseDOM } from '@/utils/common';
 
 import { isPreloaderEnabled } from './Preloader.helpers';
 import * as S from './Preloader.style';

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { CssSnippet } from '@typings/common';
+import { CssSnippet } from '@/typings/common';
 
 export type ReservedButtonVariant = 'contained' | 'outlined';
 

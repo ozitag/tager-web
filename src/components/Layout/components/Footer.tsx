@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ContentContainer from '@components/ContentContainer';
+import ContentContainer from '@/components/ContentContainer';
 
 function Footer() {
   return (

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NextComponentType } from 'next';
 import { Router } from 'next/router';
 
-import YandexMetrika from '@services/yandexMetrika';
+import YandexMetrika from '@/services/yandexMetrika';
 
 function withYandexMetrika(NextComponent: NextComponentType<any, any, any>) {
   function YandexMetrikaHOC(props: any) {

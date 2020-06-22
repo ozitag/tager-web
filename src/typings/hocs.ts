@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import { AppContext, AppInitialProps, AppProps } from 'next/app';
 
-import { AppState, AppStore } from '@store/store';
+import { AppState, AppStore } from '@/store/store';
 
 /**
  *  Page context is "ctx" field of App Context

@@ -11,7 +11,7 @@ m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=
 `;
 
 function YandexMetrikaScript() {
-  const isEnabled = Boolean(process.env.REACT_APP_YANDEX_METRIKA_COUNTER_ID);
+  const isEnabled = Boolean(process.env.NEXT_PUBLIC_YANDEX_METRIKA_COUNTER_ID);
 
   return isEnabled ? (
     <script dangerouslySetInnerHTML={{ __html: SCRIPT_CODE }} />

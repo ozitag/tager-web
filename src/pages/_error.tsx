@@ -2,10 +2,10 @@ import React from 'react';
 import * as Sentry from '@sentry/node';
 import NextError, { ErrorProps } from 'next/error';
 
-import { CustomAppPageContext } from '@typings/hocs';
+import { CustomAppPageContext } from '@/typings/hocs';
 
-import TagerError from '@modules/Error';
-import Page from '@components/Page';
+import TagerError from '@/modules/Error';
+import Page from '@/components/Page';
 
 type InitialErrorProps = ErrorProps & {
   isInitProps?: boolean;

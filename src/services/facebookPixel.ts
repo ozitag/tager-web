@@ -1,10 +1,10 @@
-import { canUseDOM } from '@utils/common';
+import { canUseDOM } from '@/utils/common';
 
 class FacebookPixel {
   pixelId: string | undefined;
 
   constructor() {
-    this.pixelId = process.env.REACT_APP_FACEBOOK_PIXEL_ID;
+    this.pixelId = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
   }
 
   isTrackerEnabled(): boolean {

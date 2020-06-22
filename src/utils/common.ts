@@ -2,8 +2,8 @@ import { ServerResponse } from 'http';
 import round from 'lodash/round';
 import { MutableRefObject, Ref } from 'react';
 
-import { LoadableData, Nullable } from '@typings/common';
-import { FETCH_STATUSES } from '@constants/common';
+import { LoadableData, Nullable } from '@/typings/common';
+import { FETCH_STATUSES } from '@/constants/common';
 
 /** https://github.com/zeit/next.js/issues/5354#issuecomment-520305040 */
 export function isBrowser(): boolean {
@@ -218,7 +218,7 @@ export function trimEndSlash(url: string): string {
 }
 
 export function getOrigin(): string {
-  return trimEndSlash(process.env.REACT_APP_ORIGIN ?? '');
+  return trimEndSlash(process.env.NEXT_PUBLIC_ORIGIN ?? '');
 }
 
 export function isAbsoluteUrl(url: string): boolean {

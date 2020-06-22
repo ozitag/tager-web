@@ -1,8 +1,8 @@
 import { ServerResponse } from 'http';
 import Router from 'next/router';
 
-import { getSearchParamsFromUrl } from '@utils/searchParams';
-import { isResSent } from '@utils/common';
+import { getSearchParamsFromUrl } from '@/utils/searchParams';
+import { isResSent } from '@/utils/common';
 
 /**
  * Source: https://github.com/zeit/next.js/issues/649#issuecomment-426552156
