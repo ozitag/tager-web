@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NextComponentType } from 'next';
 import { Router } from 'next/router';
 
-import GoogleAnalytics from '@/services/googleAnalytics';
+import { GoogleAnalytics } from '@tager/web-core';
 
 function withGoogleAnalytics(NextComponent: NextComponentType<any, any, any>) {
   function GoogleAnalyticsHOC(props: any) {

@@ -1,6 +1,6 @@
 const util = require('util');
 const withPlugins = require('next-compose-plugins');
-// const withTM = require('next-transpile-modules');
+const withTM = require('next-transpile-modules');
 
 /**
  * Example with Sentry:
@@ -25,7 +25,13 @@ function colorLog(message) {
 }
 
 module.exports = withPlugins(
-  [/*withTM(['dom7', 'swiper', 'body-scroll-lock']),*/ withSourceMaps],
+  [
+    withTM([
+      '@tager/web-components',
+      '@tager/web-core' /*'dom7', 'swiper', 'body-scroll-lock'*/,
+    ]),
+    withSourceMaps,
+  ],
   {
     webpack: (config, { buildId, isServer }) => {
       /** Support import svg as React component */

@@ -1,3 +1,5 @@
 node_modules
 .next
+server-build
+storybook-static
 public

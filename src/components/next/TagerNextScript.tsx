@@ -1,7 +1,6 @@
 import React, { ScriptHTMLAttributes } from 'react';
-
 import { NextScript } from 'next/document';
-import { notEmpty, notFalsy } from '@/utils/common';
+import { isNotNullish, notFalsy } from '@tager/web-core';
 
 /** Reference: https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218 */
 class TagerNextScript extends NextScript {
@@ -39,11 +38,11 @@ class TagerNextScript extends NextScript {
     }
 
     const initialLoadScripts = scripts
-      .filter(notEmpty)
+      .filter(isNotNullish)
       .filter(({ props }) => !isNextChunk(props));
 
     const chunkedScripts = scripts
-      .filter(notEmpty)
+      .filter(isNotNullish)
       .filter(({ props }) => isNextChunk(props));
 
     const jsContent = `

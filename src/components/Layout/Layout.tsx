@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Preloader from '@/components/Preloader';
+import { Preloader } from '@tager/web-components';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 type Props = {
   children?: React.ReactNode;
+  isPreloaderHidden?: boolean;
 };
 
-function Layout({ children }: Props) {
+function Layout({ children, isPreloaderHidden }: Props) {
   return (
     <Container>
-      <Preloader />
+      <Preloader hidden={isPreloaderHidden} />
 
       <Header />
       <Main>{children}</Main>

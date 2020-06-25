@@ -26,7 +26,12 @@ function getPortFromArgs(): number | null {
 
 const port = parsePort(process.env.PORT) || getPortFromArgs() || 3000;
 
-const app = next({ dev: process.env.NODE_ENV !== 'production' });
+/**
+ * Env variables are loading here
+ * Reference: https://github.com/vercel/next.js/issues/12269#issuecomment-633021235
+ */
+const app = next({ dev: process.env.NODE_ENV === 'development' });
+
 const handle = app.getRequestHandler();
 
 const redirectMiddleware: express.Handler = (req, res, next) => {
@@ -44,9 +49,9 @@ function startServer() {
   app.prepare().then(() => {
     const server = express();
 
-    const isProductionServer = process.env.NEXT_PUBLIC_ENV === 'production';
+    const isDevelopmentServer = process.env.NEXT_PUBLIC_ENV === 'development';
 
-    if (!isProductionServer) {
+    if (isDevelopmentServer) {
       server.use(
         '/storybook',
         express.static(path.resolve(__dirname, '..', 'storybook-static'))

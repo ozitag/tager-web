@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NextComponentType } from 'next';
 import { Router } from 'next/router';
 
-import FacebookPixel from '@/services/facebookPixel';
+import { FacebookPixel } from '@tager/web-core';
 
 function withFacebookPixel(NextComponent: NextComponentType<any, any, any>) {
   function FacebookPixelHOC(props: any) {

@@ -5,20 +5,21 @@ import Router from 'next/router';
 import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/node';
 import TagManager from 'react-gtm-module';
+import { cookie, Nullable } from '@tager/web-core';
+import { ModalProvider } from '@tager/web-components';
 
 import '@/assets/css/index.css';
 import withRedux from '@/hocs/withRedux';
 import { i18n, appWithTranslation } from '@server/i18n';
-import { updateCookie } from '@/utils/cookie';
-import { Nullable } from '@/typings/common';
 import { CustomAppProps } from '@/typings/hocs';
-import ModalProvider from '@/components/Modal';
 import withYandexMetrika from '@/hocs/withYandexMetrika';
 import withGoogleAnalytics from '@/hocs/withGoogleAnalytics';
 import withFacebookPixel from '@/hocs/withFacebookPixel';
 
 Sentry.init({
-  enabled: process.env.NODE_ENV === 'production',
+  enabled:
+    process.env.NODE_ENV === 'production' &&
+    process.env.NEXT_PUBLIC_ENV !== 'local',
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   environment: [
     process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT,
@@ -46,7 +47,7 @@ class CustomApp extends App<CustomAppProps> {
 */
 
   componentDidMount() {
-    i18n.on('languageChanged', (lang: string) => updateCookie('lng', lang));
+    i18n.on('languageChanged', (lang: string) => cookie.set('lng', lang));
 
     NProgress.configure({ showSpinner: false });
     let timeoutId: Nullable<number> = null;

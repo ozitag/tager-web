@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NextComponentType } from 'next';
 import { Router } from 'next/router';
 
-import YandexMetrika from '@/services/yandexMetrika';
+import { YandexMetrika } from '@tager/web-core';
 
 function withYandexMetrika(NextComponent: NextComponentType<any, any, any>) {
   function YandexMetrikaHOC(props: any) {
@@ -26,9 +26,9 @@ function withYandexMetrika(NextComponent: NextComponentType<any, any, any>) {
     return <NextComponent {...props} />;
   }
 
-  // if (NextComponent.getInitialProps) {
-  //   YandexMetrikaHOC.getInitialProps = NextComponent.getInitialProps;
-  // }
+  if (NextComponent.getInitialProps) {
+    YandexMetrikaHOC.getInitialProps = NextComponent.getInitialProps;
+  }
 
   YandexMetrikaHOC.displayName = 'withYandexMetrika';
 
