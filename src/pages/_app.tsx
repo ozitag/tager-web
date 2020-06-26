@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import App from 'next/app';
 import * as Sentry from '@sentry/node';
 import {
   cookie,

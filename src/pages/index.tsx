@@ -1,5 +1,5 @@
-import { CustomApp_PageContext } from '@/typings/hocs';
 import React from 'react';
+import { CustomApp_PageContext } from '@/typings/hocs';
 import { Page } from '@tager/web-components';
 
 import Layout from '@/components/Layout';

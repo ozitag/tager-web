@@ -1,13 +1,11 @@
 import React from 'react';
-
 import Document, { DocumentContext, Html, Main } from 'next/document';
-
 import { ServerStyleSheet } from 'styled-components';
+
 import {
   YandexMetrikaScript,
   FacebookPixelScript,
 } from '@tager/web-components';
-
 import TagerNextHead from '@/components/next/TagerNextHead';
 import TagerNextScript from '@/components/next/TagerNextScript';
 

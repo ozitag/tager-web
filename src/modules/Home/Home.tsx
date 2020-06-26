@@ -1,11 +1,12 @@
-import Link from '@/components/Link';
+import React from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { selectCount, increment, decrement } from '@/store/reducers/example';
 import { useTranslation } from '@server/i18n';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import Link from '@/components/Link';
 
-import { ReactComponent as NextLogo } from '@/assets/svg/nextjs-logo.svg';
+import { ReactComponent as OZiTAGLogo } from '@/assets/svg/ozitag-logo.svg';
 
 function Home() {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ function Home() {
       <button onClick={() => dispatch(decrement())}>Decrement</button>
 
       <h1>{t('hello')}</h1>
-      <NextLogo />
+      <OZiTAGLogo />
       <Link to="/test">
         <h2>Go to test</h2>
       </Link>
