@@ -88,7 +88,7 @@ class CustomDocument extends Document {
         </TagerNextHead>
         <body>
           <Main />
-          <script src="/global.js" defer />
+          <script src="/static/js/global.js" defer />
           <script
             src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js"
             defer

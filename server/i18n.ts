@@ -20,7 +20,7 @@ const LOCALE_SUBPATHS = OTHER_LANGUAGES.reduce(
 
 /**
  * Detector Options reference:
- * https://github.com/i18next/i18next-express-middleware#detector-options
+ * https://github.com/i18next/i18next-http-middleware#detector-options
  */
 type DetectorType = 'path' | 'session' | 'querystring' | 'cookie' | 'header';
 
@@ -47,11 +47,13 @@ type I18NextInitConfig = Omit<
   detection?: DetectorOptions;
 };
 
+/**
+ * Default config reference:
+ * https://github.com/isaachinman/next-i18next/blob/master/src/config/default-config.ts
+ */
 export const i18nConfig: I18NextInitConfig = {
-  debug: false,
   defaultLanguage: DEFAULT_LANGUAGE,
   otherLanguages: OTHER_LANGUAGES,
-  localePath: isServer ? 'public/locales' : 'locales',
   localeSubpaths: LOCALE_SUBPATHS,
   detection: {
     lookupCookie: 'lng',

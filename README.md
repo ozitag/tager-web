@@ -112,6 +112,21 @@ Usually we store wrapper of `Next/App` component.
 #### `/src/typings` - TypeScript types only!
 #### `/src/utils` - utils :)
 
+## HOW TOs
 
+### How to remove i18n support
 
+1. remove `next-i18next` library via `yarn remove next-i18next`
+2. remove file `server/i18n.ts`
+3. remove line `server.use(nextI18NextMiddleware(nextI18next));` in `server/server.ts` and corresponding imports
+4. remove directory `public/static/locales`
+5. in `src/_app.tsx` remove HOC `appWithTranslation` 
+6. in `src/_app.tsx` remove the following line in `componentDidMount`
+```javascript
+i18n.on('languageChanged', (lang: string) => cookie.set('lng', lang));
+``` 
+7. in `src/components/Link.tsx` remove import of `I18nLink` and remove arguments of `createLinkComponent` function
+8. remove translation displaying from `src/modules/Home/Home.tsx`
+9. Done :)
 
+### How to remove `redux` support
