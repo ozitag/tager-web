@@ -14,4 +14,12 @@ function HomePage() {
   );
 }
 
+HomePage.getInitialProps = () => {
+  /**
+   * Declaring namespace dependencies:
+   * https://github.com/isaachinman/next-i18next#4-declaring-namespace-dependencies
+   */
+  return { namespacesRequired: ['common'] };
+};
+
 export default HomePage;

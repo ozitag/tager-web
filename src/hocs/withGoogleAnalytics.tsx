@@ -26,9 +26,9 @@ function withGoogleAnalytics(NextComponent: NextComponentType<any, any, any>) {
     return <NextComponent {...props} />;
   }
 
-  // if (NextComponent.getInitialProps) {
-  //   GoogleAnalyticsHOC.getInitialProps = NextComponent.getInitialProps;
-  // }
+  if (NextComponent.getInitialProps) {
+    GoogleAnalyticsHOC.getInitialProps = NextComponent.getInitialProps;
+  }
 
   GoogleAnalyticsHOC.displayName = 'withGoogleAnalytics';
 

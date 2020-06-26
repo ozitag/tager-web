@@ -127,6 +127,7 @@ i18n.on('languageChanged', (lang: string) => cookie.set('lng', lang));
 ``` 
 7. in `src/components/Link.tsx` remove import of `I18nLink` and remove arguments of `createLinkComponent` function
 8. remove translation displaying from `src/modules/Home/Home.tsx`
-9. Done :)
+9. remove `getInitialProps` method from `src/pages/index.tsx`
+10. Done :)
 
 ### How to remove `redux` support

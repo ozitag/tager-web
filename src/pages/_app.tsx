@@ -97,4 +97,8 @@ class CustomApp extends App<CustomAppProps> {
   }
 }
 
-export default appWithTranslation(withRedux(CustomApp));
+export default withFacebookPixel(
+  withGoogleAnalytics(
+    withYandexMetrika(appWithTranslation(withRedux(CustomApp)))
+  )
+);
