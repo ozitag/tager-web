@@ -1,15 +1,23 @@
 import Link from '@/components/Link';
+import { selectCount, increment, decrement } from '@/store/reducers/example';
 import { useTranslation } from '@server/i18n';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { ReactComponent as NextLogo } from '@/assets/svg/nextjs-logo.svg';
 
 function Home() {
   const { t } = useTranslation();
+  const count = useSelector(selectCount);
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <h2>Count: {count}</h2>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+
       <h1>{t('hello')}</h1>
       <NextLogo />
       <Link to="/test">

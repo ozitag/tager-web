@@ -53,10 +53,6 @@ function withRedux(CustomApp: CustomApp_Component) {
   AppWithRedux.getInitialProps = async (appCtx) => {
     const store = initStore();
 
-    const additionalInitialProps: WithRedux_AdditionalInitialProps = {
-      initialState: store.getState(),
-    };
-
     let initialProps: AppInitialProps;
 
     /** If `CustomApp` has `getInitialProps` method */
@@ -82,10 +78,14 @@ function withRedux(CustomApp: CustomApp_Component) {
         };
       } else {
         initialProps = {
-          pageProps: undefined,
+          pageProps: {},
         };
       }
     }
+
+    const additionalInitialProps: WithRedux_AdditionalInitialProps = {
+      initialState: store.getState(),
+    };
 
     return {
       ...additionalInitialProps,

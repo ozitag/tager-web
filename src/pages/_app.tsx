@@ -64,11 +64,11 @@ const CustomApp: CustomApp_Component = (props) => {
  *
  * Reference: https://nextjs.org/docs/advanced-features/custom-app
  */
-CustomApp.getInitialProps = async (appContext) => {
-  /** calls page's `getInitialProps` and fills `appProps.pageProps` */
-  const appProps = await App.getInitialProps(appContext);
-
-  return { ...appProps };
-};
+// CustomApp.getInitialProps = async (appContext) => {
+//   /** calls page's `getInitialProps` and fills `appProps.pageProps` */
+//   const appProps = await App.getInitialProps(appContext);
+//
+//   return { ...appProps };
+// };
 
 export default appWithTranslation(withRedux(CustomApp));
