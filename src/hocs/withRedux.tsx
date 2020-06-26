@@ -1,14 +1,15 @@
-import React from 'react';
 import { NextComponentType } from 'next';
+import { AppInitialProps } from 'next/app';
+import React, { useRef } from 'react';
+import { Provider } from 'react-redux';
+import { isBrowser } from '@tager/web-core';
 
-import { AppStore, createStore } from '@/store/store';
+import { AppState, AppStore, createStore } from '@/store/store';
 import {
-  CustomAppContext,
-  CustomAppInitialProps,
-  CustomAppProps,
-  ReduxAppContext,
-  ReduxAppInitialProps,
-  ReduxAppProps,
+  CustomApp_Component,
+  WithRedux_AdditionalInitialProps,
+  WithRedux_Component,
+  WithRedux_PageContext,
 } from '@/typings/hocs';
 
 declare global {
@@ -17,107 +18,82 @@ declare global {
   }
 }
 
-const config = {
-  storeKey: '__NEXT_REDUX_STORE__',
-  debug: false,
-} as const;
-
-type CustomAppType = NextComponentType<
-  CustomAppContext,
-  CustomAppInitialProps,
-  CustomAppProps
->;
-
-function withRedux(CustomApp: CustomAppType) {
-  const isServer = typeof window === 'undefined';
-
-  /** Create Redux store */
-  function initStore({ initialState }: { initialState?: any } = {}): AppStore {
-    const { storeKey } = config;
-
-    if (isServer) return createStore(initialState);
-
-    /** Memoize store if client */
-    let memoizedStore = window[storeKey];
+function initStore({
+  initialState,
+}: { initialState?: AppState } = {}): AppStore {
+  if (isBrowser()) {
+    let memoizedStore = window.__NEXT_REDUX_STORE__;
 
     if (!memoizedStore) {
       memoizedStore = createStore(initialState);
-      window[storeKey] = memoizedStore;
+      window.__NEXT_REDUX_STORE__ = memoizedStore;
     }
 
     return memoizedStore;
   }
 
+  return createStore(initialState);
+}
+
+function withRedux(CustomApp: CustomApp_Component) {
+  const AppWithRedux: WithRedux_Component = (props) => {
+    const { initialState, ...rest } = props;
+    const storeRef = useRef<AppStore>(initStore({ initialState }));
+
+    return (
+      <Provider store={storeRef.current}>
+        <CustomApp {...rest} />
+      </Provider>
+    );
+  };
+
   const componentName = CustomApp.displayName || CustomApp.name || 'App';
+  AppWithRedux.displayName = `withRedux(${componentName})`;
 
-  class ReduxApp extends React.Component<ReduxAppProps> {
-    public static displayName = `withRedux(${componentName})`;
+  AppWithRedux.getInitialProps = async (appCtx) => {
+    const store = initStore();
 
-    public static getInitialProps = async (
-      appCtx: ReduxAppContext
-    ): Promise<ReduxAppInitialProps> => {
-      if (!appCtx) throw new Error('No app context');
-      if (!appCtx.ctx) throw new Error('No page context');
-
-      const store = initStore();
-
-      if (config.debug) {
-        console.log(
-          '1. WrappedApp.getInitialProps wrapper got the store with state',
-          store.getState()
-        );
-      }
-
-      if (typeof CustomApp.getInitialProps !== 'function') {
-        throw new Error(
-          `Component "${componentName}" doesn't have required static field "getInitialProps"`
-        );
-      }
-
-      const initialProps = await CustomApp.getInitialProps({
-        ...appCtx,
-        ctx: { ...appCtx.ctx, isServer, store },
-      });
-
-      if (config.debug) {
-        console.log(
-          '3. WrappedApp.getInitialProps has store state',
-          store.getState()
-        );
-      }
-
-      return {
-        isServer,
-        initialState: store.getState(),
-        ...initialProps,
-      };
+    const additionalInitialProps: WithRedux_AdditionalInitialProps = {
+      initialState: store.getState(),
     };
 
-    public constructor(props: ReduxAppProps, context: any) {
-      super(props, context);
+    let initialProps: AppInitialProps;
 
-      const { initialState } = props;
-
-      if (config.debug)
-        console.log(
-          '4. WrappedApp.render created new store with initialState',
-          initialState
-        );
-
-      this.store = initStore({
-        initialState,
+    /** If `CustomApp` has `getInitialProps` method */
+    if (CustomApp.getInitialProps) {
+      initialProps = await CustomApp.getInitialProps({
+        ...appCtx,
+        ctx: { ...appCtx.ctx, store },
       });
+    } else {
+      /** Otherwise get `pageProps` directly from page `Component` */
+
+      type PageComponentType = NextComponentType<WithRedux_PageContext>;
+      const PageComponent = appCtx.Component as PageComponentType;
+
+      if (PageComponent.getInitialProps) {
+        const pageProps = await PageComponent.getInitialProps({
+          ...appCtx.ctx,
+          store,
+        });
+
+        initialProps = {
+          pageProps,
+        };
+      } else {
+        initialProps = {
+          pageProps: undefined,
+        };
+      }
     }
 
-    protected store: AppStore;
+    return {
+      ...additionalInitialProps,
+      ...initialProps,
+    };
+  };
 
-    public render() {
-      const { initialState, ...props } = this.props;
-      return <CustomApp {...props} store={this.store} />;
-    }
-  }
-
-  return ReduxApp;
+  return AppWithRedux;
 }
 
 export default withRedux;

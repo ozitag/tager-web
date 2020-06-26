@@ -2952,16 +2952,18 @@
   dependencies:
     body-scroll-lock "^3.0.3"
 
-"@tager/web-core@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@tager/web-core/-/web-core-0.1.2.tgz#fa8f81ecfe74b7c1d24602079e68378ff40d28a3"
-  integrity sha512-7yP2RWCVG52MRiZo4fu4uX73raGtksiCpm/4X3aEoHkE3gKQj6C1tD1mloirjtrvAs7XlrkbuuOB+9romr+LJA==
+"@tager/web-core@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@tager/web-core/-/web-core-0.1.4.tgz#5dc29c98c2d614bf33f15d4af2d6581ffbfa4107"
+  integrity sha512-uYRGjpj0GxqzmDfmvlpkPg0DdYVXYCNhdefia9bv0xpXW7YxnhctBcDzCtWGAr6fLsKMp3sE7sfmWgif4WWRww==
   dependencies:
     cookie "^0.4.1"
     js-cookie "^3.0.0-rc.0"
     lodash "^4.17.15"
     lodash-es "^4.17.15"
+    nprogress "^0.2.0"
     react-ga "^3.0.0"
+    react-gtm-module "^2.0.8"
 
 "@testing-library/cypress@^6.0.0":
   version "6.0.0"
@@ -3158,11 +3160,6 @@
   integrity sha512-ykkPQ+5nFknnlU6lDd947WbQ6TE3NNzbQAkInC2EKY1qeYdTKp7onFusmYZb+ityzx2YviqT6BXSu+LyWWJwcA==
   dependencies:
     "@types/react" "*"
-
-"@types/react-gtm-module@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/react-gtm-module/-/react-gtm-module-2.0.0.tgz#25a118bbcadd518f376ee52626ab0829cb824874"
-  integrity sha512-2d7TUhOQBG6cSVSSSWaoSu+Ds84VQFTuVKLeGNc2GtfA7JDr+z3ujl4n/rezaRRNEhjn+9SllwHy1iNxxP8jDg==
 
 "@types/react-native@*":
   version "0.62.7"

@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/node';
 import NextError, { ErrorProps } from 'next/error';
 import { ErrorModule as TagerError, Page } from '@tager/web-components';
 
-import { CustomAppPageContext } from '@/typings/hocs';
+import { CustomApp_PageContext } from '@/typings/hocs';
 
 type InitialErrorProps = ErrorProps & {
   isInitProps?: boolean;
@@ -38,7 +38,7 @@ function ErrorPage({ statusCode, title, isInitProps, errorId, err }: Props) {
 }
 
 ErrorPage.getInitialProps = async (
-  pageContext: CustomAppPageContext
+  pageContext: CustomApp_PageContext
 ): Promise<InitialErrorProps> => {
   const { res, err, asPath } = pageContext;
 

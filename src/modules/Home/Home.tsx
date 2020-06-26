@@ -1,3 +1,4 @@
+import Link from '@/components/Link';
 import { useTranslation } from '@server/i18n';
 import React from 'react';
 import styled from 'styled-components';
@@ -11,6 +12,9 @@ function Home() {
     <Wrapper>
       <h1>{t('hello')}</h1>
       <NextLogo />
+      <Link to="/test">
+        <h2>Go to test</h2>
+      </Link>
     </Wrapper>
   );
 }
