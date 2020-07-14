@@ -8,7 +8,7 @@ import { countUpdated } from '@/store/reducers/example';
 
 function HomePage({ date }: { date: string }) {
   return (
-    <Page title="Next.js starter | OZiTAG Web Experts">
+    <Page title="TAGER Web | OZiTAG Web Experts">
       <Layout>
         <h2>Date: {date}</h2>
         <Home />
