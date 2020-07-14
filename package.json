@@ -4,14 +4,14 @@
   "private": true,
   "main": "server-build/index.js",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build-server": "rimraf server-build && babel server -d server-build --extensions \".ts,.json\" ",
     "start-server": "node server-build/index.js",
-    "build": "yarn build-server && next build && yarn build-storybook",
+    "build": "yarn build-server && next build",
     "start": "yarn build-server && cross-env NODE_ENV=development yarn start-server",
     "serve": "cross-env NODE_ENV=production yarn start-server",
     "cypress:open": "cypress open",
