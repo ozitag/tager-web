@@ -28,6 +28,7 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID: string | undefined;
     readonly NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: string | undefined;
     readonly NEXT_PUBLIC_FACEBOOK_PIXEL_ID: string | undefined;
+    readonly NEXT_PUBLIC_STORYBOOK_BASE_PATH: string | undefined;
   }
 }
 

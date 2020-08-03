@@ -1,6 +1,6 @@
 import NextI18Next, { InitConfig } from 'next-i18next';
-
-const isServer = typeof window === 'undefined';
+const { localeSubpaths } = require('next/config').default().publicRuntimeConfig;
+const path = require('path');
 
 export type Lang = 'ru' | 'en';
 
@@ -13,10 +13,10 @@ const DEFAULT_LANGUAGE: Lang = LANGUAGES.RU;
 const OTHER_LANGUAGES = Object.values(LANGUAGES).filter(
   (lang) => lang !== DEFAULT_LANGUAGE
 );
-const LOCALE_SUBPATHS = OTHER_LANGUAGES.reduce(
-  (subpaths, lang) => ({ ...subpaths, [lang]: lang }),
-  {}
-);
+// const LOCALE_SUBPATHS = OTHER_LANGUAGES.reduce(
+//   (subpaths, lang) => ({ ...subpaths, [lang]: lang }),
+//   {}
+// );
 
 /**
  * Detector Options reference:
@@ -54,7 +54,8 @@ type I18NextInitConfig = Omit<
 export const i18nConfig: I18NextInitConfig = {
   defaultLanguage: DEFAULT_LANGUAGE,
   otherLanguages: OTHER_LANGUAGES,
-  localeSubpaths: LOCALE_SUBPATHS,
+  localeSubpaths: localeSubpaths,
+  localePath: path.resolve('./public/static/locales'),
   detection: {
     lookupCookie: 'lng',
     order: ['path', 'cookie', 'header'],

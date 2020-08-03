@@ -1,14 +1,7 @@
 import { SitemapStream, EnumChangefreq } from 'sitemap';
 import { createGzip } from 'zlib';
-import { RequestHandler } from 'express';
-
-function trimEndSlash(url: string): string {
-  return url.endsWith('/') ? url.slice(0, -1) : url;
-}
-
-function getOrigin(): string {
-  return trimEndSlash(process.env.NEXT_PUBLIC_ORIGIN ?? '');
-}
+import { getOrigin } from '@tager/web-core';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const CONSTANT_PAGES: Array<{
   path: string;
@@ -24,8 +17,7 @@ const CONSTANT_PAGES: Array<{
  * Reference:
  * https://annacoding.com/article/10Sarw7UOPidixIhFDtnY5/How-to-generate-sitemap.xml-with-Next.js-build-in-server-and-Typescript?
  */
-export const sitemapHandler: RequestHandler = async (req, res) => {
-  if (!res) return {};
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Set response header
     res.setHeader('content-type', 'application/xml');
@@ -60,29 +52,6 @@ export const sitemapHandler: RequestHandler = async (req, res) => {
     console.error(error);
     res.status(500).end();
   }
-};
+}
 
-/**
- * Reference:
- * https://developers.google.com/search/reference/robots_txt
- */
-export const robotsHandler: RequestHandler = (req, res) => {
-  const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
-
-  const content = isProduction
-    ? [
-        `Sitemap: ${getOrigin()}/sitemap.xml`,
-        `Host: ${getOrigin()}`,
-        'User-agent: *',
-        'Allow: /',
-        'Disallow: /api/*',
-      ].join('\n')
-    : ['User-agent: *', 'Disallow: /'].join('\n');
-
-  if (!isProduction) {
-    res.setHeader('X-Robots-Tag', 'noindex, nofollow, nosnippet, noarchive');
-  }
-
-  res.setHeader('content-type', 'text/plain');
-  res.send(content).status(200).end();
-};
+export default handler;

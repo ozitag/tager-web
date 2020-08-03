@@ -1,6 +1,9 @@
 const util = require('util');
 const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules');
+/** i18n:enabled */
+const { nextI18NextRewrites } = require('next-i18next/rewrites');
+/** i18n:enabled:end */
 
 /**
  * Example with Sentry:
@@ -24,6 +27,27 @@ function colorLog(message) {
   );
 }
 
+const STORYBOOK_REWRITE = {
+  source: `${process.env.NEXT_PUBLIC_STORYBOOK_BASE_PATH}/:slug*`,
+  destination: `/api/storybook?path=${process.env.NEXT_PUBLIC_STORYBOOK_BASE_PATH}/:slug*`,
+};
+
+const STORYBOOK_REDIRECT = {
+  source: process.env.NEXT_PUBLIC_STORYBOOK_BASE_PATH,
+  destination: process.env.NEXT_PUBLIC_STORYBOOK_BASE_PATH + '/index.html',
+  permanent: true,
+};
+
+/** i18n:enabled */
+/**
+ * Reference:
+ * https://github.com/isaachinman/next-i18next/tree/a43d9c8330996be9485a7c663fa0a9170e20cede#5-locale-subpaths
+ */
+const localeSubpaths = {
+  en: 'en',
+};
+/** i18n:enabled:end */
+
 module.exports = withPlugins(
   [
     withTM([
@@ -33,6 +57,30 @@ module.exports = withPlugins(
     withSourceMaps,
   ],
   {
+    async rewrites() {
+      return [
+        /** i18n:enabled */
+        ...nextI18NextRewrites(localeSubpaths),
+        /** i18n:enabled:end */
+        STORYBOOK_REWRITE,
+        {
+          source: `/sitemap.xml`,
+          destination: `/api/sitemap`,
+        },
+        {
+          source: `/robots.txt`,
+          destination: `/api/robots`,
+        },
+      ];
+    },
+    async redirects() {
+      return [STORYBOOK_REDIRECT];
+    },
+    /** i18n:enabled */
+    publicRuntimeConfig: {
+      localeSubpaths,
+    },
+    /** i18n:enabled:end */
     webpack: (config, { buildId, isServer }) => {
       /** Support import svg as React component */
       config.module.rules.push({
@@ -106,10 +154,9 @@ module.exports = withPlugins(
           process.env.NEXT_PUBLIC_ENV !== 'local'
       );
 
+      const envName = isServer ? 'server' : 'browser';
       colorLog(
-        `Sentry CLI Plugin (${
-          isServer ? 'server' : 'browser'
-        }) enabled: ${isSentryPluginEnabled}`
+        `Sentry CLI Plugin (${envName}) enabled: ${isSentryPluginEnabled}`
       );
 
       /**

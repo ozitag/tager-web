@@ -12,7 +12,10 @@ import { ModalProvider } from '@tager/web-components';
 
 import '@/assets/css/index.css';
 import withRedux from '@/hocs/withRedux';
-import { i18n, appWithTranslation } from '@server/i18n';
+/** i18n:enabled */
+import { i18n, appWithTranslation } from '@/i18n';
+/** i18n:enabled:end */
+
 import { CustomApp_Component } from '@/typings/hocs';
 
 Sentry.init({
@@ -33,14 +36,16 @@ Sentry.init({
 const CustomApp: CustomApp_Component = (props) => {
   useProgressBar({ showSpinner: false });
 
-  useGoogleTagManager();
   useGoogleAnalytics();
+  useGoogleTagManager();
   useYandexMetrika();
   useFacebookPixel();
 
+  /** i18n:enabled */
   useEffect(() => {
     i18n.on('languageChanged', (lang: string) => cookie.set('lng', lang));
   }, []);
+  /** i18n:enabled:end */
 
   const { Component, pageProps } = props;
 
@@ -70,4 +75,10 @@ const CustomApp: CustomApp_Component = (props) => {
 //   return { ...appProps };
 // };
 
+/** i18n:enabled */
 export default appWithTranslation(withRedux(CustomApp));
+/** i18n:enabled:end */
+
+/** i18n:disabled */
+// export default withRedux(CustomApp);
+/** i18n:disabled:end */

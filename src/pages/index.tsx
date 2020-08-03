@@ -4,26 +4,39 @@ import { Page } from '@tager/web-components';
 
 import Layout from '@/components/Layout';
 import Home from '@/modules/Home';
-import { countUpdated } from '@/store/reducers/example';
+import { getMenuItemListThunk } from '@/store/reducers/tager/menus';
+import { isServer } from '@tager/web-core';
 
-function HomePage({ date }: { date: string }) {
+function HomePage() {
   return (
     <Page title="TAGER Web | OZiTAG Web Experts">
       <Layout>
-        <h2>Date: {date}</h2>
         <Home />
       </Layout>
     </Page>
   );
 }
 
-HomePage.getInitialProps = (context: CustomApp_PageContext) => {
+HomePage.getInitialProps = async ({ store }: CustomApp_PageContext) => {
+  const requestsPromise = Promise.all([
+    store.dispatch(getMenuItemListThunk('footer')),
+  ]);
+
+  if (isServer()) {
+    await requestsPromise;
+  }
+
+  /** i18n:enabled */
   /**
    * Declaring namespace dependencies:
    * https://github.com/isaachinman/next-i18next#4-declaring-namespace-dependencies
    */
-  context.store.dispatch(countUpdated(777));
-  return { namespacesRequired: ['common'], date: new Date().toISOString() };
+  return { namespacesRequired: ['common'] };
+  /** i18n:enabled:end */
+
+  /** i18n:disabled */
+  // return {};
+  /** i18n:disabled:end */
 };
 
 export default HomePage;
