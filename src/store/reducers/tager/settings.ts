@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { createResourceLoader, ResourceType } from '@tager/web-core';
 import {
-  getSettingItemList,
+  createResourceLoader,
+  ResourceType,
   shouldGetResourceDataFromCache,
-} from '@tager/web-modules';
+} from '@tager/web-core';
+import { getSettingItemList } from '@tager/web-modules';
 
 import { AppState, AppThunk } from '@/store/store';
 

@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@server/*": ["server/*"]
+      "@/*": ["src/*"]
     },
     "target": "es5",
     "lib": [
@@ -28,7 +27,6 @@
     "node_modules"
   ],
   "include": [
-    "server",
     "src",
     "next-env.d.ts"
   ]

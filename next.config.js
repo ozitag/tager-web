@@ -50,10 +50,7 @@ const localeSubpaths = {
 
 module.exports = withPlugins(
   [
-    withTM([
-      '@tager/web-components',
-      '@tager/web-core' /*'dom7', 'swiper', 'body-scroll-lock'*/,
-    ]),
+    withTM(['@tager/web-components', '@tager/web-core', '@tager/web-modules']),
     withSourceMaps,
   ],
   {

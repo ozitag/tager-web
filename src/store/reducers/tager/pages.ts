@@ -4,13 +4,13 @@ import {
   MapEntry,
   Nullable,
   ResourceType,
+  shouldGetResourceDataFromCache,
 } from '@tager/web-core';
 import {
   getPageByPath,
   getPageList,
   PageFullType,
   PageShortType,
-  shouldGetResourceDataFromCache,
 } from '@tager/web-modules';
 
 import { AppState, AppThunk } from '@/store/store';
