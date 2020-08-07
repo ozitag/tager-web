@@ -10,15 +10,7 @@ const DEFAULT_PAGE_MODULE: PageModuleType = {
   template: '',
 };
 
-const PAGE_MODULE_LIST: Array<PageModuleType> = [
-  {
-    template: 'home',
-    component: Home,
-    getInitialProps({ store }) {
-      return store.dispatch(getMenuItemListThunk('footer'));
-    },
-  },
-];
+const PAGE_MODULE_LIST: Array<PageModuleType> = [];
 
 export function getPageModuleByTemplate(
   template: Nullish<string>
