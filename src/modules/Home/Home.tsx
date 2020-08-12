@@ -4,19 +4,10 @@ import styled from 'styled-components';
 import Link from '@/components/Link';
 
 import { ReactComponent as OZiTAGLogo } from '@/assets/svg/ozitag-logo.svg';
-/** i18n:enabled */
-import { useTranslation } from '@/i18n';
-/** i18n:enabled:end */
 
 function Home() {
-  /** i18n:enabled */
-  const { t } = useTranslation();
-  /** i18n:enabled:end */
   return (
     <Wrapper>
-      {/** i18n:enabled */}
-      <h1>{t('hello')}</h1>
-      {/** i18n:enabled:end */}
       <OZiTAGLogo />
       <Link to="/test">
         <h2>Go to test</h2>

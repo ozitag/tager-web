@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as Sentry from '@sentry/node';
 import {
-  cookie,
   useFacebookPixel,
   useGoogleAnalytics,
   useGoogleTagManager,
@@ -9,12 +8,10 @@ import {
   useYandexMetrika,
 } from '@tager/web-core';
 import { ModalProvider } from '@tager/web-components';
+import Head from 'next/head';
 
 import '@/assets/css/index.css';
 import withRedux from '@/hocs/withRedux';
-/** i18n:enabled */
-import { i18n, appWithTranslation } from '@/i18n';
-/** i18n:enabled:end */
 
 import { CustomApp_Component } from '@/typings/hocs';
 
@@ -41,12 +38,6 @@ const CustomApp: CustomApp_Component = (props) => {
   useYandexMetrika();
   useFacebookPixel();
 
-  /** i18n:enabled */
-  useEffect(() => {
-    i18n.on('languageChanged', (lang: string) => cookie.set('lng', lang));
-  }, []);
-  /** i18n:enabled:end */
-
   const { Component, pageProps } = props;
 
   // Workaround for https://github.com/zeit/next.js/issues/8592
@@ -54,9 +45,17 @@ const CustomApp: CustomApp_Component = (props) => {
   const { err } = props;
   const modifiedPageProps = { ...pageProps, err };
   return (
-    <ModalProvider>
-      <Component {...modifiedPageProps} />
-    </ModalProvider>
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+      </Head>
+      <ModalProvider>
+        <Component {...modifiedPageProps} />
+      </ModalProvider>
+    </>
   );
 };
 
@@ -75,10 +74,4 @@ const CustomApp: CustomApp_Component = (props) => {
 //   return { ...appProps };
 // };
 
-/** i18n:enabled */
-export default appWithTranslation(withRedux(CustomApp));
-/** i18n:enabled:end */
-
-/** i18n:disabled */
-// export default withRedux(CustomApp);
-/** i18n:disabled:end */
+export default withRedux(CustomApp);

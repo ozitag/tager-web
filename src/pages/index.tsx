@@ -4,7 +4,6 @@ import { Page } from '@tager/web-components';
 
 import Layout from '@/components/Layout';
 import Home from '@/modules/Home';
-import { getMenuItemListThunk } from '@/store/reducers/tager/menus';
 import { isServer } from '@tager/web-core';
 
 function HomePage() {
@@ -24,17 +23,7 @@ HomePage.getInitialProps = async ({ store }: CustomApp_PageContext) => {
     await requestsPromise;
   }
 
-  /** i18n:enabled */
-  /**
-   * Declaring namespace dependencies:
-   * https://github.com/isaachinman/next-i18next#4-declaring-namespace-dependencies
-   */
-  return { namespacesRequired: ['common'] };
-  /** i18n:enabled:end */
-
-  /** i18n:disabled */
-  // return {};
-  /** i18n:disabled:end */
+  return {};
 };
 
 export default HomePage;

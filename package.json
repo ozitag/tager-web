@@ -31,7 +31,6 @@
     "formik": "^2.1.5",
     "lodash": "^4.17.19",
     "next": "^9.5.1",
-    "next-i18next": "^6.0.2",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "react": "^16.13.1",

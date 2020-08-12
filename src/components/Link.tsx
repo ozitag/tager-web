@@ -4,9 +4,6 @@ import {
   createLinkConverter,
 } from '@tager/web-components';
 
-/** i18n:enabled */
-import { Link as I18nLink } from '@/i18n';
-
 export const postLinkBuilder = createDynamicLinkBuilder<'alias'>(
   '/blog/[alias]'
 );
@@ -21,14 +18,7 @@ export const linkConverter = createLinkConverter({
   linkBuilderList: [postLinkBuilder, courseLinkBuilder, lessonLinkBuilder],
   staticLinkList: [],
 });
-const Link = createLinkComponent({
-  nextLinkComponent: I18nLink,
-  converter: linkConverter,
-});
-/** i18n:enabled:end */
 
-/** i18n:disabled */
-// const Link = createLinkComponent({ converter: linkConverter });
-/** i18n:disabled:end */
+const Link = createLinkComponent({ converter: linkConverter });
 
 export default Link;
