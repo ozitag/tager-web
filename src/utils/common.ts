@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { RequestError } from '@tager/web-core';
 
 import ErrorPage from '@/pages/_error';

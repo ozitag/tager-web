@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Page } from '@tager/web-components';
 
 import Layout from '@/components/Layout';

@@ -1,5 +1,4 @@
 import { createPictureComponent } from '@tager/web-components';
-import React from 'react';
 
 import { breakpoints } from '@/constants/theme';
 

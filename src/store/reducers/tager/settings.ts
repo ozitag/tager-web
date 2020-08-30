@@ -8,7 +8,6 @@ import {
 import { getSettingItemList } from '@tager/web-modules';
 
 import { AppState, AppThunk } from '@/store/store';
-
 import { SettingsItemType } from '@/typings/model';
 
 const settingsLoader = createResourceLoader<Array<SettingsItemType>>([]);

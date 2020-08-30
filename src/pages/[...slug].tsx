@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { isServer } from '@tager/web-core';
 import { Page } from '@tager/web-components';
 import { convertSeoParamsToPageProps } from '@tager/web-modules';
@@ -6,7 +7,6 @@ import { convertSeoParamsToPageProps } from '@tager/web-modules';
 import ErrorPage from '@/pages/_error';
 import NotFoundPage from '@/pages/404';
 import { CustomApp_PageContext } from '@/typings/hocs';
-
 import Layout from '@/components/Layout';
 import {
   getPageByPathThunk,

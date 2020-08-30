@@ -1,5 +1,7 @@
 import React from 'react';
 import * as Sentry from '@sentry/node';
+import Head from 'next/head';
+
 import {
   useFacebookPixel,
   useGoogleAnalytics,
@@ -8,11 +10,9 @@ import {
   useYandexMetrika,
 } from '@tager/web-core';
 import { ModalProvider } from '@tager/web-components';
-import Head from 'next/head';
 
 import '@/assets/css/index.css';
 import withRedux from '@/hocs/withRedux';
-
 import { CustomApp_Component } from '@/typings/hocs';
 
 Sentry.init({

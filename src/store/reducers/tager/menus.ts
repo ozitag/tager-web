@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { MapEntry, Nullable } from '@tager/web-core';
 import { getMenuItemListByAlias, MenuItemType } from '@tager/web-modules';
 

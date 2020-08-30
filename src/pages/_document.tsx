@@ -6,6 +6,7 @@ import {
   YandexMetrikaScript,
   FacebookPixelScript,
 } from '@tager/web-components';
+
 import TagerNextHead from '@/components/next/TagerNextHead';
 import TagerNextScript from '@/components/next/TagerNextScript';
 

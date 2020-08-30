@@ -1,6 +1,8 @@
 import { createGzip } from 'zlib';
+
 import { NextApiHandler } from 'next';
 import { SitemapItemLoose, SitemapStream } from 'sitemap';
+
 import { getOrigin } from '@tager/web-core';
 
 export type SitemapItemType = SitemapItemLoose;

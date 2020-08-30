@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+
 import { CustomApp_PageContext } from '@/typings/hocs';
 
 export type PageModuleType = {

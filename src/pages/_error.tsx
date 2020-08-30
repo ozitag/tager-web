@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Sentry from '@sentry/node';
 import NextError, { ErrorProps } from 'next/error';
+
 import { ErrorModule as TagerError, Page } from '@tager/web-components';
 
 import { CustomApp_PageContext } from '@/typings/hocs';

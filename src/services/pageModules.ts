@@ -1,5 +1,3 @@
-import Home from '@/modules/Home';
-import { getMenuItemListThunk } from '@/store/reducers/tager/menus';
 import { Nullish } from '@tager/web-core';
 
 import { PageModuleType } from '@/typings/common';

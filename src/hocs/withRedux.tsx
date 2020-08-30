@@ -2,6 +2,7 @@ import { NextComponentType } from 'next';
 import { AppInitialProps } from 'next/app';
 import React, { useRef } from 'react';
 import { Provider } from 'react-redux';
+
 import { isBrowser } from '@tager/web-core';
 
 import { AppState, AppStore, createStore } from '@/store/store';

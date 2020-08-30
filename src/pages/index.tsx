@@ -1,10 +1,11 @@
 import React from 'react';
-import { CustomApp_PageContext } from '@/typings/hocs';
-import { Page } from '@tager/web-components';
 
+import { Page } from '@tager/web-components';
+import { isServer } from '@tager/web-core';
+
+import { CustomApp_PageContext } from '@/typings/hocs';
 import Layout from '@/components/Layout';
 import Home from '@/modules/Home';
-import { isServer } from '@tager/web-core';
 
 function HomePage() {
   return (

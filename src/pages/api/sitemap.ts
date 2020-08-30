@@ -1,4 +1,5 @@
 import { EnumChangefreq } from 'sitemap';
+
 import { createSitemapHandler } from '@/lib/api/sitemap';
 
 export default createSitemapHandler({
