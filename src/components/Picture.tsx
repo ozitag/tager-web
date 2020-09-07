@@ -1,4 +1,7 @@
-import { createPictureComponent } from '@tager/web-components';
+import {
+  createMediaQuery,
+  createPictureComponent,
+} from '@tager/web-components';
 
 import { breakpoints } from '@/constants/theme';
 
@@ -11,12 +14,12 @@ type MediaQueryType =
   | 'desktop';
 
 const MEDIA_QUERY_MAP: Record<MediaQueryType, string> = {
-  mobileSmall: `(min-width: ${breakpoints.mobileSmall}px)`,
-  mobileLarge: '(min-width: 480px)',
-  tabletSmall: `(min-width: ${breakpoints.tabletSmall}px)`,
-  tabletLarge: `(min-width: ${breakpoints.tabletLarge}px)`,
-  laptop: `(min-width: ${breakpoints.laptop}px)`,
-  desktop: `(min-width: ${breakpoints.desktop}px)`,
+  desktop: createMediaQuery({ min: breakpoints.desktop }),
+  laptop: createMediaQuery({ min: breakpoints.laptop }),
+  tabletLarge: createMediaQuery({ min: breakpoints.tabletLarge }),
+  tabletSmall: createMediaQuery({ min: breakpoints.tabletSmall }),
+  mobileLarge: createMediaQuery({ min: 480 }),
+  mobileSmall: createMediaQuery({ min: breakpoints.mobileSmall }),
 };
 
 const Picture = createPictureComponent({ mediaQueryMap: MEDIA_QUERY_MAP });
