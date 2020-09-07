@@ -7,8 +7,8 @@ import {
   FacebookPixelScript,
 } from '@tager/web-components';
 
-import TagerNextHead from '@/components/next/TagerNextHead';
-import TagerNextScript from '@/components/next/TagerNextScript';
+import TagerNextHead from '@/lib/components/TagerNextHead';
+import TagerNextScript from '@/lib/components/TagerNextScript';
 
 /**
  * Custom Document documentation
