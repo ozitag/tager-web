@@ -16,16 +16,17 @@
     "cypress:run": "cypress run",
     "ci": "start-server-and-test start http://localhost:3000 cypress:run",
     "yalc:clean": "yalc remove --all",
-    "tager:update": "yarn upgrade --latest @tager/web-core @tager/web-components @tager/web-modules"
+    "tager:update": "node ./scripts/tager-update.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@sentry/browser": "^5.22.3",
     "@sentry/node": "^5.22.3",
     "@sentry/webpack-plugin": "^1.12.1",
-    "@tager/web-components": "^0.1.11",
-    "@tager/web-core": "^0.2.4",
-    "@tager/web-modules": "^0.1.3",
+    "@tager/web-analytics": "^0.1.3",
+    "@tager/web-components": "^0.2.0",
+    "@tager/web-core": "^0.3.0",
+    "@tager/web-modules": "^0.1.4",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "formik": "^2.1.5",
     "lodash": "^4.17.20",

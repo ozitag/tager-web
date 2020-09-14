@@ -2,13 +2,8 @@ import React from 'react';
 import * as Sentry from '@sentry/node';
 import Head from 'next/head';
 
-import {
-  useFacebookPixel,
-  useGoogleAnalytics,
-  useGoogleTagManager,
-  useProgressBar,
-  useYandexMetrika,
-} from '@tager/web-core';
+import { useAnalytics } from '@tager/web-analytics';
+import { useProgressBar } from '@tager/web-core';
 import { ModalProvider } from '@tager/web-components';
 
 import '@/assets/css/index.css';
@@ -33,10 +28,7 @@ Sentry.init({
 const CustomApp: CustomApp_Component = (props) => {
   useProgressBar({ showSpinner: false });
 
-  useGoogleAnalytics();
-  useGoogleTagManager();
-  useYandexMetrika();
-  useFacebookPixel();
+  useAnalytics();
 
   const { Component, pageProps } = props;
 

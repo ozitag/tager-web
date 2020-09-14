@@ -1,25 +1,37 @@
 import React from 'react';
-import Document, { DocumentContext, Html, Main } from 'next/document';
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Html,
+  Main,
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
+import { Nullable } from '@tager/web-core';
 import {
-  YandexMetrikaScript,
-  FacebookPixelScript,
-} from '@tager/web-components';
+  AnalyticsSettingsType,
+  getAnalyticsSettings,
+  SiteVerificationMeta,
+} from '@tager/web-analytics';
 
 import TagerNextHead from '@/lib/components/TagerNextHead';
 import TagerNextScript from '@/lib/components/TagerNextScript';
 
+type CustomDocumentProps = {
+  settings: Nullable<AnalyticsSettingsType>;
+};
 /**
  * Custom Document documentation
  * https://nextjs.org/docs/advanced-features/custom-document
  */
-class CustomDocument extends Document {
+class CustomDocument extends Document<CustomDocumentProps> {
   /**
    * Source:
    * https://github.com/zeit/next.js/blob/canary/examples/with-typescript-styled-components/pages/_document.tsx
    */
-  static async getInitialProps(ctx: DocumentContext) {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps & CustomDocumentProps> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -31,6 +43,11 @@ class CustomDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
+
+      const settings = await getAnalyticsSettings()
+        .then((response) => response.data)
+        .catch((error) => null);
+
       return {
         ...initialProps,
         styles: (
@@ -39,6 +56,7 @@ class CustomDocument extends Document {
             {sheet.getStyleElement()}
           </>
         ),
+        settings,
       };
     } finally {
       sheet.seal();
@@ -46,9 +64,16 @@ class CustomDocument extends Document {
   }
 
   render() {
+    const { settings } = this.props;
+
     return (
       <Html lang="en">
         <TagerNextHead>
+          <SiteVerificationMeta
+            google={settings?.googleVerification}
+            yandex={settings?.yandexVerification}
+          />
+
           {/*<link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />*/}
           {/*<link rel="preconnect" href="//fonts.googleapis.com" crossOrigin="" />*/}
           {/*<link*/}
@@ -100,8 +125,6 @@ class CustomDocument extends Document {
             noModule
             src="https://unpkg.com/core-js-bundle@3.6.5/index.js"
           />
-          <YandexMetrikaScript />
-          <FacebookPixelScript />
           <TagerNextScript />
         </body>
       </Html>
