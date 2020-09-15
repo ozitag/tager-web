@@ -2,6 +2,7 @@ import React from 'react';
 import * as Sentry from '@sentry/node';
 import Head from 'next/head';
 
+import { AdminBar } from '@tager/web-panel';
 import { useAnalytics } from '@tager/web-analytics';
 import { useProgressBar } from '@tager/web-core';
 import { ModalProvider } from '@tager/web-components';
@@ -44,6 +45,7 @@ const CustomApp: CustomApp_Component = (props) => {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Head>
+      <AdminBar />
       <ModalProvider>
         <Component {...modifiedPageProps} />
       </ModalProvider>
