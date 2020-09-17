@@ -3,7 +3,7 @@ import { Head } from 'next/document';
 
 class TagerNextHead extends Head {
   getCssLinks() {
-    const { assetPrefix, files } = this.context._documentProps;
+    const { assetPrefix, files } = this.context;
     const cssFiles =
       files && files.length ? files.filter((f) => /\.css$/.test(f)) : [];
 
