@@ -7,6 +7,7 @@ const {
   supportImages,
   supportPolyfills,
   supportSentry,
+  supportCaseSensitivePathsCheck,
 } = require('./config/webpack');
 const { getRewrites } = require('./config/rewrites');
 const { getRedirects } = require('./config/redirects');
@@ -32,6 +33,7 @@ module.exports = withPlugins(
       supportImages(config, options);
       supportPolyfills(config, options);
       supportSentry(config, options);
+      supportCaseSensitivePathsCheck(config, options);
 
       return config;
     },
