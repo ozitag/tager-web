@@ -22,6 +22,7 @@ module.exports = withPlugins(
     withSourceMaps,
   ],
   {
+    poweredByHeader: false,
     async rewrites() {
       return getRewrites();
     },
