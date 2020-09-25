@@ -20,7 +20,7 @@ function supportSvg(config) {
   });
 }
 
-function supportImages(config, {isServer}) {
+function supportImages(config, { isServer }) {
   config.module.rules.push({
     test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.webp$/],
     use: [
@@ -64,7 +64,7 @@ function supportPolyfills(config) {
  * Example with Sentry:
  * https://github.com/vercel/next.js/tree/canary/examples/with-sentry
  */
-function supportSentry(config, {isServer, buildId}) {
+function supportSentry(config, { isServer, buildId }) {
   /**
    * In `pages/_app.js`, Sentry is imported from @sentry/node. While
    * @sentry/browser will run in a Node.js environment, @sentry/node will use
@@ -87,11 +87,11 @@ function supportSentry(config, {isServer, buildId}) {
 
   const isSentryPluginEnabled = Boolean(
     process.env.NEXT_PUBLIC_SENTRY_DSN &&
-    process.env.SENTRY_ORG &&
-    process.env.SENTRY_PROJECT &&
-    process.env.SENTRY_AUTH_TOKEN &&
-    process.env.NODE_ENV === 'production' &&
-    process.env.NEXT_PUBLIC_ENV !== 'local'
+      process.env.SENTRY_ORG &&
+      process.env.SENTRY_PROJECT &&
+      process.env.SENTRY_AUTH_TOKEN &&
+      process.env.NODE_ENV === 'production' &&
+      process.env.NEXT_PUBLIC_ENV !== 'local'
   );
 
   const envName = isServer ? 'server' : 'browser';
@@ -120,17 +120,22 @@ function supportSentry(config, {isServer, buildId}) {
   }
 }
 
-function supportCaseSensitivePathsCheck(config, {dev}) {
+function supportCaseSensitivePathsCheck(config, { dev }) {
   if (dev) {
     config.plugins.push(new CaseSensitivePathsPlugin());
   }
 }
 
-function supportDisableScSpeedy(config, {webpack}) {
-  if (process.env.NEXT_SC_DISABLE_SPEEDY) {
+/**
+ * Issue: https://github.com/styled-components/styled-components/issues/2038
+ * Solution - disabling "speedy" mode via global `SC_DISABLE_SPEEDY` variable
+ * Reference: https://github.com/styled-components/styled-components/releases/tag/v4.1.0
+ */
+function supportDisableScSpeedy(config, { webpack }) {
+  if (process.env.SC_DISABLE_SPEEDY === 'true') {
     config.plugins.push(
       new webpack.DefinePlugin({
-        'process.env.SC_DISABLE_SPEEDY': true,
+        SC_DISABLE_SPEEDY: true,
       })
     );
   }

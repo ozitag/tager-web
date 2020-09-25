@@ -10,8 +10,8 @@ const {
   supportCaseSensitivePathsCheck,
   supportDisableScSpeedy,
 } = require('./config/webpack');
-const {getRewrites} = require('./config/rewrites');
-const {getRedirects} = require('./config/redirects');
+const { getRewrites } = require('./config/rewrites');
+const { getRedirects } = require('./config/redirects');
 
 module.exports = withPlugins(
   [
