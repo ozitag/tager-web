@@ -8,9 +8,10 @@ const {
   supportPolyfills,
   supportSentry,
   supportCaseSensitivePathsCheck,
+  supportDisableScSpeedy,
 } = require('./config/webpack');
-const { getRewrites } = require('./config/rewrites');
-const { getRedirects } = require('./config/redirects');
+const {getRewrites} = require('./config/rewrites');
+const {getRedirects} = require('./config/redirects');
 
 module.exports = withPlugins(
   [
@@ -35,6 +36,7 @@ module.exports = withPlugins(
       supportPolyfills(config, options);
       supportSentry(config, options);
       supportCaseSensitivePathsCheck(config, options);
+      supportDisableScSpeedy(config, options);
 
       return config;
     },
