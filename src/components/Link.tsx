@@ -1,24 +1,14 @@
 import { createLinkComponent } from '@tager/web-components';
-import {
-  createDynamicLinkBuilder,
-  createLinkConverter,
-} from '@tager/web-components';
+import { createDynamicLinkBuilder } from '@tager/web-components';
 
-export const postLinkBuilder = createDynamicLinkBuilder<'alias'>(
-  '/blog/[alias]'
-);
-export const courseLinkBuilder = createDynamicLinkBuilder<'alias'>(
-  '/courses/[alias]'
-);
-export const lessonLinkBuilder = createDynamicLinkBuilder<'alias' | 'id'>(
-  '/courses/[alias]/lessons/[id]'
+export const exampleLinkBuilder = createDynamicLinkBuilder<'alias'>(
+  '/example/[alias]'
 );
 
-export const linkConverter = createLinkConverter({
-  linkBuilderList: [postLinkBuilder, courseLinkBuilder, lessonLinkBuilder],
-  staticLinkList: [],
-});
+export const examplePostLinkBuilder = createDynamicLinkBuilder<'postAlias'>(
+  '/posts/[postAlias]'
+);
 
-const Link = createLinkComponent({ converter: linkConverter });
+const Link = createLinkComponent();
 
 export default Link;

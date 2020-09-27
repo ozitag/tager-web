@@ -1,65 +1,65 @@
 import React, { ScriptHTMLAttributes } from 'react';
 import { NextScript } from 'next/document';
 
-import { isNotNullish, notFalsy } from '@tager/web-core';
+import { isNotNullish } from '@tager/web-core';
 
-/** Reference: https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218 */
+type ScriptProps = ScriptHTMLAttributes<HTMLScriptElement>;
+type ScriptElement = React.ReactElement<ScriptProps>;
+
+/**
+ * Reference: "Hacking Next.js for better PageSpeed scores"
+ * https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218
+ */
 class TagerNextScript extends NextScript {
+  /**
+   * Reference:
+   * https://github.com/vercel/next.js/blob/v9.5.3/packages/next/pages/_document.tsx#L666-L778
+   */
   render() {
-    /** Fragment */
-    const nextScriptElement = super.render();
+    /** Can be null only in AMP mode */
+    const nextScriptFragment = super.render();
 
-    type ScriptProps = ScriptHTMLAttributes<HTMLScriptElement>;
-    type ScriptElement = React.ReactElement<ScriptProps>;
-
-    const orgNextScripts: Array<ScriptElement | null> = nextScriptElement
-      ? nextScriptElement.props.children.flat()
+    const allScripts: Array<ScriptElement> = nextScriptFragment
+      ? nextScriptFragment.props.children.flat().filter(isNotNullish)
       : [];
 
-    const scripts = orgNextScripts.filter(notFalsy).map((child) => {
-      if (child.props.id === '__NEXT_DATA__') {
-        return {
-          props: { ...child.props },
-          content: child.props.dangerouslySetInnerHTML?.__html,
-        };
-      }
-
-      if (child.type === 'script') {
-        return {
-          props: { ...child.props },
-          content: '',
-        };
-      }
-
-      return null;
-    });
-
-    function isNextChunk(props: ScriptProps): boolean {
-      return Boolean(props.src?.includes('chunk'));
+    function isChunk(scriptSrc: string | undefined): boolean {
+      return scriptSrc ? scriptSrc.includes('chunk') : false;
     }
 
-    const initialLoadScripts = scripts
-      .filter(isNotNullish)
-      .filter(({ props }) => !isNextChunk(props));
+    const mainScripts = allScripts.filter(
+      (script) => !isChunk(script.props.src)
+    );
 
-    const chunkedScripts = scripts
-      .filter(isNotNullish)
-      .filter(({ props }) => isNextChunk(props));
+    const chunkedScripts = allScripts.filter((script) =>
+      isChunk(script.props.src)
+    );
 
     const jsContent = `
       var chunkedScripts = ${JSON.stringify(chunkedScripts)};
       setTimeout(() => {
         chunkedScripts.map((script) => {
-          if (!script || !script.props) return;
           try {
             var scriptTag = document.createElement('script');
   
-            scriptTag.src = script.props.src;
+            if (script.props.src) {
+              scriptTag.src = script.props.src;
+            }
+            
             scriptTag.async = script.props.async;
             scriptTag.defer = script.props.defer;
+            scriptTag.noModule = script.props.noModule;
+            scriptTag.crossOrigin = script.props.crossOrigin;
+            scriptTag.nonce = script.props.nonce;
             
-            if (script.props.id) scriptTag.id = script.props.id;
-            if (script.content) scriptTag.innerHTML = script.content;
+            if (script.props.id) {
+              scriptTag.id = script.props.id;
+            }
+            
+            if (script.props.children) {
+              scriptTag.innerHTML = script.props.children;
+            }
+            
             document.body.appendChild(scriptTag);
           }
           catch(err) {
@@ -72,9 +72,7 @@ class TagerNextScript extends NextScript {
 
     return (
       <>
-        {initialLoadScripts.map(({ props }, index) => (
-          <script key={index} {...props} src={props.src} />
-        ))}
+        {mainScripts}
 
         <script
           id="__NEXT_SCRIPT_CUSTOM"
