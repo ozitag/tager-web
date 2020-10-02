@@ -13,9 +13,7 @@ import {
   getAnalyticsSettings,
   SiteVerificationMeta,
 } from '@tager/web-analytics';
-
-import TagerNextHead from '@/lib/components/TagerNextHead';
-import TagerNextScript from '@/lib/components/TagerNextScript';
+import { TagerNextHead, TagerNextScript } from '@tager/web-components';
 
 type CustomDocumentProps = {
   settings: Nullable<AnalyticsSettingsType>;
