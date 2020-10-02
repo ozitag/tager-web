@@ -2486,15 +2486,15 @@
     react-ga "^3.1.2"
     react-gtm-module "^2.0.11"
 
-"@tager/web-components@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.2.0.tgz#fdec50a8e18f0bee5be6309b2e28511138abe48c"
-  integrity sha512-8CEiMucyg2nA/r/cofNAjhteJgAx5qPXGwtT6JX6Te1hi0FdRovnN8gQe+nNdcYLA19BURX/saUlf8CPj0D6Zg==
+"@tager/web-components@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.2.5.tgz#88843460becbdd3dfcb35fe1362a7db1b307468a"
+  integrity sha512-M3Jd6gZ93gn7DH9fhLGIKpOZLKU1czMpZpcfeD0jT4T62NGAvqxGXw+hvMceRoHrCM1/wroDIobe1akHx6FLkg==
 
-"@tager/web-core@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@tager/web-core/-/web-core-0.3.1.tgz#3b3a1fc4f1f21acbaaf68ba2b6b1cac9f0ceab69"
-  integrity sha512-9KtH5/LocGlmFN8qvZcOmJnZq/7JJJ1RJX5NJGkG/Dx+Yzrhdn462zzkql7/9WVdJI9sybdaUg3D+j4NeIq06A==
+"@tager/web-core@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@tager/web-core/-/web-core-0.3.2.tgz#e672ff114c0c353bc971de2c90136050835223a2"
+  integrity sha512-jR6AGperNr1EEURZh0+KT61/ZfTyeRFrIdpzxrIDA8L2D9hS0b1oZfyXnN1BJ6EsRlSHMgHnV/Xog9zDc7cAnw==
   dependencies:
     cookie "^0.4.1"
     js-cookie "^3.0.0-rc.0"
@@ -2504,15 +2504,15 @@
     tua-body-scroll-lock "^1.2.0"
     typed-contracts "^2.3.0"
 
-"@tager/web-modules@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@tager/web-modules/-/web-modules-0.1.4.tgz#a0ae7f5c8e3867a85290f06c9124aed97332cbf0"
-  integrity sha512-8V/JOCw4jhEYTySjF5TJmTLeuLzgrQvxCahlaJ3iJFnkXAncPcoqU0/aBkNajp8SOqMRXm8eFT7CUWCVG31xNQ==
+"@tager/web-modules@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@tager/web-modules/-/web-modules-0.1.6.tgz#c22eaf54fa26e4f8d7d5f458fa82206790ca5786"
+  integrity sha512-tXgQSNcZX/C0cAtOpx2A23vCFsr8byLbPN+OW1pUtUI8pOpUU48Emk+Xx4a9nazQdJMZ66BEUFV+HXzk5HS27Q==
 
-"@tager/web-panel@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@tager/web-panel/-/web-panel-0.1.2.tgz#48615fd2bdc500fff5714e201261b2772b814f45"
-  integrity sha512-D7eE6IwBqwBCUTsbI926GFUsqGBSikCgt/Wo7R/2DVzhv/mAq/xnaXqeAazDJ9F11DTscQtqVBe2WNaoi+5/4w==
+"@tager/web-panel@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@tager/web-panel/-/web-panel-0.1.8.tgz#a52969a23d166673c19ec34f5627d69496c317ca"
+  integrity sha512-fgRxHBq0O1tlh3vHkP3m7XhhxdJ/u12oeQ8Nc6Voae+hv+JIUsY9YTF6upup+AK1SUuiVZd+gnDIygAORErQzw==
 
 "@types/anymatch@*":
   version "1.3.1"

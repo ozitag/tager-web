@@ -8,10 +8,10 @@ export type ButtonVariant = ReservedButtonVariant | CssSnippet;
 
 const variantCssMap: Record<ReservedButtonVariant, CssSnippet> = {
   contained: css`
-    background-color: gray;
+    background-color: #24292e;
     opacity: 0.95;
     color: white;
-    border: 1px solid gray;
+    border: 1px solid #24292e;
 
     &:hover {
       background-color: black;
@@ -19,11 +19,11 @@ const variantCssMap: Record<ReservedButtonVariant, CssSnippet> = {
   `,
   outlined: css`
     background-color: white;
-    color: gray;
-    border: 1px solid gray;
+    color: #24292e;
+    border: 1px solid #24292e;
 
     &:hover {
-      background-color: gray;
+      background-color: #24292e;
       opacity: 0.95;
       color: white;
     }
@@ -39,6 +39,8 @@ export const StyledButton = styled.button<{ variant?: ButtonVariant }>`
   text-transform: uppercase;
   padding: 10px;
   text-decoration: none;
+  transition: background-color 0.1s;
+  border-radius: 3px;
 
   ${(props) =>
     typeof props.variant === 'string'
