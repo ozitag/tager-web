@@ -1,4 +1,4 @@
-const {STORYBOOK_REDIRECT} = require('./storybook');
+const { STORYBOOK_REDIRECT } = require('./storybook');
 
 function getRedirects() {
   const isProductionServer = process.env.NEXT_PUBLIC_ENV === 'production';
