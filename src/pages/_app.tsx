@@ -2,13 +2,15 @@ import React from 'react';
 import * as Sentry from '@sentry/node';
 import Head from 'next/head';
 
+import '@/assets/css/index.css';
+
 import { AdminBar } from '@tager/web-panel';
 import { useAnalytics } from '@tager/web-analytics';
 import { useProgressBar } from '@tager/web-core';
 import { ModalProvider } from '@tager/web-components';
 
-import '@/assets/css/index.css';
 import withRedux from '@/hocs/withRedux';
+import withPerfLogs from '@/hocs/withPerfLogs';
 import { CustomApp_Component } from '@/typings/hocs';
 
 Sentry.init({
@@ -68,4 +70,4 @@ const CustomApp: CustomApp_Component = (props) => {
 //   return { ...appProps };
 // };
 
-export default withRedux(CustomApp);
+export default withRedux(withPerfLogs(CustomApp));
