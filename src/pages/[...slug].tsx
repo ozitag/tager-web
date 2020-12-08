@@ -63,6 +63,9 @@ DynamicPage.getInitialProps = async (
     const foundPageModule = getPageModuleByTemplate(foundPage?.template);
 
     if (!foundPage) {
+      if (context.res) {
+        context.res.statusCode = 404;
+      }
       return { pageType: 'NOT_FOUND' };
     }
 

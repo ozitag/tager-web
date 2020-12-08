@@ -27,7 +27,7 @@ function TextInputFormik({
 }: Props) {
   const [field, meta, helpers] = useField<string>({ name, type });
 
-  const error = customError ?? meta.touched ? meta.error : '';
+  const error = customError ?? (meta.touched ? meta.error : '');
 
   const { value, onChange, onBlur } = field;
   const { setValue } = helpers;

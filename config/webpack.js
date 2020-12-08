@@ -1,7 +1,6 @@
 const util = require('util');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
-/** Use the SentryWebpack plugin to upload the source maps during build step */
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 function colorLog(message) {
