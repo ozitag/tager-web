@@ -6,7 +6,7 @@ import '@/assets/css/index.css';
 
 import { AdminBar } from '@tager/web-panel';
 import { useAnalytics } from '@tager/web-analytics';
-import { useProgressBar } from '@tager/web-core';
+import { useFixedVhProperty, useProgressBar } from '@tager/web-core';
 import { ModalProvider } from '@tager/web-components';
 
 import withRedux from '@/hocs/withRedux';
@@ -32,6 +32,7 @@ const CustomApp: CustomApp_Component = (props) => {
   useProgressBar({ showSpinner: false });
 
   useAnalytics();
+  useFixedVhProperty();
 
   const { Component, pageProps } = props;
 

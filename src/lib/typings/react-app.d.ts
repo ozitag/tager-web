@@ -26,6 +26,7 @@ declare namespace NodeJS {
       | undefined;
     readonly NEXT_PUBLIC_YANDEX_METRIKA_COUNTER_ID: string | undefined;
     readonly NEXT_PUBLIC_GOOGLE_ANALYTICS_TRACKING_ID: string | undefined;
+    readonly NEXT_PUBLIC_GOOGLE_ANALYTICS4_MEASUREMENT_ID: string | undefined;
     readonly NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: string | undefined;
     readonly NEXT_PUBLIC_FACEBOOK_PIXEL_ID: string | undefined;
     readonly NEXT_PUBLIC_STORYBOOK_BASE_PATH: string | undefined;
@@ -65,9 +66,9 @@ declare module '*.webp' {
 declare module '*.svg' {
   import * as React from 'react';
 
-  export const ReactComponent: React.FunctionComponent<React.SVGProps<
-    SVGSVGElement
-  >>;
+  export const ReactComponent: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement>
+  >;
 
   const src: string;
   export default src;

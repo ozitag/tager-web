@@ -2608,23 +2608,23 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@tager/web-analytics@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@tager/web-analytics/-/web-analytics-0.1.3.tgz#1daad82ae0d5803aff3975b99072e9d67cf94220"
-  integrity sha512-zi8RoYPRyn1I7qD72rpyhNHiWklXweIOvOIgtkzurWvA8CAqAmM0I8TUCZsAioRHCtgX8J3jNf5+96DRMGKlmw==
+"@tager/web-analytics@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@tager/web-analytics/-/web-analytics-0.2.0.tgz#9ca1b51118ad77a9c109c1ccc408564b6b27a867"
+  integrity sha512-gdlErSTTOklRNxcTOFbpWuH/Hd7n0bSdOmd3TUccx9f5u2P1SGfcYPCazTCr8gwC9k5mfhC/Rk5CXg4OCa6KnA==
   dependencies:
     react-ga "^3.1.2"
     react-gtm-module "^2.0.11"
 
-"@tager/web-components@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.3.0.tgz#800e0757c0258be5bbdefc8573917a2bb4fe27c0"
-  integrity sha512-RdfWLJ3pvEf4KUyeZ5D53fKpAZTGXZUS2tbgz761yEr4m4DMHsEQv0EbNPSVWPo+fY3M49GKhhc2Yj9L7xp66g==
+"@tager/web-components@^0.3.7-rc.3":
+  version "0.3.7-rc.3"
+  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.3.7-rc.3.tgz#9912819b5e93fbbfe9cc4578dde02f6ea12f5998"
+  integrity sha512-H1ufldIsdZiBii7/7BJklZFoCmsGRzS+zmdunvvNKDwDkU+sgCI6C3kabmBqKAQp+e+R92Fj7AbCFQ0Vz/JCEQ==
 
-"@tager/web-core@^0.3.7":
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/@tager/web-core/-/web-core-0.3.7.tgz#638e579011ecd6326986c8ea6daf90ecfdc8e99d"
-  integrity sha512-8JAcrbI7g/7pBdss5GXtvoGmbzAuq9SBZlJnyjEKCPaHViYCIvV3R7QHiKqPVMup9aqWb787m35Chz43QFAFrg==
+"@tager/web-core@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@tager/web-core/-/web-core-0.3.8.tgz#c302a9fb63890b9ee8f21457a3afc8db526c6221"
+  integrity sha512-LL37t56VvV+/us2m+WYYcp/oDUr8cdIZEbQFwVca3vPAT7VpKCGQjxTYM49rW5Wbm5sS9gmct2ZzbOGWTrAVGA==
   dependencies:
     cookie "^0.4.1"
     js-cookie "^3.0.0-rc.1"

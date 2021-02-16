@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Link from '@/components/Link';
+import { LinkToPropType } from '@tager/web-components';
 
-import { LinkToPropType } from '../../../../tager-web-components/src/components/createLinkComponent';
+import Link from '@/components/Link';
 
 import * as S from './Button.style';
 import { ButtonVariant } from './Button.style';
@@ -31,9 +31,9 @@ export const ButtonLink = React.forwardRef<HTMLAnchorElement, AnchorProps>(
   }
 );
 
-type ButtonNextLinkProps = { to: LinkToPropType } & React.AnchorHTMLAttributes<
-  HTMLAnchorElement
-> &
+type ButtonNextLinkProps = {
+  to: LinkToPropType;
+} & React.AnchorHTMLAttributes<HTMLAnchorElement> &
   CommonProps;
 
 export const ButtonNextLink = React.forwardRef<
