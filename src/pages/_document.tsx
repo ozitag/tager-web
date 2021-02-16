@@ -18,6 +18,7 @@ import { TagerNextHead, TagerNextScript } from '@tager/web-components';
 type CustomDocumentProps = {
   settings: Nullable<AnalyticsSettingsType>;
 };
+
 /**
  * Custom Document documentation
  * https://nextjs.org/docs/advanced-features/custom-document
@@ -64,6 +65,9 @@ class CustomDocument extends Document<CustomDocumentProps> {
   render() {
     const { settings } = this.props;
 
+    const themeColor = '#000000';
+    const appName = 'TAGER Web App';
+
     return (
       <Html lang="en">
         <TagerNextHead>
@@ -78,6 +82,7 @@ class CustomDocument extends Document<CustomDocumentProps> {
           {/*  href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap&subset=cyrillic"*/}
           {/*  rel="stylesheet"*/}
           {/*/>*/}
+
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -101,12 +106,26 @@ class CustomDocument extends Document<CustomDocumentProps> {
             href="/favicon/safari-pinned-tab.svg"
             color="#dd6900"
           />
+
           <meta
             name="msapplication-config"
             content="/favicon/browserconfig.xml"
           />
-          <meta name="msapplication-TileColor" content="#da532c" />
-          <meta name="theme-color" content="#ffffff" />
+
+          {appName ? <meta name="application-name" content={appName} /> : null}
+
+          {themeColor ? (
+            <>
+              <meta name="theme-color" content={themeColor} />
+              <meta
+                name="apple-mobile-web-app-status-bar-style"
+                content={themeColor}
+              />
+              <meta content={`ya-title=${themeColor},ya-dock=fade`} />
+              <meta name="msapplication-navbutton-color" content={themeColor} />
+              <meta name="msapplication-TileColor" content={themeColor} />
+            </>
+          ) : null}
         </TagerNextHead>
         <body>
           <Main />
