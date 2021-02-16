@@ -104,7 +104,7 @@ class CustomDocument extends Document<CustomDocumentProps> {
           <link
             rel="mask-icon"
             href="/favicon/safari-pinned-tab.svg"
-            color="#dd6900"
+            color={themeColor}
           />
 
           <meta
