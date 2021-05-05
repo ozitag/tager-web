@@ -39,9 +39,9 @@ type ButtonNextLinkProps = {
 export const ButtonNextLink = React.forwardRef<
   HTMLAnchorElement,
   ButtonNextLinkProps
->((props, ref) => {
+>(({ to, ...props }, ref) => {
   return (
-    <Link to={props.to}>
+    <Link to={to}>
       {(linkProps) => <ButtonLink ref={ref} {...linkProps} {...props} />}
     </Link>
   );
