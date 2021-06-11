@@ -40,7 +40,8 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-public/
-!public/favicon/
-!public/static/
-!public/favicon.ico
+# To add all public files to gitignore comment out next 4 lines
+# public/
+# !public/favicon/
+# !public/static/
+# !public/favicon.ico
