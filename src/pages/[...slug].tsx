@@ -43,8 +43,13 @@ function DynamicPage(props: Props) {
   const foundPageModule = getPageModuleByTemplate(props.template);
   const pageElement = React.createElement(foundPageModule.component);
 
+  const seoPageProps = convertSeoParamsToPageProps(page?.seoParams);
+  if (seoPageProps.openGraphImage === null && page?.image) {
+    seoPageProps.openGraphImage = page.image.url;
+  }
+
   return (
-    <Page {...convertSeoParamsToPageProps(page?.seoParams)}>
+    <Page {...seoPageProps}>
       <Layout>{pageElement}</Layout>
     </Page>
   );
