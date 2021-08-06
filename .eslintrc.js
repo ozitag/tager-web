@@ -1,20 +1,14 @@
-/** react-app config already use "@typescript-eslint" for "*.ts(x)" files */
-
 module.exports = {
-  extends: [
-    'react-app',
-    'prettier/@typescript-eslint',
-    'prettier',
-    'prettier/react',
+  extends: ['react-app', 'prettier', 'plugin:@next/next/recommended'],
+  overrides: [
+    {
+      files: ['src/**/*.stories.tsx'],
+      rules: {
+        'import/no-anonymous-default-export': 'off',
+      },
+    },
   ],
-  plugins: ['prettier'],
-  env: {
-    browser: true,
-    node: true,
-    jest: true,
-  },
   rules: {
-    'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
     'import/order': [
       'error',

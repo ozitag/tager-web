@@ -1,10 +1,16 @@
-import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import {
+  Action,
+  ThunkAction,
+  configureStore,
+  ThunkDispatch,
+} from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { AnyAction, Store } from 'redux';
+import { ConfigureStoreOptions } from '@reduxjs/toolkit/src/configureStore';
 
 import reducer from './reducers';
 
 export type AppState = ReturnType<typeof reducer>;
-export const useTypedSelector: TypedUseSelectorHook<AppState> = useSelector;
 
 export type AppThunk<Result = void> = ThunkAction<
   Result,
@@ -13,13 +19,19 @@ export type AppThunk<Result = void> = ThunkAction<
   Action<string>
 >;
 
-export function createStore(preloadedState?: AppState) {
+export type StoreDispatch = ThunkDispatch<AppState, unknown, AnyAction>;
+
+export interface AppStore extends Store<AppState> {
+  dispatch: StoreDispatch;
+}
+
+export function createStore(preloadedState?: AppState): AppStore {
   return configureStore({
     reducer,
-    preloadedState,
+    preloadedState: preloadedState as ConfigureStoreOptions['preloadedState'],
     devTools: process.env.NODE_ENV === 'development',
   });
 }
 
-export type AppStore = ReturnType<typeof createStore>;
-export type StoreDispatch = AppStore['dispatch'];
+export const useTypedSelector: TypedUseSelectorHook<AppState> = useSelector;
+export const useTypedDispatch: () => StoreDispatch = useDispatch;

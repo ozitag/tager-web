@@ -2,8 +2,10 @@ import React from 'react';
 import Document, {
   DocumentContext,
   DocumentInitialProps,
+  Head,
   Html,
   Main,
+  NextScript,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -13,7 +15,6 @@ import {
   getAnalyticsSettings,
   SiteVerificationMeta,
 } from '@tager/web-analytics';
-import { TagerNextHead, TagerNextScript } from '@tager/web-components';
 
 type CustomDocumentProps = {
   settings: Nullable<AnalyticsSettingsType>;
@@ -70,7 +71,7 @@ class CustomDocument extends Document<CustomDocumentProps> {
 
     return (
       <Html lang="en">
-        <TagerNextHead>
+        <Head>
           <SiteVerificationMeta
             google={settings?.googleVerification}
             yandex={settings?.yandexVerification}
@@ -126,7 +127,7 @@ class CustomDocument extends Document<CustomDocumentProps> {
               <meta name="msapplication-TileColor" content={themeColor} />
             </>
           ) : null}
-        </TagerNextHead>
+        </Head>
         <body>
           <Main />
           <script src="/static/js/global.js" defer />
@@ -142,7 +143,7 @@ class CustomDocument extends Document<CustomDocumentProps> {
             noModule
             src="https://unpkg.com/core-js-bundle@3.6.5/index.js"
           />
-          <TagerNextScript />
+          <NextScript />
         </body>
       </Html>
     );
