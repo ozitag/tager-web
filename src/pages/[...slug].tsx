@@ -12,7 +12,7 @@ import {
   getPageByPathThunk,
   getPageListThunk,
 } from '@/store/reducers/tager/pages';
-import useCurrentPage from '@/hooks/useCurrentPage';
+import { useCurrentPage } from '@/hooks/useCurrentPage';
 import { getPageModuleByTemplate } from '@/services/pageModules';
 import { convertErrorToProps, convertSlugToPath } from '@/utils/common';
 
