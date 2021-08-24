@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useCurrentPage from '@/hooks/useCurrentPage';
+import { useCurrentPage } from '@/hooks/useCurrentPage';
 
 function DefaultTemplate() {
   const page = useCurrentPage();
