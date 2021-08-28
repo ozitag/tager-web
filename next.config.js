@@ -1,5 +1,4 @@
 const withPlugins = require('next-compose-plugins');
-const withTM = require('next-transpile-modules');
 const withSourceMaps = require('@zeit/next-source-maps')();
 
 const {
@@ -12,15 +11,9 @@ const {
 } = require('./config/webpack');
 const { getRewrites } = require('./config/rewrites');
 const { getRedirects } = require('./config/redirects');
-const packageJson = require('./package.json');
-
-const tagerPackages = Object.keys(
-  packageJson.dependencies
-).filter((packageName) => packageName.startsWith('@tager/'));
 
 module.exports = withPlugins(
   [
-    withTM([...tagerPackages]),
     /**
      * Use the hidden-source-map option when you don't want the source maps to be
      * publicly available on the servers, only to the error reporting

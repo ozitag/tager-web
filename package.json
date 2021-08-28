@@ -17,7 +17,7 @@
     "ci": "start-server-and-test start http://localhost:3000 cypress:run",
     "yalc:clean": "yalc remove --all",
     "tager:update": "node ./scripts/tager-update.js",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
@@ -25,7 +25,7 @@
     "@sentry/node": "^6.10.0",
     "@sentry/webpack-plugin": "^1.17.1",
     "@tager/web-analytics": "^0.2.1",
-    "@tager/web-components": "^0.4.0",
+    "@tager/web-components": "^0.4.2",
     "@tager/web-core": "^0.3.18",
     "@tager/web-modules": "^0.1.7",
     "@tager/web-panel": "^0.1.11",
@@ -76,7 +76,6 @@
     "husky": "^7.0.0",
     "lint-staged": "^11.1.2",
     "next-compose-plugins": "^2.2.1",
-    "next-transpile-modules": "^8.0.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.13.1",

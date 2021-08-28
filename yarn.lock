@@ -3665,10 +3665,10 @@
     react-ga "^3.1.2"
     react-gtm-module "^2.0.11"
 
-"@tager/web-components@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.4.0.tgz#c0dc10b962d26612729fd07e7e8871075c8110bc"
-  integrity sha512-U5zk3BZRB6Os+OjaBa9eiXY1+bbFChgiFoO9CCLRLFLBXC49AjoDlSarzWsgmAqQ0J0TxfWWey9WEnpIBgOncQ==
+"@tager/web-components@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.4.2.tgz#ce0765bfec2276c4be88a86ab370fc1c1cece22b"
+  integrity sha512-I3AblvetUAEJKcL7S5fWT4f6neJfXBxqVQshmpiXqETTl7SwWZwn3tpRWI6MV1HDof3s00hfTZMNRaMfXOyL3g==
 
 "@tager/web-core@^0.3.18":
   version "0.3.18"
@@ -6613,7 +6613,7 @@ enhanced-resolve@^4.5.0:
     memory-fs "^0.5.0"
     tapable "^1.0.0"
 
-enhanced-resolve@^5.0.0, enhanced-resolve@^5.7.0:
+enhanced-resolve@^5.0.0:
   version "5.8.2"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.8.2.tgz#15ddc779345cbb73e97c611cd00c01c1e7bf4d8b"
   integrity sha512-F27oB3WuHDzvR2DOGNTaYy0D5o0cnrv8TeI482VM4kYgQd/FT9lUQwuNsJ0oOHtBUq7eiW5ytqzp7nBFknL+GA==
@@ -9776,14 +9776,6 @@ next-compose-plugins@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
   integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
-
-next-transpile-modules@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/next-transpile-modules/-/next-transpile-modules-8.0.0.tgz#56375cdc25ae5d23a834195f277fc2737b26cb97"
-  integrity sha512-Q2f2yB0zMJ8KJbIYAeZoIxG6cSfVk813zr6B5HzsLMBVcJ3FaF8lKr7WG66n0KlHCwjLSmf/6EkgI6QQVWHrDw==
-  dependencies:
-    enhanced-resolve "^5.7.0"
-    escalade "^3.1.1"
 
 next@^11.1.0:
   version "11.1.0"
