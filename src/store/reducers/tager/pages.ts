@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   createResourceLoader,
   MapEntry,
-  Nullable,
   ResourceType,
   shouldGetResourceDataFromCache,
 } from '@tager/web-core';
@@ -96,7 +95,7 @@ export function getPageByPathThunk<
   options?: {
     shouldInvalidate?: boolean;
   }
-): AppThunk<Promise<Nullable<PageType>>> {
+): AppThunk<Promise<PageType>> {
   return async (dispatch, getState) => {
     try {
       const page = selectPageByPath(getState(), pagePath);
@@ -116,7 +115,7 @@ export function getPageByPathThunk<
 
       return response.data as PageType;
     } catch (error) {
-      return null;
+      return Promise.reject(error);
     }
   };
 }
