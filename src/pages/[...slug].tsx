@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { isServer } from '@tager/web-core';
 import { Page } from '@tager/web-components';
 import { convertSeoParamsToPageProps } from '@tager/web-modules';
 
@@ -74,16 +73,12 @@ DynamicPage.getInitialProps = async (
       return { pageType: 'NOT_FOUND' };
     }
 
-    const requestsPromise = Promise.all([
+    await Promise.all([
       store.dispatch(getPageByPathThunk(foundPage.path)),
       foundPageModule.getInitialProps
         ? foundPageModule.getInitialProps(context)
         : Promise.resolve(),
     ]);
-
-    if (isServer()) {
-      await requestsPromise;
-    }
 
     return { pageType: 'DYNAMIC_PAGE', template: foundPageModule.template };
   } catch (error) {
