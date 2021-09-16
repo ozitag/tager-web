@@ -11,7 +11,7 @@ import {
   getPageByPathThunk,
   getPageListThunk,
 } from '@/store/reducers/tager/pages';
-import { useCurrentPage } from '@/hooks/useCurrentPage';
+import { useLayoutPage } from '@/hooks';
 import { getPageModuleByTemplate } from '@/services/pageModules';
 import { convertErrorToProps, convertSlugToPath } from '@/utils/common';
 
@@ -29,7 +29,7 @@ type Props =
     };
 
 function DynamicPage(props: Props) {
-  const page = useCurrentPage();
+  const page = useLayoutPage();
 
   if (props.pageType === 'NOT_FOUND') {
     return <NotFoundPage />;
@@ -43,7 +43,8 @@ function DynamicPage(props: Props) {
   const pageElement = React.createElement(foundPageModule.component);
 
   const seoPageProps = convertSeoParamsToPageProps(page?.seoParams);
-  if (seoPageProps.openGraphImage === null && page?.image) {
+
+  if (seoPageProps.openGraphImage == null && page?.image) {
     seoPageProps.openGraphImage = page.image.url;
   }
 
@@ -62,7 +63,6 @@ DynamicPage.getInitialProps = async (
 
   try {
     const pageList = await store.dispatch(getPageListThunk());
-
     const foundPage = pageList.find((page) => page.path === currentPath);
     const foundPageModule = getPageModuleByTemplate(foundPage?.template);
 
@@ -80,9 +80,15 @@ DynamicPage.getInitialProps = async (
         : Promise.resolve(),
     ]);
 
-    return { pageType: 'DYNAMIC_PAGE', template: foundPageModule.template };
+    return {
+      pageType: 'DYNAMIC_PAGE',
+      template: foundPageModule.template,
+    };
   } catch (error) {
-    return { pageType: 'ERROR', error };
+    return {
+      pageType: 'ERROR',
+      error,
+    };
   }
 };
 
