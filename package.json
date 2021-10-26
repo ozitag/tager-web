@@ -32,7 +32,7 @@
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
-    "next": "^11.1.0",
+    "next": "^12.0.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
