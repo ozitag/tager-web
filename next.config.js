@@ -21,6 +21,7 @@ module.exports = withPlugins(
     withSourceMaps,
   ],
   {
+    swcMinify: true,
     poweredByHeader: false,
     async rewrites() {
       return getRewrites();
