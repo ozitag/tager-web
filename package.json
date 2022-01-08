@@ -29,10 +29,9 @@
     "@tager/web-core": "^0.3.23",
     "@tager/web-modules": "^0.1.8",
     "@tager/web-panel": "^0.1.13",
-    "@zeit/next-source-maps": "0.0.4-canary.1",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
-    "next": "^12.0.1",
+    "next": "^12.0.7",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "react": "17.0.2",
@@ -40,7 +39,7 @@
     "react-dom": "17.0.2",
     "react-redux": "^7.2.4",
     "serve-handler": "^6.1.3",
-    "sitemap": "^7.0.0",
+    "sitemap": "^7.1.0",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
@@ -80,7 +79,7 @@
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.13.1",
     "ts-loader": "^9.2.5",
-    "typescript": "^4.3.5",
+    "typescript": "^4.5.4",
     "url-loader": "^4.1.1"
   },
   "lint-staged": {
