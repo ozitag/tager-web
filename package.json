@@ -45,6 +45,7 @@
   "devDependencies": {
     "@storybook/addon-essentials": "^6.3.6",
     "@storybook/react": "^6.3.6",
+    "@svgr/rollup": "^6.1.2",
     "@svgr/webpack": "^5.5.0",
     "@types/lodash": "^4.14.172",
     "@types/node": "16.x",
@@ -56,6 +57,7 @@
     "@types/styled-components": "^5.1.12",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
+    "@vitejs/plugin-react": "^1.1.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
@@ -78,9 +80,11 @@
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.13.1",
+    "storybook-builder-vite": "^0.1.13",
     "ts-loader": "^9.2.5",
     "typescript": "^4.5.4",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "vite": "^2.7.10"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

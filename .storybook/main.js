@@ -1,4 +1,9 @@
 const path = require('path');
+const svgr = require('@svgr/rollup');
+
+function resolvePath(filePath) {
+  return path.resolve(__dirname, '..', filePath);
+}
 
 module.exports = {
   stories: ['../src/**/*.stories.@(tsx)'],
@@ -18,28 +23,41 @@ module.exports = {
         prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
     },
   },
-  webpackFinal: async (config) => {
-    /** Support TS path aliases */
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, '../src/'),
+  viteFinal: async (config) => {
+    config.resolve.alias = [
+      /** Support TS path aliases */
+      { find: /@\/(.+)/, replacement: resolvePath('src/$1') },
+      /**
+       * Support importing css files from `node_modules` via `~`.
+       * e.g. `@import "~normalize.css";`
+       */
+      {
+        find: /^~(.+)/,
+        replacement: resolvePath('node_modules/$1'),
+      },
+    ];
+
+    /**
+     * Hack to fix import of next.js router utils
+     */
+    config.define = {
+      ...config.define,
+      __dirname: JSON.stringify(__dirname),
     };
 
-    config.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      loader: require.resolve('babel-loader'),
-      options: {
-        presets: [['react-app', { flow: false, typescript: true }]],
-      },
-    });
-    config.resolve.extensions.push('.ts', '.tsx');
-
-    /** Support import svg as React component */
-    config.module.rules.unshift({
-      test: /\.svg$/,
-      use: ['@svgr/webpack?-svgo,+titleProp,+ref![path]', 'url-loader'],
-    });
+    config.plugins = [
+      ...config.plugins,
+      svgr({
+        svgo: false,
+        titleProp: true,
+        ref: true,
+      }),
+    ];
 
     return config;
+  },
+  framework: '@storybook/react',
+  core: {
+    builder: 'storybook-builder-vite',
   },
 };
