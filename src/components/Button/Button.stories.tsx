@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import CloseIcon from '@/assets/svg/close.svg';
+
 import Button from './Button';
 
 export default {
@@ -26,5 +28,13 @@ export const contained = () => (
 export const outlined = () => (
   <Container>
     <Button variant="outlined">Удалить</Button>
+  </Container>
+);
+
+export const withIcon = () => (
+  <Container>
+    <Button variant="outlined">
+      <CloseIcon />
+    </Button>
   </Container>
 );

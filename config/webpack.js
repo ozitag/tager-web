@@ -11,28 +11,54 @@ function colorLog(message) {
   );
 }
 
+/**
+ * {@link https://github.com/vercel/next.js/blob/v12.0.8/packages/next/build/webpack-config.ts#L1765-L1783}
+ * @param config
+ *
+ * By default, imported value is React Component,
+ * but if you specify `?url` param - it will return url to svg file
+ *
+ * @example
+ * import WarningIcon from "@/assets/svg/warning.svg"; // React component
+ * import warningIconUrl from "@/assets/svg/warning.svg?url"; // url
+ */
 function supportSvg(config) {
-  /** Support import svg as React component */
+  /**
+   * Use SVGR and asset SVG in the same project
+   * {@link https://react-svgr.com/docs/webpack/#use-svgr-and-asset-svg-in-the-same-project}
+   */
   config.module.rules.push({
-    test: /\.svg$/,
-    use: ['@svgr/webpack?-svgo,+titleProp,+ref![path]', 'url-loader'],
-  });
-}
-
-function supportImages(config, { isServer }) {
-  const customImageRule = {
-    test: /\.(png|jpg|jpeg|gif|webp|ico|bmp)$/i,
-    use: [
+    test: /\.svg$/i,
+    oneOf: [
       {
-        loader: require.resolve('url-loader'),
+        type: 'asset',
+        resourceQuery: /url/,
+      },
+      /**
+       * Support import svg as React component
+       * Reference: {@link https://github.com/facebook/create-react-app/blob/v5.0.0/packages/react-scripts/config/webpack.config.js#L389-L400}
+       */
+      {
+        loader: require.resolve('@svgr/webpack'),
+        issuer: /\.[jt]sx?$/,
         options: {
-          limit: 8192,
-          name: '[name]-[contenthash].[ext]',
-          publicPath: `/_next/static/images/`,
-          outputPath: `${isServer ? '../' : ''}static/images/`,
+          prettier: false,
+          svgo: false,
+          svgoConfig: {
+            plugins: [{ removeViewBox: false }],
+          },
+          titleProp: true,
+          ref: true,
         },
       },
     ],
+  });
+}
+
+function supportImages(config) {
+  const customImageRule = {
+    test: /\.(png|jpg|jpeg|gif|webp|avif|ico|bmp)$/i,
+    type: 'asset',
   };
 
   /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ReactComponent as CloseIcon } from '@/assets/svg/close.svg';
+import CloseIcon from '@/assets/svg/close.svg';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement>;
 

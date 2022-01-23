@@ -87,7 +87,7 @@ DynamicPage.getInitialProps = async (
   } catch (error) {
     return {
       pageType: 'ERROR',
-      error,
+      error: error as Error,
     };
   }
 };

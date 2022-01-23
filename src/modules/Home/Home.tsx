@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Link from '@/components/Link';
-import { ReactComponent as OZiTAGLogo } from '@/assets/svg/ozitag-logo.svg';
+import OZiTAGLogo from '@/assets/svg/ozitag-logo.svg';
 
 function Home() {
   return (

@@ -1,5 +1,4 @@
 const withPlugins = require('next-compose-plugins');
-const withSourceMaps = require('@zeit/next-source-maps')();
 
 const {
   supportSvg,
@@ -12,32 +11,27 @@ const {
 const { getRewrites } = require('./config/rewrites');
 const { getRedirects } = require('./config/redirects');
 
-module.exports = withPlugins(
-  [
-    /**
-     * Use the hidden-source-map option when you don't want the source maps to be
-     * publicly available on the servers, only to the error reporting
-     */
-    withSourceMaps,
-  ],
-  {
-    swcMinify: true,
-    poweredByHeader: false,
-    async rewrites() {
-      return getRewrites();
-    },
-    async redirects() {
-      return getRedirects();
-    },
-    webpack: (config, options) => {
-      supportSvg(config, options);
-      supportImages(config, options);
-      supportPolyfills(config, options);
-      supportSentry(config, options);
-      supportCaseSensitivePathsCheck(config, options);
-      supportDisableScSpeedy(config, options);
+module.exports = withPlugins([], {
+  swcMinify: true,
+  experimental: {
+    // ssr and displayName are configured by default
+    styledComponents: true,
+  },
+  poweredByHeader: false,
+  async rewrites() {
+    return getRewrites();
+  },
+  async redirects() {
+    return getRedirects();
+  },
+  webpack: (config, options) => {
+    supportSvg(config, options);
+    supportImages(config, options);
+    supportPolyfills(config, options);
+    supportSentry(config, options);
+    supportCaseSensitivePathsCheck(config, options);
+    supportDisableScSpeedy(config, options);
 
-      return config;
-    },
-  }
-);
+    return config;
+  },
+});
