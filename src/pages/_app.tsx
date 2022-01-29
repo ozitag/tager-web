@@ -31,8 +31,13 @@ Sentry.init({
 const CustomApp: CustomApp_Component = (props) => {
   useProgressBar({ showSpinner: false });
 
-  useAnalytics();
-  useFixedVhProperty();
+  useAnalytics({
+    useBackend: false
+  });
+
+  useFixedVhProperty({
+    shouldListenResize: true
+  });
 
   const { Component, pageProps } = props;
 
