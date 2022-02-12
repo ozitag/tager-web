@@ -4232,10 +4232,10 @@
     react-ga "^3.1.2"
     react-gtm-module "^2.0.11"
 
-"@tager/web-components@^0.4.11":
-  version "0.4.11"
-  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.4.11.tgz#c2912e45edd7c87b90512a0a53e103f2566953cc"
-  integrity sha512-Rya3iPlBjPDWHA2USrXV/9yqbkWQDRzGlSnlPjhcbE1l+uDTiSrA5SBHyWz3BfW7ZTUQMfn8dmig6BaTuksUCg==
+"@tager/web-components@^0.4.12":
+  version "0.4.12"
+  resolved "https://registry.yarnpkg.com/@tager/web-components/-/web-components-0.4.12.tgz#da864d3e97bf34bc0a2142cdd87ad0dade2d1c58"
+  integrity sha512-75rH4/VtYZuYF6TxldN4q3mfgAJJWHOGYwqCrV6Mi+t06a0LuhJ3zQvyNz2LdJX5tGiSsfLG4mMTiClhsJPalw==
   dependencies:
     "@types/node" "16.x"
 
@@ -4254,10 +4254,10 @@
     typed-contracts "^3.0.0"
     uuid "^8.3.2"
 
-"@tager/web-modules@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@tager/web-modules/-/web-modules-0.1.8.tgz#d68f9efab9feae4ed406049ec5a9b5b887a4512a"
-  integrity sha512-dKnWB4fn2MbC1kr4l8k73In825C7C7zNHzA1uLucYvWhDdX4o96rTAzoupBOkf22hyAnQEPO9OvR7u5G8kpl0A==
+"@tager/web-modules@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@tager/web-modules/-/web-modules-0.1.9.tgz#f9e4826292c68534c6e52872faa51e0364030fc3"
+  integrity sha512-cW6ewW3l8Xeyxy7FfhzoggF1QN0TcKIBOJbqdIe7Y7lAgL3KQvZsFpGqOa5PEwTXyg8YiUl1apeu+YvOrdwv+w==
 
 "@tager/web-panel@^0.1.13":
   version "0.1.13"
