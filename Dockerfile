@@ -1,6 +1,9 @@
 # Base on offical Node.js image
 FROM node:14-alpine
 
+# Install Git 
+RUN apk add git
+
 # Set working directory
 WORKDIR /usr/app
 
