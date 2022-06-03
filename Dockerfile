@@ -1,5 +1,5 @@
 # Base on offical Node.js image
-FROM node:14-alpine
+FROM node:16-alpine
 
 # Install Git 
 RUN apk add git
