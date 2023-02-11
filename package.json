@@ -31,7 +31,7 @@
     "@tager/web-panel": "^0.1.13",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
-    "next": "^12.1.5",
+    "next": "12.2",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "react": "^18.0.0",
